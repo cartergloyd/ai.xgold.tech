@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manufacturing & In-House Logistics | goldAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="approach.css">
+    <link rel="stylesheet" href="industry-detail.css">
+    <link rel="stylesheet" href="footer.css">
+  </head>
+  <body>
+    <header class="approach-hero">
+      <nav class="approach-ribbon" aria-label="Primary navigation">
+        <a class="wordmark" href="index.html">goldAI</a>
+        <div class="ribbon-links">
+          <a href="industries.html">Industries</a>
+          <a href="approach.html">Our Approach</a>
+          <a class="contact-button" href="contact.html">Contact Us</a>
+        </div>
+      </nav>
+      <div class="hero-copy">
+        <span class="eyebrow">Manufacturing / Procurement / In-House Logistics</span>
+        <h1>Automate the handoffs between MRP, the floor, suppliers, and shipment.</h1>
+        <p>GoldAI helps manufacturing operators reduce the manual follow-up buried between planned orders, purchase orders, ASNs, work orders, warehouse moves, supplier commits, ECOs, and outbound transportation execution.</p>
+      </div>
+    </header>
+
+    <section class="operator-signal-grid" aria-label="Manufacturing operating signals">
+      <article class="operator-signal-card"><span>Daily reality</span><h2>The schedule breaks in the handoffs.</h2><p>Material shortages, late ASNs, receiving discrepancies, quality holds, expedite requests, engineering changes, and supplier date slips rarely arrive in one clean system view.</p></article>
+      <article class="operator-signal-card"><span>System footprint</span><h2>ERP is central, but not alone.</h2><p>The work crosses SAP, NetSuite, Dynamics, Infor, Epicor, Coupa, Ariba, Manhattan, Blue Yonder, MES, supplier portals, inboxes, and spreadsheets.</p></article>
+      <article class="operator-signal-card"><span>Automation wedge</span><h2>Start where planners chase status.</h2><p>Late POs, missing ASNs, shortage reviews, expedite queues, receiving mismatches, order packet cleanup, and shipping holds are measurable places to begin.</p></article>
+    </section>
+
+    <nav class="tabs" aria-label="Manufacturing sections">
+      <button class="tab-button active" type="button" data-tab="layers">01 — Operating Layers</button>
+      <button class="tab-button" type="button" data-tab="flow">02 — Flow Patterns</button>
+      <button class="tab-button" type="button" data-tab="matrix">03 — Task Matrix</button>
+      <button class="tab-button" type="button" data-tab="principles">04 — Principles</button>
+    </nav>
+
+    <main class="approach-main">
+      <section class="tab-panel active" id="tab-layers">
+        <div class="layers-grid">
+          <button class="layer-card selected" type="button" data-layer="human"><span class="layer-icon">H</span><span class="layer-label">Layer 01</span><strong>Planners, Buyers & Supervisors</strong><span>Own line-down risk, supplier escalation, substitutions, quality judgment, and customer-impact tradeoffs.</span></button>
+          <button class="layer-card" type="button" data-layer="agent"><span class="layer-icon">A</span><span class="layer-label">Layer 02</span><strong>Manufacturing Agents</strong><span>Interpret supplier replies, RFQs, order packets, shortage context, ECO notes, and warehouse exception comments.</span></button>
+          <button class="layer-card" type="button" data-layer="script"><span class="layer-icon">S</span><span class="layer-label">Layer 03</span><strong>Execution Scripts</strong><span>Monitor PO dates, MRP exceptions, ASN gaps, inventory variance, required fields, and system writebacks.</span></button>
+          <button class="layer-card" type="button" data-layer="data"><span class="layer-icon">D</span><span class="layer-label">Layer 04</span><strong>ERP, MES & WMS</strong><span>ERP, MRP, MES, WMS, procurement, quality, inbox, supplier portals, and collaboration systems keep the workflow coherent.</span></button>
+        </div>
+
+        <article class="detail-panel visible" id="detail-human">
+          <div class="detail-header human"><span>Humans</span><h2>The Production Judgment Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>Human-owned work</h3><ul><li>Production priority, promise-date, and customer allocation decisions</li><li>Supplier escalation, substitution approval, MOQ/lead-time tradeoffs, and expedite authorization</li><li>Quality-sensitive receiving holds, nonconformance review, and floor-impact decisions</li><li>Commercial approval for pricing, engineering change, scope, and order exceptions</li></ul></div>
+            <div><h3>GoldAI Design Rule</h3><p>Planners and buyers should make tradeoffs. They should not spend capacity hunting through SAP, NetSuite, Coupa, Outlook, WMS screens, supplier portals, and spreadsheets to assemble context that systems already contain.</p></div>
+          </div>
+        </article>
+
+        <article class="detail-panel" id="detail-agent">
+          <div class="detail-header agent"><span>AI Agents</span><h2>The Manufacturing Interpretation Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>Agent-owned work</h3><ul><li>Reading supplier emails, RFQs, drawings, order packets, ECO notes, and exception comments</li><li>Summarizing shortage risk against PO, work order, BOM, on-hand, allocated, and inbound inventory context</li><li>Drafting vendor follow-up, buyer notes, receiving instructions, and expedite summaries</li><li>Recommending whether planner, buyer, quality, warehouse, customer service, or supervisor should act</li></ul></div>
+            <div><h3>Common tools</h3><p>SAP ECC/S4, Oracle NetSuite, Microsoft Dynamics 365, Infor CloudSuite, Epicor Kinetic, Coupa, Ariba, Manhattan WMS, Blue Yonder, Oracle WMS, Rockwell FactoryTalk, Siemens Opcenter, Outlook, Teams.</p></div>
+          </div>
+        </article>
+
+        <article class="detail-panel" id="detail-script">
+          <div class="detail-header script"><span>Scripts</span><h2>The Production Execution Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>Script-owned work</h3><ul><li>Late PO, missing ASN, MRP exception, date-slip, and shortage triggers</li><li>Item master, BOM, customer terms, revision level, and required-field validation</li><li>Receiving mismatch, inventory variance, quality hold, and shipping hold routing</li><li>ERP/WMS/CRM task creation, status writeback, and aging queue escalation</li></ul></div>
+            <div><h3>GoldAI Design Rule</h3><p>Known rules belong in scripts. AI should interpret messy inputs, then deterministic automation should validate, route, age, and update the system record.</p></div>
+          </div>
+        </article>
+
+        <article class="detail-panel" id="detail-data">
+          <div class="detail-header data"><span>Data & Systems</span><h2>The Plan-to-Ship Truth Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>System-owned truth</h3><ul><li>Item, BOM, revision, PO, work order, inventory, receipt, and allocation records</li><li>Supplier commits, ASNs, delivery dates, buyer notes, and expedite history</li><li>Warehouse holds, receiving mismatches, cycle count variance, quality holds, and shipment exceptions</li><li>Quote, order, customer, promised date, routing, and carrier data</li></ul></div>
+            <div><h3>GoldAI Design Rule</h3><p>Automation must reconcile back to ERP, MES, and warehouse systems. Side-channel fixes do not scale when the production schedule changes twice before lunch.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="tab-panel" id="tab-flow">
+        <div class="flow-grid">
+          <article class="flow-card">
+            <h2>Shortage & Expedite Management</h2>
+            <ol>
+              <li><span class="step data">D</span>ERP, MRP, on-hand, allocated, inbound, and work-order signals identify material risk</li>
+              <li><span class="step agent">A</span>Agent summarizes supplier, PO, ASN, BOM, line schedule, alternate part, and shipment context</li>
+              <li><span class="step script">S</span>Script opens expedite task and routes by line-down risk, customer impact, and buyer ownership</li>
+              <li><span class="step human">H</span>Planner decides substitutions, priority changes, partial builds, or customer tradeoffs</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h2>Supplier Follow-Up</h2>
+            <ol>
+              <li><span class="step script">S</span>Trigger fires for late ASN, missing order acknowledgement, overdue promise date, or supplier portal silence</li>
+              <li><span class="step agent">A</span>Agent drafts vendor-specific request with PO, line item, revision, need date, and dock context</li>
+              <li><span class="step data">D</span>Response updates procurement queue, ERP notes, expected receipt, and expedite log</li>
+              <li><span class="step human">H</span>Buyer handles negotiation, premium freight approval, substitution, or supplier escalation</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h2>Warehouse Exception Loop</h2>
+            <ol>
+              <li><span class="step data">D</span>WMS flags receiving mismatch, inventory variance, quality hold, short pick, or shipping hold</li>
+              <li><span class="step agent">A</span>Agent pulls PO, ASN, work order, sales order, carrier, lot/serial, and item-master context</li>
+              <li><span class="step script">S</span>Script assigns owner and posts resolution checklist by discrepancy type and dollar/line impact</li>
+              <li><span class="step human">H</span>Supervisor resolves exceptions requiring physical inspection, quality judgment, or customer promise change</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h2>Quote & Order Intake</h2>
+            <ol>
+              <li><span class="step agent">A</span>Agent extracts requirements from emails, drawings, RFQs, EDI orders, specs, and customer order packets</li>
+              <li><span class="step script">S</span>Script validates required fields, customer terms, item master, revision, MOQ, and lead-time matches</li>
+              <li><span class="step data">D</span>ERP or CRM receives structured quote/order draft with missing data clearly flagged</li>
+              <li><span class="step human">H</span>Commercial owner approves pricing, promise date, engineering exceptions, and customer commitments</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-matrix">
+        <div class="matrix-wrap">
+          <table class="matrix-table">
+            <thead><tr><th>Manufacturing Task</th><th>Best Handled By</th><th>Why</th><th>Typical Integration</th></tr></thead>
+            <tbody>
+              <tr><td>Late PO, missing ASN, or supplier date-slip detection</td><td><span class="tag script">Script</span></td><td>Rule-based date, status, and aging monitoring</td><td>ERP/MRP → buyer queue</td></tr>
+              <tr><td>Supplier email and portal-note interpretation</td><td><span class="tag agent">AI Agent</span></td><td>Messages vary by supplier and often omit PO, line, or revision context</td><td>Inbox/portal export → ERP note/task</td></tr>
+              <tr><td>Production priority or partial-build decision</td><td><span class="tag human">Human</span></td><td>Tradeoffs affect customers, cost, line schedule, inventory, and capacity</td><td>Planner review</td></tr>
+              <tr><td>Document-to-order intake</td><td><span class="tag agent">AI Agent</span> + <span class="tag script">Script</span></td><td>Unstructured extraction followed by deterministic validation against item, customer, and revision data</td><td>RFQ/order packet → CRM/ERP draft</td></tr>
+              <tr><td>Receiving mismatch or inventory exception writeback</td><td><span class="tag data">Data & Systems</span></td><td>Warehouse, quality, and ERP records must reconcile</td><td>WMS/MES ↔ ERP</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-principles">
+        <div class="principles-grid">
+          <article><span>01</span><h2>ERP remains the source of truth.</h2><p>SAP, NetSuite, Dynamics, Infor, or Epicor records must be updated directly. Automation fails when fixes live outside the system.</p></article>
+          <article><span>02</span><h2>Separate production judgment from admin chase.</h2><p>Humans decide line, customer, expedite, and substitution tradeoffs. Agents and scripts gather context, chase suppliers, and keep queues current.</p></article>
+          <article><span>03</span><h2>Supplier replies need translation.</h2><p>Vendor emails and portal notes rarely match ERP fields. Agents translate commitments, slips, split shipments, and substitutions into structured next actions.</p></article>
+          <article><span>04</span><h2>Warehouse exceptions should route with context.</h2><p>Manhattan, Blue Yonder, Oracle WMS, and MES events should arrive with PO, ASN, order, lot, inventory, and owner context already attached.</p></article>
+          <article><span>05</span><h2>Measure touches per exception.</h2><p>Track manual lookups, emails, supplier portal checks, rekeys, spreadsheet updates, and status checks removed from planner and buyer workloads.</p></article>
+          <article><span>06</span><h2>Automate the repeat before the optimization.</h2><p>Start with late POs, missing ASNs, shortage follow-up, receiving mismatches, and order intake validation before advanced scheduling or forecasting.</p></article>
+        </div>
+        <div class="industry-cta-panel">
+          <div><span>Start here</span><h2>Bring one shortage, expedite, or warehouse exception workflow.</h2><p>We will map the source system, trigger, owner, and measurable baseline.</p></div>
+          <a href="contact.html">Book a working conversation</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <section class="footer-column"><h2>What we do</h2><a href="approach.html">Our approach</a><a href="industries.html">Industries</a><a href="contact.html">Contact</a></section>
+        <section class="footer-column"><h2>Our thinking</h2><a href="approach.html">Workflow architecture</a><a href="newsletters.html">Newsletters</a><a href="newsletter-template.html">Latest newsletter</a><a href="index.html#latest-title">Articles</a><a href="index.html#latest-title">Insights</a></section>
+        <section class="footer-column"><h2>Careers</h2><a href="team.html">The team</a><a href="apply.html">Apply now</a></section>
+      </div>
+      <div class="footer-bottom"><span>goldAI</span><span>Intelligence. Embedded. Guaranteed.</span></div>
+    </footer>
+
+    <script src="approach.js"></script>
+  </body>
+</html>

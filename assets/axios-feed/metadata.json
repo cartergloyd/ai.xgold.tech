@@ -1,0 +1,40 @@
+{
+  "feedUrl": "https://api.axios.com/feed/",
+  "stories": [
+    {
+      "title": "OpenAI breaks free of Microsoft's cloud",
+      "link": "https://www.axios.com/2026/04/28/openai-microsoft-cloud-amazon",
+      "pubDate": "Tue, 28 Apr 2026 09:00:08 +0000",
+      "sourceImage": "https://images.axios.com/FqlxzyIfTxCzMgBtLGvE0aUFPBY=/1366x768/smart/2025/06/16/223351-1750113231652.jpg",
+      "image": "assets/axios-feed/01-openai-microsoft-cloud-amazon.jpg"
+    },
+    {
+      "title": "Axios Finish Line: Prompt like a pro",
+      "link": "https://www.axios.com/2026/04/28/improve-your-ai-prompt",
+      "pubDate": "Tue, 28 Apr 2026 01:25:06 +0000",
+      "sourceImage": "https://images.axios.com/-03-s64-jQG0FcxSoOmfr7fFcUM=/0x0:1280x720/2026/04/27/1777324949925.gif",
+      "image": "assets/axios-feed/02-improve-your-ai-prompt.gif"
+    },
+    {
+      "title": "AI can cost more than human workers now",
+      "link": "https://www.axios.com/2026/04/26/ai-cost-human-workers",
+      "pubDate": "Sun, 26 Apr 2026 11:30:05 +0000",
+      "sourceImage": "https://images.axios.com/xGi5InHs1g6tGzXBN-DfwR1ADqA=/0x0:1920x1080/1366x768/2025/07/02/1751484371498.jpeg",
+      "image": "assets/axios-feed/03-ai-cost-human-workers.jpg"
+    },
+    {
+      "title": "The pope moves to police AI",
+      "link": "https://www.axios.com/2026/04/24/catholics-pope-vatican-artificial-intelligence",
+      "pubDate": "Fri, 24 Apr 2026 09:55:05 +0000",
+      "sourceImage": "https://images.axios.com/wDF29ZZ4Jt_BecP8OxE5Q8NXt4I=/0x0:1920x1080/1366x768/2026/04/20/1776717733726.jpeg",
+      "image": "assets/axios-feed/04-catholics-pope-vatican-artificial-intelligence.jpg"
+    },
+    {
+      "title": "Trump's missed AI deadlines",
+      "link": "https://www.axios.com/2026/04/24/trump-missed-ai-deadlines",
+      "pubDate": "Fri, 24 Apr 2026 09:00:05 +0000",
+      "sourceImage": "https://images.axios.com/9nJCIoi-V42Von5reMgILRn2MbU=/0x0:1920x1080/1920x1080/2026/04/23/1776963126030.gif",
+      "image": "assets/axios-feed/05-trump-missed-ai-deadlines.gif"
+    }
+  ]
+}

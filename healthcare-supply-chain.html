@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Healthcare Supply Chain | goldAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="approach.css">
+    <link rel="stylesheet" href="industry-detail.css">
+    <link rel="stylesheet" href="footer.css">
+  </head>
+  <body>
+    <header class="approach-hero">
+      <nav class="approach-ribbon" aria-label="Primary navigation">
+        <a class="wordmark" href="index.html">goldAI</a>
+        <div class="ribbon-links">
+          <a href="industries.html">Industries</a>
+          <a href="approach.html">Our Approach</a>
+          <a class="contact-button" href="contact.html">Contact Us</a>
+        </div>
+      </nav>
+      <div class="hero-copy">
+        <span class="eyebrow">Healthcare Supply Chain / Materials / Procurement</span>
+        <h1>Reduce the manual coordination behind supplies, approvals, substitutes, and stockouts.</h1>
+        <p>GoldAI helps healthcare supply chain teams automate the repeatable follow-up around PAR exceptions, backorders, distributor notices, requisition approvals, substitute review, contract compliance, and documentation while keeping auditability and clinical judgment intact.</p>
+      </div>
+    </header>
+
+    <section class="operator-signal-grid" aria-label="Healthcare supply chain operating signals">
+      <article class="operator-signal-card"><span>Daily reality</span><h2>Supply issues cross clinical and purchasing boundaries.</h2><p>A backorder can touch PAR locations, preference cards, contracts, value analysis, requisitions, distributor portals, and a nurse manager before it is truly resolved.</p></article>
+      <article class="operator-signal-card"><span>System footprint</span><h2>The record lives across MMIS, ERP, and care context.</h2><p>The work crosses Workday, Lawson, PeopleSoft, Coupa, GHX, Epic, Oracle Health, MEDITECH, ServiceNow, SharePoint, Omnicell, PAR Excellence, and distributor portals.</p></article>
+      <article class="operator-signal-card"><span>Automation wedge</span><h2>Start with auditable exceptions.</h2><p>Aging requisitions, missing cost centers, backorder notices, substitute approvals, contract mismatches, and stockout-risk queues are concrete enough to automate safely.</p></article>
+    </section>
+
+    <nav class="tabs" aria-label="Healthcare supply chain sections">
+      <button class="tab-button active" type="button" data-tab="layers">01 — Operating Layers</button>
+      <button class="tab-button" type="button" data-tab="flow">02 — Flow Patterns</button>
+      <button class="tab-button" type="button" data-tab="matrix">03 — Task Matrix</button>
+      <button class="tab-button" type="button" data-tab="principles">04 — Principles</button>
+    </nav>
+
+    <main class="approach-main">
+      <section class="tab-panel active" id="tab-layers">
+        <div class="layers-grid">
+          <button class="layer-card selected" type="button" data-layer="human"><span class="layer-icon">H</span><span class="layer-label">Layer 01</span><strong>Materials & Clinical Owners</strong><span>Own clinical-risk boundaries, substitute approval, value-analysis exceptions, compliance calls, and vendor escalation.</span></button>
+          <button class="layer-card" type="button" data-layer="agent"><span class="layer-icon">A</span><span class="layer-label">Layer 02</span><strong>Supply Chain Agents</strong><span>Interpret backorder notices, distributor replies, contract context, substitute options, PAR impact, and documentation gaps.</span></button>
+          <button class="layer-card" type="button" data-layer="script"><span class="layer-icon">S</span><span class="layer-label">Layer 03</span><strong>Control Scripts</strong><span>Monitor aging requisitions, approval thresholds, cost-center gaps, contract mismatches, item risks, and required evidence.</span></button>
+          <button class="layer-card" type="button" data-layer="data"><span class="layer-icon">D</span><span class="layer-label">Layer 04</span><strong>MMIS, ERP & Clinical Context</strong><span>ERP/MMIS, GHX, distributor portals, PAR, EHR-adjacent context, ticketing, inventory, and repositories preserve auditability.</span></button>
+        </div>
+
+        <article class="detail-panel visible" id="detail-human">
+          <div class="detail-header human"><span>Humans</span><h2>The Clinical Accountability Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>Human-owned work</h3><ul><li>Clinical substitution approval and patient-care-sensitive supply decisions</li><li>Value analysis, compliance, budget, contract, and physician-preference exceptions</li><li>Vendor escalation for unresolved backorders, allocation issues, or service failures</li><li>Policy decisions when automation should stop for infection control, sterile processing, or procedure impact</li></ul></div>
+            <div><h3>GoldAI Design Rule</h3><p>Healthcare supply chain teams should approve risk. They should not manually assemble item, vendor, contract, PAR, inventory, clinical-area, and approval context for every routine exception.</p></div>
+          </div>
+        </article>
+
+        <article class="detail-panel" id="detail-agent">
+          <div class="detail-header agent"><span>AI Agents</span><h2>The Supply Interpretation Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>Agent-owned work</h3><ul><li>Reading backorder notices, distributor emails, item substitution lists, and portal exports</li><li>Summarizing item, vendor, contract, PAR level, department, preference-card, and substitute context</li><li>Drafting approval follow-up, substitute review notes, and documentation-gap summaries</li><li>Recommending whether materials, clinical, finance, value analysis, or compliance owners should act</li></ul></div>
+            <div><h3>Common tools</h3><p>Workday, Oracle PeopleSoft, Infor Lawson, Coupa, GHX, Epic, Oracle Health, MEDITECH, ServiceNow, SharePoint, Cardinal Health, Medline, McKesson, Omnicell, PAR Excellence.</p></div>
+          </div>
+        </article>
+
+        <article class="detail-panel" id="detail-script">
+          <div class="detail-header script"><span>Scripts</span><h2>The Compliance Control Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>Script-owned work</h3><ul><li>Aging requisition, missing cost center, approval-latency, and contract mismatch triggers</li><li>Item, UOM, vendor, contract, GL, cost center, and formulary/preference validation</li><li>Required-document, substitute-approval, and evidence checklist checks</li><li>ERP/MMIS, GHX, ServiceNow, inventory, and repository writebacks</li></ul></div>
+            <div><h3>GoldAI Design Rule</h3><p>Use scripts for controls that must be consistent every time. Use agents for the messy language around distributor updates, substitutes, value-analysis notes, and documentation gaps.</p></div>
+          </div>
+        </article>
+
+        <article class="detail-panel" id="detail-data">
+          <div class="detail-header data"><span>Data & Systems</span><h2>The Audit Trail Layer</h2></div>
+          <div class="detail-columns">
+            <div><h3>System-owned truth</h3><ul><li>Requisition, PO, item, UOM, vendor, contract, GL, and cost center records</li><li>Inventory, PAR, preference-card, distributor, backorder, allocation, and shipment status</li><li>Clinical area, substitute, value-analysis, approval, and policy context</li><li>Resolution notes, documents, audit trail, and compliance evidence</li></ul></div>
+            <div><h3>GoldAI Design Rule</h3><p>If an exception was resolved but the record does not show who approved it, why, which item/substitute was used, and where the evidence lives, the automation did not finish the job.</p></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="tab-panel" id="tab-flow">
+        <div class="flow-grid">
+          <article class="flow-card">
+            <h2>Stockout & Substitute Triage</h2>
+            <ol>
+              <li><span class="step data">D</span>Inventory, usage, PAR, preference-card, backorder, and distributor allocation signals identify risk</li>
+              <li><span class="step agent">A</span>Agent gathers item, UOM, contract, clinical area, procedure impact, and substitute context</li>
+              <li><span class="step script">S</span>Script routes by urgency, category, department, contract status, and approval rules</li>
+              <li><span class="step human">H</span>Materials or clinical owner approves patient-care-sensitive substitutions</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h2>Purchase Approval Follow-Up</h2>
+            <ol>
+              <li><span class="step script">S</span>Trigger fires for aging requisitions, missing cost center, invalid GL, approval stall, or contract mismatch</li>
+              <li><span class="step agent">A</span>Agent drafts the right follow-up with item, vendor, requester, department, and policy context</li>
+              <li><span class="step data">D</span>Approval status and notes return to ERP/MMIS, procurement queue, or ServiceNow task</li>
+              <li><span class="step human">H</span>Manager resolves exceptions involving budget, compliance, value analysis, or substitution risk</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h2>Distributor & Vendor Updates</h2>
+            <ol>
+              <li><span class="step agent">A</span>Agent reads distributor emails, order acknowledgements, backorder notices, allocation notices, and portal exports</li>
+              <li><span class="step script">S</span>Script links notices to item, PO, PAR location, department, delivery need, and contract status</li>
+              <li><span class="step data">D</span>ERP/MMIS, GHX, shared trackers, and service desk queues update automatically</li>
+              <li><span class="step human">H</span>Buyer handles unresolved shortages, vendor escalation, or substitute approval path</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <h2>Documentation & Audit Readiness</h2>
+            <ol>
+              <li><span class="step script">S</span>Checklist runs for required documents, approvals, item data, UOM, vendor details, and contract evidence</li>
+              <li><span class="step agent">A</span>Agent summarizes gaps, decision history, substitute rationale, and evidence for review</li>
+              <li><span class="step data">D</span>Records are attached to ERP/MMIS, contract repository, ticketing system, or SharePoint evidence folder</li>
+              <li><span class="step human">H</span>Compliance or value-analysis owner approves exceptions before closeout</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-matrix">
+        <div class="matrix-wrap">
+          <table class="matrix-table">
+            <thead><tr><th>Healthcare Supply Chain Task</th><th>Best Handled By</th><th>Why</th><th>Typical Integration</th></tr></thead>
+            <tbody>
+              <tr><td>Aging requisition, missing cost center, or invalid GL detection</td><td><span class="tag script">Script</span></td><td>Status, age, and field-completeness thresholds are deterministic</td><td>ERP/MMIS → approval queue</td></tr>
+              <tr><td>Backorder, allocation, or substitute notice interpretation</td><td><span class="tag agent">AI Agent</span></td><td>Distributor notices are unstructured and vary by supplier</td><td>Email/portal export → item queue</td></tr>
+              <tr><td>Clinical substitution or preference-card decision</td><td><span class="tag human">Human</span></td><td>Patient-care, physician preference, and compliance risk require accountable review</td><td>Supply chain alert → clinical owner</td></tr>
+              <tr><td>Contract, item, UOM, and vendor data validation</td><td><span class="tag script">Script</span></td><td>Field completeness and matching rules should be repeatable</td><td>ERP, GHX, contract repository</td></tr>
+              <tr><td>Resolution audit trail</td><td><span class="tag data">Data & Systems</span></td><td>Every exception needs a searchable record of action, approval, and evidence</td><td>ERP/MMIS, ServiceNow, SharePoint</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-principles">
+        <div class="principles-grid">
+          <article><span>01</span><h2>Auditability is part of automation.</h2><p>Every resolution needs evidence, owner, approval, and system writeback in Workday, Lawson, PeopleSoft, Coupa, GHX, or ServiceNow.</p></article>
+          <article><span>02</span><h2>Clinical risk stays human.</h2><p>Agents can summarize substitute options, PAR impact, and contract context. Humans approve care-sensitive substitutions and policy exceptions.</p></article>
+          <article><span>03</span><h2>Distributor notices should become routed work.</h2><p>Backorders from Cardinal Health, Medline, McKesson, or portal exports should trigger owner-specific action, not inbox scanning.</p></article>
+          <article><span>04</span><h2>Approval latency is measurable supply risk.</h2><p>Aging requisitions, missing cost centers, invalid GLs, and contract mismatches should be visible, routed, and resolved before they create stockout exposure.</p></article>
+          <article><span>05</span><h2>Clinical context changes priority.</h2><p>Epic, Oracle Health, MEDITECH, preference-card, and department context can route supply exceptions differently when clinical impact is higher.</p></article>
+          <article><span>06</span><h2>Do not automate around bad item records.</h2><p>Item, UOM, vendor, contract, cost-center, and substitute gaps should be corrected in the source system, not patched downstream.</p></article>
+        </div>
+        <div class="industry-cta-panel">
+          <div><span>Start here</span><h2>Bring one item exception, approval queue, or backorder workflow.</h2><p>We will map the trigger, approval rules, clinical risk boundary, and baseline metric.</p></div>
+          <a href="contact.html">Book a working conversation</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <section class="footer-column"><h2>What we do</h2><a href="approach.html">Our approach</a><a href="industries.html">Industries</a><a href="contact.html">Contact</a></section>
+        <section class="footer-column"><h2>Our thinking</h2><a href="approach.html">Workflow architecture</a><a href="newsletters.html">Newsletters</a><a href="newsletter-template.html">Latest newsletter</a><a href="index.html#latest-title">Articles</a><a href="index.html#latest-title">Insights</a></section>
+        <section class="footer-column"><h2>Careers</h2><a href="team.html">The team</a><a href="apply.html">Apply now</a></section>
+      </div>
+      <div class="footer-bottom"><span>goldAI</span><span>Intelligence. Embedded. Guaranteed.</span></div>
+    </footer>
+
+    <script src="approach.js"></script>
+  </body>
+</html>

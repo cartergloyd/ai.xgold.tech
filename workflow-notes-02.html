@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>One engineer's workload, zero new hires. | goldAI Newsletter</title>
+    <meta name="description" content="An on-prem LLM now triages infrastructure logs autonomously — suppressing noise, escalating real incidents, and teaching itself to get quieter over time.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="newsletter.css">
+    <link rel="stylesheet" href="footer.css">
+  </head>
+  <body>
+    <main class="newsletter-page issue-page">
+      <nav class="newsletter-ribbon" aria-label="Primary navigation">
+        <a class="wordmark" href="index.html">goldAI</a>
+        <div class="ribbon-links">
+          <a href="index.html">Home</a>
+          <a href="newsletters.html">Newsletters</a>
+          <a class="contact-button" href="contact.html">Contact Us</a>
+        </div>
+      </nav>
+
+      <article class="newsletter-article">
+        <header class="issue-header">
+          <span>Workflow Notes / Issue 02</span>
+          <h1>One engineer's workload, zero new hires.</h1>
+          <time datetime="2026-06-24">June 24, 2026</time>
+        </header>
+        <img class="issue-visual" src="assets/enterprise-command-center.png" alt="Abstract enterprise command center with infrastructure monitoring signals">
+
+        <section class="issue-section">
+          <span>Opening note</span>
+          <h2>Alert fatigue buries real failures in noise</h2>
+          <p>Three things made manual triage unsustainable for small ops teams.</p>
+          <ul>
+            <li>Every warning pinged everyone. Operators learned to ignore alerts — killing the point of alerting.</li>
+            <li>No memory. The same benign warning got re-investigated forever, because nothing recorded &quot;this is safe to ignore.&quot;</li>
+            <li>No spare capacity. No NOC, no on-call rotation. Triage stole time from everything else.</li>
+          </ul>
+        </section>
+
+        <section class="issue-section">
+          <span>Pattern</span>
+          <h2>Wire an LLM into the alerting control flow</h2>
+          <p>An LLM running in two modes handles the work. <strong>Interactive</strong> — an operator asks about a log event, the model diagnoses it in plain language, and if it's benign, automatically writes a signature to a persistent exclusions file. <strong>Automated</strong> — a lightweight subprocess asks the model one question per event and forces a machine-parseable verdict:</p>
+          <pre><code>NO_ACTION:     &lt;one-sentence justification&gt;
+EXCLUDE:       &lt;minimal signature for this event class&gt;
+ACTION_NEEDED: &lt;explanation and recommended fix&gt;</code></pre>
+          <p><code>NO_ACTION</code> silently logs and posts nothing. <code>ACTION_NEEDED</code> escalates to on-call immediately with a recommended fix, not a raw log dump.</p>
+          <p>The core insight: a self-pruning feedback loop. Every benign event the model classifies makes the system quieter next time. Real anomalies — which don't match prior signatures — keep surfacing.</p>
+        </section>
+
+        <section class="issue-section">
+          <span>ROI</span>
+          <h2>Tokens vs. a salary</h2>
+          <p>A busy log stream might surface 200–500 candidate events per day. Each triage call is small — a few hundred tokens of log context in, a one-line verdict out — roughly 1,500 tokens per event all-in.</p>
+          <table>
+            <thead><tr><th>Item</th><th>Estimate</th></tr></thead>
+            <tbody><tr><td>Events triaged/day</td><td>~300</td></tr><tr><td>Tokens per event</td><td>~1,500</td></tr><tr><td>Tokens/month</td><td>~13.5M</td></tr><tr><td>Blended cost (~$3–5/M tokens)</td><td><strong>~$40–70/month</strong></td></tr><tr><td>Annual token spend</td><td><strong>~$500–850/year</strong></td></tr></tbody>
+          </table>
+          <p>A dedicated IT admin or junior NOC analyst runs $90,000–$130,000/year fully loaded. Even a fractional 0.25 FTE of triage time is $22k–$32k/year. The spread is roughly <strong>30–100x in favor of tokens</strong> — before counting faster escalation, no burnout, and reasoning that's auditable instead of locked in someone's head.</p>
+          <blockquote><p>Token costs scale with event volume and model choice. But the self-pruning loop actively shrinks the volume needing evaluation over time, so real-world cost tends to fall, not climb.</p></blockquote>
+        </section>
+
+        <section class="issue-section">
+          <span>Results</span>
+          <h2>What the system delivers</h2>
+          <ul>
+            <li>Routine events are suppressed at first classification — fewer false alarms immediately.</li>
+            <li>The exclusion store grows itself, with a rationale on every entry.</li>
+            <li>Every suppression keeps its &quot;why&quot; — decisions are auditable, not opaque.</li>
+            <li>Real incidents still fire instantly, with a recommended fix attached.</li>
+            <li>Runs on existing hardware, under unprivileged user-level services, no cloud lock-in.</li>
+          </ul>
+        </section>
+
+        <section class="issue-section">
+          <span>Before production</span>
+          <h2>Harden before you scale</h2>
+          <ul>
+            <li><strong>Bound the signatures.</strong> Over-broad patterns can mask real incidents — validate minimality, don't assume it.</li>
+            <li><strong>Audit the list.</strong> Schedule a human review to catch drift.</li>
+            <li><strong>Secrets hygiene.</strong> Keep credentials out of logs and config; rotate anything exposed in development.</li>
+          </ul>
+        </section>
+
+        <section class="issue-section callout">
+          <span>Executive question</span>
+          <h2>Is your ops team triaging — or just surviving?</h2>
+          <p>A constrained, contract-driven LLM can be a reliable autonomous triage layer — not a chatbot on a dashboard, but a decision component in the control flow that pays for an engineer's worth of work at the price of a few coffees a month. The model doesn't replace the engineer. It removes the reason to hire a second one.</p>
+        </section>
+
+        <form class="subscribe-widget" action="mailto:hello@goldai.com" method="post" enctype="text/plain">
+          <div>
+            <span>Subscribe</span>
+            <h2>Get the GoldAI Dispatch.</h2>
+            <p>Short operating notes for leaders turning AI from pilots into workflow infrastructure.</p>
+          </div>
+          <label>
+            Email
+            <span class="subscribe-row">
+              <input type="email" name="email" autocomplete="email" placeholder="you@company.com" required>
+              <button type="submit">Subscribe</button>
+            </span>
+          </label>
+        </form>
+
+        <section class="issue-actions" aria-label="Newsletter actions">
+          <a href="newsletters.html">View archive</a>
+          <a href="contact.html">Discuss a workflow</a>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <section class="footer-column">
+          <h2>What we do</h2>
+          <a href="approach.html">Our approach</a>
+          <a href="industries.html">Industries</a>
+          <a href="contact.html">Contact</a>
+        </section>
+        <section class="footer-column">
+          <h2>Our thinking</h2>
+          <a href="approach.html">Workflow architecture</a>
+          <a href="newsletters.html">Newsletters</a>
+          <a href="index.html#latest-title">Articles</a>
+          <a href="index.html#latest-title">Insights</a>
+        </section>
+        <section class="footer-column">
+          <h2>Careers</h2>
+          <a href="team.html">The team</a>
+          <a href="apply.html">Apply now</a>
+        </section>
+      </div>
+      <div class="footer-bottom">
+        <span>goldAI</span>
+        <span>Intelligence. Embedded. Guaranteed.</span>
+      </div>
+    </footer>
+  </body>
+</html>

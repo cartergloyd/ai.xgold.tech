@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Newsletters | goldAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="newsletter.css">
+    <link rel="stylesheet" href="footer.css">
+  </head>
+  <body>
+    <main class="newsletter-page">
+      <nav class="newsletter-ribbon" aria-label="Primary navigation">
+        <a class="wordmark" href="index.html">goldAI</a>
+        <div class="ribbon-links">
+          <a href="index.html">Home</a>
+          <a href="newsletters.html">Latest Newsletter</a>
+          <a class="contact-button" href="contact.html">Contact Us</a>
+        </div>
+      </nav>
+
+      <header class="newsletter-hero">
+        <span>Newsletters</span>
+        <h1>Operating notes for leaders turning AI into infrastructure.</h1>
+        <p>Short field notes on workflow architecture, automation economics, human review, and the details that make AI implementation survive contact with real operations.</p>
+      </header>
+
+      <section class="newsletter-list" aria-labelledby="archive-title">
+        <div class="section-label" id="archive-title">Archive</div>
+        <form class="subscribe-widget" action="mailto:hello@goldai.com" method="post" enctype="text/plain">
+          <div>
+            <span>Subscribe</span>
+            <h2>Get the GoldAI Dispatch.</h2>
+            <p>Operating notes on AI implementation, workflow automation, and the systems work behind measurable ROI.</p>
+          </div>
+          <label>
+            Email
+            <span class="subscribe-row">
+              <input type="email" name="email" autocomplete="email" placeholder="you@company.com" required>
+              <button type="submit">Subscribe</button>
+            </span>
+          </label>
+        </form>
+        <!-- newsletters:featured:start -->
+        <a class="issue-card featured" href="workflow-notes-02.html">
+          <img src="assets/enterprise-command-center.png" alt="Abstract enterprise command center with infrastructure monitoring signals">
+          <div>
+            <span>Issue 02 &mdash; June 24, 2026</span>
+            <h2>One engineer's workload, zero new hires.</h2>
+            <p>An on-prem LLM now triages infrastructure logs autonomously — suppressing noise, escalating real incidents, and teaching itself to get quieter over time.</p>
+          </div>
+        </a>
+        <!-- newsletters:featured:end -->
+        <div class="archive-grid">
+          <!-- newsletters:archive:start -->
+          <a class="issue-card" href="workflow-notes-01.html">
+            <div>
+              <span>Issue 01 &mdash; January 15, 2026</span>
+              <h2>Turn AI pilots into operating capacity.</h2>
+              <p>AI work becomes durable when it is attached to a workflow owner, a measurable throughput problem, and a handoff pattern that survives without constant supervision.</p>
+            </div>
+          </a>
+          <!-- newsletters:archive:end -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <section class="footer-column">
+          <h2>What we do</h2>
+          <a href="approach.html">Our approach</a>
+          <a href="industries.html">Industries</a>
+          <a href="contact.html">Contact</a>
+        </section>
+        <section class="footer-column">
+          <h2>Our thinking</h2>
+          <a href="approach.html">Workflow architecture</a>
+          <a href="newsletters.html">Newsletters</a>
+          <a href="newsletter-template.html">Latest newsletter</a>
+          <a href="index.html#latest-title">Articles</a>
+          <a href="index.html#latest-title">Insights</a>
+        </section>
+        <section class="footer-column">
+          <h2>Careers</h2>
+          <a href="team.html">The team</a>
+          <a href="apply.html">Apply now</a>
+        </section>
+      </div>
+      <div class="footer-bottom">
+        <span>goldAI</span>
+        <span>Intelligence. Embedded. Guaranteed.</span>
+      </div>
+    </footer>
+  </body>
+</html>

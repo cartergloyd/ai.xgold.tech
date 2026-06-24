@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "update:articles": "node scripts/update-axios-feed.mjs",
+    "publish:newsletters": "node scripts/build-newsletters.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

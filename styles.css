@@ -165,8 +165,8 @@ button {
   z-index: 1;
   display: flex;
   align-items: center;
-  min-height: 100vh;
-  padding: 126px clamp(22px, 7vw, 104px) 54px;
+  min-height: 70vh;
+  padding: 100px clamp(22px, 7vw, 104px) 48px;
 }
 
 .hero-content {
@@ -177,8 +177,8 @@ button {
   margin: 0;
   max-width: 960px;
   font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(3rem, 8vw, 7.9rem);
-  line-height: 0.9;
+  font-size: clamp(1.8rem, 3.8vw, 3.6rem);
+  line-height: 1.05;
   letter-spacing: 0;
   text-wrap: balance;
 }
@@ -248,6 +248,8 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
   padding: clamp(22px, 4vw, 54px) clamp(22px, 7vw, 104px) clamp(34px, 6vw, 78px);
   background: rgba(245, 230, 163, 0.16);
 }
@@ -294,22 +296,22 @@ a.latest-card:hover {
 .card-image {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 8;
   object-fit: cover;
   background: #0d0d0d;
 }
 
 .card-body {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-columns: 28px minmax(0, 1fr);
   align-items: start;
-  gap: 18px;
-  padding: clamp(18px, 2.2vw, 26px);
+  gap: 14px;
+  padding: clamp(14px, 1.6vw, 20px);
 }
 
 .source-logo {
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   border: 1px solid rgba(244, 244, 246, 0.22);
   border-radius: 50%;
   background: var(--white);
@@ -319,9 +321,9 @@ a.latest-card:hover {
   margin: 0;
   max-width: 680px;
   font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: clamp(1.45rem, 2.15vw, 2.35rem);
+  font-size: clamp(1.05rem, 1.35vw, 1.45rem);
   font-weight: 500;
-  line-height: 1.18;
+  line-height: 1.25;
   letter-spacing: 0;
 }
 
