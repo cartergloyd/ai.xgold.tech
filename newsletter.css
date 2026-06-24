@@ -1,0 +1,318 @@
+:root {
+  --black: #0d0d0d;
+  --surface: #151515;
+  --panel: rgba(13, 13, 13, 0.9);
+  --gold: #b8960c;
+  --champagne: #f5e6a3;
+  --white: #f4f4f6;
+  --muted: #8c96a8;
+  --line: rgba(245, 230, 163, 0.24);
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba(13, 13, 13, 0.96), rgba(13, 13, 13, 0.76)),
+    url("assets/enterprise-command-center.png") center / cover fixed;
+  color: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.newsletter-page {
+  min-height: 100vh;
+  padding: clamp(16px, 3vw, 42px);
+}
+
+.newsletter-ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 52px;
+  margin-bottom: clamp(38px, 8vw, 108px);
+}
+
+.wordmark {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 500;
+}
+
+.wordmark::first-letter {
+  color: var(--gold);
+}
+
+.ribbon-links,
+.issue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.ribbon-links a,
+.issue-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 14px;
+  color: var(--white);
+  background: rgba(13, 13, 13, 0.5);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.ribbon-links a:hover,
+.issue-actions a:hover {
+  color: var(--champagne);
+}
+
+.contact-button,
+.issue-actions a:last-child {
+  border-color: rgba(184, 150, 12, 0.92);
+  color: var(--black) !important;
+  background: var(--gold) !important;
+}
+
+.newsletter-hero,
+.newsletter-list,
+.newsletter-article {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.newsletter-hero {
+  display: grid;
+  gap: 22px;
+  margin-bottom: clamp(34px, 6vw, 76px);
+}
+
+.newsletter-hero span,
+.section-label,
+.issue-card span,
+.issue-header span,
+.issue-section span,
+.subscribe-widget span {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.newsletter-hero h1,
+.issue-header h1 {
+  max-width: 980px;
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(3rem, 7vw, 7.4rem);
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.newsletter-hero p,
+.issue-header p,
+.issue-section p,
+.issue-card p,
+.subscribe-widget p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(244, 244, 246, 0.78);
+  font-size: clamp(0.92rem, 1.25vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.newsletter-list {
+  display: grid;
+  gap: 18px;
+  padding-bottom: clamp(46px, 8vw, 98px);
+}
+
+.issue-card {
+  display: grid;
+  min-width: 0;
+  border: 1px solid rgba(245, 230, 163, 0.22);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+a.issue-card:hover {
+  border-color: rgba(184, 150, 12, 0.72);
+  background: #191919;
+}
+
+.issue-card.featured {
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1fr);
+}
+
+.issue-card img,
+.issue-visual {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--black);
+}
+
+.issue-card div {
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  padding: clamp(20px, 3vw, 42px);
+}
+
+.issue-card h2,
+.issue-section h2 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 3.35rem);
+  line-height: 1;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.issue-card.muted {
+  opacity: 0.72;
+}
+
+.subscribe-widget {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.62fr);
+  gap: clamp(18px, 4vw, 48px);
+  align-items: end;
+  border: 1px solid rgba(184, 150, 12, 0.36);
+  border-radius: 4px;
+  padding: clamp(22px, 4vw, 46px);
+  background: rgba(184, 150, 12, 0.1);
+}
+
+.subscribe-widget div,
+.subscribe-widget label {
+  display: grid;
+  gap: 12px;
+}
+
+.subscribe-widget h2 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 3.35rem);
+  line-height: 1;
+}
+
+.subscribe-widget label {
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.subscribe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.subscribe-row input {
+  min-width: 0;
+  min-height: 50px;
+  border: 1px solid rgba(245, 230, 163, 0.26);
+  border-radius: 4px;
+  padding: 0 14px;
+  color: var(--white);
+  background: rgba(13, 13, 13, 0.72);
+  text-transform: none;
+}
+
+.subscribe-row input::placeholder {
+  color: rgba(244, 244, 246, 0.38);
+}
+
+.subscribe-row button {
+  min-height: 50px;
+  border: 1px solid rgba(184, 150, 12, 0.92);
+  border-radius: 4px;
+  padding: 0 18px;
+  color: var(--black);
+  background: var(--gold);
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.newsletter-article {
+  display: grid;
+  gap: clamp(24px, 4vw, 48px);
+  padding-bottom: clamp(46px, 8vw, 98px);
+}
+
+.issue-header,
+.issue-section {
+  display: grid;
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: clamp(24px, 4vw, 58px);
+  background: var(--panel);
+}
+
+.issue-header {
+  border-color: rgba(184, 150, 12, 0.42);
+}
+
+.issue-section ul {
+  display: grid;
+  gap: 10px;
+  margin: 2px 0 0;
+  padding-left: 22px;
+  color: rgba(244, 244, 246, 0.78);
+  line-height: 1.65;
+}
+
+.issue-section.callout {
+  background: rgba(184, 150, 12, 0.16);
+}
+
+@media (max-width: 760px) {
+  .newsletter-ribbon {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ribbon-links,
+  .ribbon-links a,
+  .issue-actions,
+  .issue-actions a,
+  .subscribe-widget,
+  .subscribe-row,
+  .subscribe-row button {
+    width: 100%;
+  }
+
+  .issue-card.featured,
+  .archive-grid,
+  .subscribe-widget,
+  .subscribe-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "update:articles": "node scripts/update-axios-feed.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
