@@ -162,10 +162,10 @@ button {
   display: flex;
   align-items: flex-end;
   width: 100%;
-  aspect-ratio: 2.0;
-  min-height: 440px;
+  aspect-ratio: 2.52;
+  min-height: 400px;
   overflow: hidden;
-  padding: 0 clamp(22px, 7vw, 104px) clamp(48px, 5.5vw, 80px);
+  padding: 0 clamp(22px, 6vw, 80px) clamp(40px, 5vw, 64px);
   background: var(--black);
 }
 
@@ -185,28 +185,29 @@ button {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg,
-      rgba(13, 13, 13, 1.00) 0%,
-      rgba(13, 13, 13, 0.94) 18%,
-      rgba(13, 13, 13, 0.72) 38%,
-      rgba(13, 13, 13, 0.30) 60%,
-      rgba(13, 13, 13, 0.04) 80%,
-      transparent 100%
-    ),
     linear-gradient(0deg,
-      rgba(13, 13, 13, 0.96) 0%,
-      rgba(13, 13, 13, 0.52) 28%,
-      rgba(13, 13, 13, 0.12) 52%,
-      transparent 72%
+      rgba(13, 13, 13, 0.82) 0%,
+      rgba(13, 13, 13, 0.44) 32%,
+      rgba(13, 13, 13, 0.18) 60%,
+      rgba(13, 13, 13, 0.18) 100%
     );
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+  width: 100%;
+}
+
+.hero-text {
   display: grid;
-  gap: clamp(16px, 2vw, 26px);
-  max-width: min(900px, 64vw);
+  gap: clamp(10px, 1.2vw, 16px);
+  flex: 1;
+  min-width: 0;
 }
 
 .hero-badge {
@@ -254,7 +255,7 @@ button {
 .hero h1 {
   margin: 0;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: clamp(2.4rem, 5vw, 6.4rem);
+  font-size: clamp(2rem, 4.2vw, 5.6rem);
   font-weight: 900;
   line-height: 0.92;
   letter-spacing: -0.03em;
@@ -263,21 +264,22 @@ button {
 
 .hero-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .hero-actions a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px;
-  padding: 0 clamp(22px, 2.5vw, 36px);
+  min-height: 52px;
+  padding: 0 28px;
   border-radius: 999px;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  font-size: clamp(0.82rem, 0.95vw, 1rem);
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
   transition: opacity 0.18s;
 }
 
@@ -432,22 +434,31 @@ a.latest-card:hover {
   .hero {
     aspect-ratio: auto;
     min-height: 75vh;
-    padding-bottom: 52px;
+    padding-bottom: 48px;
+    align-items: flex-end;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
 
   .hero h1 {
-    font-size: clamp(2.4rem, 10vw, 3.6rem);
+    font-size: clamp(2rem, 9vw, 3.2rem);
     letter-spacing: -0.025em;
   }
 
   .hero-actions {
+    flex-direction: row;
     gap: 10px;
+    width: 100%;
   }
 
   .hero-actions a {
-    flex: 1 1 calc(50% - 5px);
-    min-height: 50px;
-    font-size: 0.8rem;
+    flex: 1 1 auto;
+    min-height: 48px;
+    font-size: 0.85rem;
   }
 
   .latest-grid {
