@@ -1,158 +1,333 @@
-const calendarDays = document.querySelector("#calendar-days");
-const calendarMonth = document.querySelector("#calendar-month");
-const previousMonth = document.querySelector("#prev-month");
-const nextMonth = document.querySelector("#next-month");
-const timeSlots = document.querySelector("#time-slots");
-const selectionSummary = document.querySelector("#selection-summary");
-const meetingDate = document.querySelector("#meeting-date");
-const meetingTime = document.querySelector("#meeting-time");
+/* ═══════════════════════════════════════════════════════════════════
+   BOOKING PAGE — contact.js
+   Three-step flow: date picker → details form → confirmation.
 
-const state = {
-  weekStart: startOfWeek(new Date()),
-  date: null,
-  time: null
-};
+   API (served by server/index.js):
+     GET  /api/availability           → { dates: ["YYYY-MM-DD", …] }
+     GET  /api/availability?date=…    → { slots: [{ id, start_time, end_time }] }
+     POST /api/bookings               → { name, email, topic, slotId }
+                                      ← 201 { ok: true, booking: {…} }
 
-function startOfWeek(date) {
-  const day = startOfDay(date);
-  day.setDate(day.getDate() - day.getDay());
-  return day;
-}
+   Set window.BOOKING_API_BASE before this script loads to point at
+   a deployed server. Falls back to http://localhost:3001.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
 
-function startOfDay(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
+  /* ── Config ───────────────────────────────────────────────────── */
+  var API = (typeof window.BOOKING_API_BASE === 'string')
+    ? window.BOOKING_API_BASE.replace(/\/$/, '')
+    : 'http://localhost:3001';
 
-function sameDate(a, b) {
-  return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-}
+  var EASE = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function formatMonth(date) {
-  return new Intl.DateTimeFormat("en", { month: "long", year: "numeric" }).format(date);
-}
+  /* ── State ────────────────────────────────────────────────────── */
+  var state = {
+    selectedDate: null,           // "YYYY-MM-DD"
+    selectedSlot: null,           // { id, start_time, end_time }
+    currentStep: 1,
+  };
 
-function formatDate(date) {
-  return new Intl.DateTimeFormat("en", { weekday: "short", month: "short", day: "numeric" }).format(date);
-}
+  /* ── DOM refs ─────────────────────────────────────────────────── */
+  var step1El      = document.getElementById('step-1');
+  var step2El      = document.getElementById('step-2');
+  var step3El      = document.getElementById('step-3');
+  var dateGrid     = document.getElementById('date-grid');
+  var slotSection  = document.getElementById('slot-section');
+  var slotGrid     = document.getElementById('slot-grid');
+  var slotHeading  = document.getElementById('slot-heading');
+  var step1Next    = document.getElementById('step1-next');
+  var step2Back    = document.getElementById('step2-back');
+  var bookingForm  = document.getElementById('booking-form');
+  var btnSubmit    = document.getElementById('btn-submit');
+  var formErrorEl  = document.getElementById('form-error');
+  var confirmTime  = document.getElementById('confirm-time');
+  var confirmEmail = document.getElementById('confirm-email');
 
-function formatTime(hour, minute) {
-  return new Intl.DateTimeFormat("en", {
-    hour: "numeric",
-    minute: "2-digit"
-  }).format(new Date(2026, 0, 1, hour, minute));
-}
+  /* ── Step transitions ─────────────────────────────────────────── */
+  // Initialize: only step 1 visible
+  step2El.style.display = 'none';
+  step3El.style.display = 'none';
 
-function availableTimes() {
-  const slots = [];
+  function goToStep(n, direction) {
+    var from = [null, step1El, step2El, step3El][state.currentStep];
+    var to   = [null, step1El, step2El, step3El][n];
+    var dir  = direction || (n > state.currentStep ? 'forward' : 'back');
+    var outY = dir === 'forward' ? '-10px' : '10px';
+    var inY  = dir === 'forward' ? '10px'  : '-10px';
 
-  for (let hour = 8; hour <= 17; hour += 1) {
-    for (const minute of [0, 30]) {
-      if (hour === 17 && minute === 30) {
-        continue;
-      }
-
-      slots.push(formatTime(hour, minute));
+    if (reduced) {
+      from.style.display = 'none';
+      to.style.display = '';
+      state.currentStep = n;
+      return;
     }
+
+    from.style.transition = 'opacity 340ms ' + EASE + ', transform 340ms ' + EASE;
+    from.style.opacity    = '0';
+    from.style.transform  = 'translateY(' + outY + ')';
+
+    setTimeout(function () {
+      from.style.display = 'none';
+      from.style.cssText = '';
+
+      to.style.opacity   = '0';
+      to.style.transform = 'translateY(' + inY + ')';
+      to.style.display   = '';
+
+      void to.offsetHeight; // force reflow before transition
+
+      to.style.transition = 'opacity 420ms ' + EASE + ', transform 420ms ' + EASE;
+      to.style.opacity    = '1';
+      to.style.transform  = 'translateY(0)';
+      state.currentStep   = n;
+    }, 360);
   }
 
-  return slots;
-}
-
-function updateSummary() {
-  if (!state.date || !state.time) {
-    selectionSummary.textContent = "Select a date and time.";
-    meetingDate.value = "";
-    meetingTime.value = "";
-    return;
+  /* ── Date / time formatters ───────────────────────────────────── */
+  // Parse "YYYY-MM-DD" at noon to avoid DST edge-cases
+  function parseDate(dateStr) {
+    return new Date(dateStr + 'T12:00:00');
   }
 
-  selectionSummary.textContent = `${formatDate(state.date)} at ${state.time}`;
-  meetingDate.value = formatDate(state.date);
-  meetingTime.value = state.time;
-}
-
-function selectDate(date) {
-  state.date = date;
-  state.time = null;
-  state.weekStart = startOfWeek(date);
-  renderCalendar();
-  renderTimes();
-  updateSummary();
-}
-
-function renderCalendar() {
-  calendarDays.replaceChildren();
-  const rangeEnd = new Date(state.weekStart);
-  rangeEnd.setDate(rangeEnd.getDate() + 20);
-  calendarMonth.textContent = `${formatMonth(state.weekStart)} – ${formatMonth(rangeEnd)}`;
-
-  const today = startOfDay(new Date());
-  const totalCells = 21;
-
-  for (let index = 0; index < totalCells; index += 1) {
-    const date = new Date(state.weekStart);
-    date.setDate(date.getDate() + index);
-    const isPast = startOfDay(date) < today;
-
-    const button = document.createElement("button");
-    button.className = "date-button";
-    button.type = "button";
-    button.disabled = isPast;
-
-    const dayNumber = document.createElement("span");
-    dayNumber.className = "day-number";
-    dayNumber.textContent = String(date.getDate());
-
-    const status = document.createElement("span");
-    status.className = "day-status";
-    status.textContent = !isPast ? "Open" : "";
-
-    button.append(dayNumber, status);
-
-    if (sameDate(date, state.date)) {
-      button.classList.add("selected");
-    }
-
-    if (!button.disabled) {
-      button.setAttribute("aria-label", formatDate(date));
-      button.addEventListener("click", () => selectDate(date));
-    }
-
-    calendarDays.append(button);
+  function fmtDateBtn(dateStr) {
+    var d = parseDate(dateStr);
+    return {
+      weekday: d.toLocaleDateString('en-US', { weekday: 'short' }),
+      label:   d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    };
   }
-}
 
-function renderTimes() {
-  timeSlots.replaceChildren();
+  function fmtDateLong(dateStr) {
+    var d = parseDate(dateStr);
+    return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  }
 
-  availableTimes().forEach((time) => {
-    const button = document.createElement("button");
-    button.className = "time-button";
-    button.type = "button";
-    button.textContent = time;
-
-    if (time === state.time) {
-      button.classList.add("selected");
-    }
-
-    button.addEventListener("click", () => {
-      state.time = time;
-      document.querySelectorAll(".time-button").forEach((node) => node.classList.toggle("selected", node === button));
-      updateSummary();
+  function fmtTime(isoStr) {
+    return new Date(isoStr).toLocaleTimeString('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true,
     });
+  }
 
-    timeSlots.append(button);
+  /* ── Load available dates ─────────────────────────────────────── */
+  function loadDates() {
+    setDateState('<p class="state-msg state-msg--loading">Loading available dates…</p>');
+
+    fetch(API + '/api/availability')
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) { renderDates(data.dates || []); })
+      .catch(function () {
+        setDateState('<p class="state-msg state-msg--error">Couldn\'t load dates. Please refresh or <a href="mailto:hello@xgold.tech">email us</a>.</p>');
+      });
+  }
+
+  function setDateState(html) {
+    dateGrid.innerHTML = html;
+  }
+
+  function renderDates(dates) {
+    if (!dates.length) {
+      setDateState('<p class="state-msg state-msg--empty">No available dates right now — check back soon.</p>');
+      return;
+    }
+
+    dateGrid.innerHTML = '';
+    dates.forEach(function (dateStr) {
+      var parts = fmtDateBtn(dateStr);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'date-btn';
+      btn.dataset.date = dateStr;
+      btn.setAttribute('aria-label', fmtDateLong(dateStr));
+
+      var wkEl = document.createElement('span');
+      wkEl.className = 'date-weekday';
+      wkEl.textContent = parts.weekday;
+
+      var dayEl = document.createElement('span');
+      dayEl.className = 'date-day';
+      dayEl.textContent = parts.label;
+
+      btn.appendChild(wkEl);
+      btn.appendChild(dayEl);
+      btn.addEventListener('click', function () { onDateClick(dateStr, btn); });
+      dateGrid.appendChild(btn);
+    });
+  }
+
+  /* ── Date selection → load slots ──────────────────────────────── */
+  function onDateClick(dateStr, btn) {
+    document.querySelectorAll('.date-btn').forEach(function (b) {
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+
+    state.selectedDate = dateStr;
+    state.selectedSlot = null;
+    setNextEnabled(false);
+
+    loadSlots(dateStr);
+  }
+
+  function loadSlots(dateStr) {
+    slotHeading.textContent = fmtDateLong(dateStr);
+    slotGrid.innerHTML = '<p class="state-msg state-msg--loading">Loading times…</p>';
+    slotSection.classList.add('visible');
+
+    fetch(API + '/api/availability?date=' + dateStr)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) { renderSlots(data.slots || []); })
+      .catch(function () {
+        slotGrid.innerHTML = '<p class="state-msg state-msg--error">Couldn\'t load times. Try another date.</p>';
+      });
+  }
+
+  function renderSlots(slots) {
+    if (!slots.length) {
+      slotGrid.innerHTML = '<p class="state-msg state-msg--empty">No open times for this date.</p>';
+      return;
+    }
+
+    slotGrid.innerHTML = '';
+    slots.forEach(function (slot) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'slot-btn';
+      btn.textContent = fmtTime(slot.start_time);
+      btn.addEventListener('click', function () { onSlotClick(slot, btn); });
+      slotGrid.appendChild(btn);
+    });
+  }
+
+  function onSlotClick(slot, btn) {
+    document.querySelectorAll('.slot-btn').forEach(function (b) {
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+    state.selectedSlot = slot;
+    setNextEnabled(true);
+  }
+
+  function setNextEnabled(yes) {
+    step1Next.disabled = !yes;
+    step1Next.setAttribute('aria-disabled', yes ? 'false' : 'true');
+  }
+
+  /* ── Step 1 → 2 ───────────────────────────────────────────────── */
+  step1Next.addEventListener('click', function () {
+    if (!state.selectedSlot) return;
+    goToStep(2);
   });
-}
 
-previousMonth.addEventListener("click", () => {
-  state.weekStart.setDate(state.weekStart.getDate() - 21);
-  renderCalendar();
-});
+  /* ── Step 2 → 1 ───────────────────────────────────────────────── */
+  step2Back.addEventListener('click', function () {
+    clearErrors();
+    goToStep(1, 'back');
+  });
 
-nextMonth.addEventListener("click", () => {
-  state.weekStart.setDate(state.weekStart.getDate() + 21);
-  renderCalendar();
-});
+  /* ── Form submit: step 2 → 3 ──────────────────────────────────── */
+  bookingForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearErrors();
 
-selectDate(startOfDay(new Date()));
+    var name  = bookingForm.elements.name.value.trim();
+    var email = bookingForm.elements.email.value.trim();
+    var topic = (bookingForm.elements.topic.value || '').trim();
+
+    var valid = true;
+    if (!name) {
+      showFieldError(bookingForm.elements.name, 'Please enter your name.');
+      valid = false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFieldError(bookingForm.elements.email, 'Please enter a valid email address.');
+      valid = false;
+    }
+    if (!state.selectedSlot) {
+      setFormError('No time slot selected — please go back and pick a time.');
+      valid = false;
+    }
+    if (!valid) return;
+
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Booking…';
+
+    fetch(API + '/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:   name,
+        email:  email,
+        topic:  topic,
+        slotId: state.selectedSlot.id,
+      }),
+    })
+      .then(function (r) {
+        return r.json().then(function (body) { return { status: r.status, body: body }; });
+      })
+      .then(function (res) {
+        if (res.status !== 201) {
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = 'Book meeting';
+          var msg = res.body.error || 'Something went wrong — please try again.';
+          if (res.status === 409) {
+            msg += ' Please go back and choose a different time.';
+          }
+          setFormError(msg);
+          return;
+        }
+
+        var booking = res.body.booking;
+        confirmTime.textContent  = fmtDateLong(state.selectedDate) + ' at ' + fmtTime(booking.start_time);
+        confirmEmail.textContent = 'A calendar invite is on its way to ' + email + '.';
+        goToStep(3);
+      })
+      .catch(function () {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Book meeting';
+        setFormError('Connection error — please check your network and try again.');
+      });
+  });
+
+  /* ── Error helpers ────────────────────────────────────────────── */
+  function showFieldError(input, msg) {
+    input.classList.add('is-invalid');
+    var existing = input.parentNode.querySelector('.field-error');
+    if (!existing) {
+      existing = document.createElement('p');
+      existing.className = 'field-error';
+      input.parentNode.appendChild(existing);
+    }
+    existing.textContent = msg;
+    input.addEventListener('input', function clear() {
+      input.classList.remove('is-invalid');
+      existing.textContent = '';
+      input.removeEventListener('input', clear);
+    });
+  }
+
+  function setFormError(msg) {
+    formErrorEl.textContent = msg;
+  }
+
+  function clearErrors() {
+    formErrorEl.textContent = '';
+    bookingForm.querySelectorAll('.booking-input').forEach(function (el) {
+      el.classList.remove('is-invalid');
+    });
+    bookingForm.querySelectorAll('.field-error').forEach(function (el) {
+      el.textContent = '';
+    });
+  }
+
+  /* ── Boot ─────────────────────────────────────────────────────── */
+  loadDates();
+
+}());

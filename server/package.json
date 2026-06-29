@@ -1,0 +1,19 @@
+{
+  "name": "goldai-booking-server",
+  "version": "1.0.0",
+  "description": "Meeting booking API for goldAI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "seed": "node seed.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.0"
+  }
+}

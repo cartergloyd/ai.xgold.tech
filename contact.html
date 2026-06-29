@@ -3,68 +3,127 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact | goldAI</title>
+    <title>Book a Meeting | goldAI</title>
+    <meta name="description" content="Schedule a working conversation with goldAI — one workflow, one bottleneck, one idea made operational.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet" href="footer.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="contact.css?v=1">
+    <link rel="stylesheet" href="footer.css?v=3">
+    <!--
+      To point this page at a deployed API server, add a script tag here:
+        <script>window.BOOKING_API_BASE = 'https://api.xgold.tech';</script>
+      Otherwise it defaults to http://localhost:3001 (local server/).
+    -->
   </head>
   <body>
-    <main class="contact-page">
-      <nav class="contact-ribbon" aria-label="Primary navigation">
-        <a class="wordmark" href="index.html">goldAI</a>
-        <a href="index.html">Home</a>
-      </nav>
 
-      <form class="contact-flow" action="mailto:hello@goldai.com" method="post" enctype="text/plain">
-        <section class="contact-panel details-panel" aria-labelledby="details-title">
-          <h1 id="details-title">Leave your details.</h1>
-          <div class="details-grid">
-            <label>
-              Email
-              <input id="email" type="email" name="email" autocomplete="email" required>
-            </label>
-            <label>
-              Business name
-              <input id="business" type="text" name="business" autocomplete="organization" required>
-            </label>
+    <!-- ── Ribbon ───────────────────────────────────────────────── -->
+    <header class="booking-ribbon" aria-label="Primary navigation">
+      <div class="booking-ribbon-inner">
+        <a class="wordmark" href="index.html" aria-label="goldAI — back to homepage">goldAI</a>
+        <a class="booking-ribbon-home" href="index.html">Home</a>
+      </div>
+    </header>
+
+    <main class="booking-page">
+      <div class="booking-container">
+
+        <!-- Page headline -->
+        <h1 class="booking-headline">Let's talk</h1>
+
+        <!-- ── Step 1: Pick a date and time ──────────────────── -->
+        <section class="booking-step" id="step-1" aria-label="Pick a date and time">
+
+          <div class="date-grid" id="date-grid" role="group" aria-label="Available dates">
+            <p class="state-msg state-msg--loading">Loading available dates…</p>
           </div>
-          <button class="submit-button" type="submit">Send</button>
+
+          <div class="slot-section" id="slot-section">
+            <p class="slot-heading" id="slot-heading"></p>
+            <div class="slot-grid" id="slot-grid" role="group" aria-label="Available times"></div>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-primary" id="step1-next" disabled aria-disabled="true">
+              Continue
+            </button>
+          </div>
+
         </section>
 
-        <section class="contact-panel schedule-panel" aria-labelledby="schedule-title">
-          <h2 id="schedule-title">Schedule a working conversation.</h2>
-          <p>Bring one workflow, one bottleneck, or one AI idea that needs to become operational.</p>
-          <div class="scheduler" aria-label="Meeting scheduler">
-            <div class="calendar">
-              <div class="calendar-header">
-                <button class="month-button" id="prev-month" type="button" aria-label="Previous three weeks">‹</button>
-                <strong id="calendar-month">Available dates</strong>
-                <button class="month-button" id="next-month" type="button" aria-label="Next three weeks">›</button>
-              </div>
-              <div class="calendar-weekdays" aria-hidden="true">
-                <span>Sun</span>
-                <span>Mon</span>
-                <span>Tue</span>
-                <span>Wed</span>
-                <span>Thu</span>
-                <span>Fri</span>
-                <span>Sat</span>
-              </div>
-              <div class="calendar-days" id="calendar-days"></div>
+        <!-- ── Step 2: Your details ───────────────────────────── -->
+        <section class="booking-step" id="step-2" aria-label="Your details">
+
+          <form class="booking-form" id="booking-form" novalidate>
+
+            <div class="field-wrap">
+              <input
+                type="text"
+                class="booking-input"
+                id="f-name"
+                name="name"
+                placeholder="Your name"
+                required
+                autocomplete="name"
+                aria-label="Your name"
+              >
             </div>
-            <div class="times">
-              <strong>Time</strong>
-              <div class="time-slots" id="time-slots"></div>
-              <p class="selection-summary" id="selection-summary">Select a date and time.</p>
+
+            <div class="field-wrap">
+              <input
+                type="email"
+                class="booking-input"
+                id="f-email"
+                name="email"
+                placeholder="you@company.com"
+                required
+                autocomplete="email"
+                aria-label="Email address"
+              >
             </div>
-          </div>
-          <input id="meeting-date" type="hidden" name="meeting_date">
-          <input id="meeting-time" type="hidden" name="meeting_time">
-          <button class="submit-button" type="submit">Send</button>
+
+            <div class="field-wrap">
+              <textarea
+                class="booking-textarea"
+                id="f-topic"
+                name="topic"
+                placeholder="What's this about? (optional)"
+                rows="3"
+                aria-label="Meeting topic"
+              ></textarea>
+            </div>
+
+            <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+
+            <div class="step-actions">
+              <button type="button" class="btn-back" id="step2-back">← Back</button>
+              <button type="submit" class="btn-primary" id="btn-submit">
+                Book meeting
+              </button>
+            </div>
+
+          </form>
         </section>
-      </form>
+
+        <!-- ── Step 3: Confirmation ───────────────────────────── -->
+        <section class="booking-step" id="step-3" aria-label="Booking confirmed">
+          <div class="confirmation">
+            <div class="confirmation-check" aria-hidden="true">
+              <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="26" cy="26" r="26" fill="var(--gold)" opacity="0.15"/>
+                <path d="M15 27l8 8 14-16" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h2 class="confirmation-heading">You're booked.</h2>
+            <p class="confirmation-time" id="confirm-time"></p>
+            <p class="confirmation-sub" id="confirm-email"></p>
+            <a class="btn-primary confirmation-home" href="index.html">Back to home</a>
+          </div>
+        </section>
+
+      </div>
     </main>
 
     <footer class="site-footer">
@@ -79,14 +138,12 @@
           <h2>Our thinking</h2>
           <a href="approach.html">Workflow architecture</a>
           <a href="newsletters.html">Newsletters</a>
-          <a href="newsletter-template.html">Latest newsletter</a>
-          <a href="index.html#latest-title">Articles</a>
-          <a href="index.html#latest-title">Insights</a>
+          <!-- newsletters:footer:start --><a href="workflow-notes-02.html">Latest newsletter</a><!-- newsletters:footer:end -->
         </section>
         <section class="footer-column">
           <h2>Careers</h2>
           <a href="team.html">The team</a>
-          <a href="apply.html">Apply now</a>
+          <a href="index.html#careers-title">Apply now</a>
         </section>
       </div>
       <div class="footer-bottom">
@@ -95,6 +152,6 @@
       </div>
     </footer>
 
-    <script src="contact.js"></script>
+    <script src="contact.js?v=1"></script>
   </body>
 </html>
