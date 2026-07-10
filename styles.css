@@ -255,7 +255,7 @@ button { font: inherit; }
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: clamp(24px, 4vw, 64px);
   width: 100%;
@@ -310,7 +310,7 @@ button { font: inherit; }
 .hero h1 {
   margin: 0;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-size: clamp(2rem, 4.2vw, 5.6rem);
+  font-size: clamp(2rem, 4.2vw, 3.6rem);
   font-weight: 900;
   line-height: 0.92;
   letter-spacing: -0.03em;
@@ -319,7 +319,7 @@ button { font: inherit; }
 
 .hero-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12px;
   flex-shrink: 0;
 }
