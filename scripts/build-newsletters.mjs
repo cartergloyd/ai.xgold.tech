@@ -144,7 +144,7 @@ ${renderSectionBody(content)}
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${escapeHtml(meta.title)} | goldAI Newsletter</title>
+    <title>${escapeHtml(meta.title)} | xGold Newsletter</title>
     <meta name="description" content="${escapeHtml(meta.description || meta.title)}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -155,7 +155,7 @@ ${renderSectionBody(content)}
   <body>
     <main class="newsletter-page issue-page">
       <nav class="newsletter-ribbon" aria-label="Primary navigation">
-        <a class="wordmark" href="index.html">goldAI</a>
+        <a class="wordmark" href="index.html">xGold</a>
         <div class="ribbon-links">
           <a href="index.html">Home</a>
           <a href="newsletters.html">Newsletters</a>
@@ -171,10 +171,10 @@ ${renderSectionBody(content)}
         </header>${imageHtml}
 ${sectionHtml}
 
-        <form class="subscribe-widget" action="mailto:hello@goldai.com" method="post" enctype="text/plain">
+        <form class="subscribe-widget" action="mailto:hello@xgold.com" method="post" enctype="text/plain">
           <div>
             <span>Subscribe</span>
-            <h2>Get the GoldAI Dispatch.</h2>
+            <h2>Get the xGold Dispatch.</h2>
             <p>Short operating notes for leaders turning AI from pilots into workflow infrastructure.</p>
           </div>
           <label>
@@ -215,7 +215,7 @@ ${sectionHtml}
         </section>
       </div>
       <div class="footer-bottom">
-        <span>goldAI</span>
+        <span>xGold</span>
         <span>Intelligence. Embedded. Guaranteed.</span>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 {
-  "name": "goldai-booking-server",
+  "name": "xgold-booking-server",
   "version": "1.0.0",
-  "description": "Meeting booking API for goldAI",
+  "description": "Meeting booking API for xGold",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

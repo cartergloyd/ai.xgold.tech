@@ -10,13 +10,13 @@
  * the same — only the implementation changes.
  *
  * Environment variables:
- *   DB_PATH  — absolute path to the SQLite file (default: ./goldai.db)
+ *   DB_PATH  — absolute path to the SQLite file (default: ./xgold.db)
  */
 
 const Database = require('better-sqlite3');
 const path = require('path');
 
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'goldai.db');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'xgold.db');
 
 let _db = null;
 

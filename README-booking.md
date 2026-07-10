@@ -1,4 +1,4 @@
-# goldAI Booking Server
+# xGold Booking Server
 
 The Node.js/Express API that powers the `/contact.html` scheduling page.
 
@@ -23,7 +23,7 @@ npm install
 
 ### 2. Seed the database
 
-Creates `goldai.db` and inserts 30-minute slots across the next 14 business days,
+Creates `xgold.db` and inserts 30-minute slots across the next 14 business days,
 9 AM – 5 PM, skipping the 12:00–12:30 lunch slot.
 
 ```bash
@@ -37,7 +37,7 @@ Re-running is safe (uses `INSERT OR IGNORE`).
 
 ```bash
 npm start
-# → goldAI booking server → http://localhost:3001
+# → xGold booking server → http://localhost:3001
 ```
 
 Open `contact.html` in your browser (via a local HTTP server, not `file://`).

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * index.js — goldAI Booking API
+ * index.js — xGold Booking API
  *
  * Routes:
  *   GET  /api/availability           → available dates
@@ -100,7 +100,7 @@ app.post('/api/bookings', (req, res) => {
   //   }).catch(err => console.error('Email send failed:', err));
   //
   //   addToCalendar({
-  //     summary:  `goldAI call with ${result.booking.name}`,
+  //     summary:  `xGold call with ${result.booking.name}`,
   //     start:    result.booking.start_time,
   //     end:      result.booking.end_time,
   //     attendee: result.booking.email,
@@ -113,5 +113,5 @@ app.post('/api/bookings', (req, res) => {
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
 app.listen(PORT, () => {
-  console.log(`goldAI booking server → http://localhost:${PORT}`);
+  console.log(`xGold booking server → http://localhost:${PORT}`);
 });

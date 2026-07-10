@@ -154,7 +154,7 @@ function buildCarouselCard(card, isDuplicate) {
 
 /* ── Careers form ────────────────────────────────────────────────────
    POSTs { email, resume } as multipart/form-data to /api/apply on the
-   goldAI server. Set window.GOLDAI_API before script.js loads to point
+   xGold server. Set window.XGOLD_API before script.js loads to point
    at the deployed server; falls back to http://localhost:3001.
    ─────────────────────────────────────────────────────────────────── */
 (function () {
@@ -167,8 +167,8 @@ function buildCarouselCard(card, isDuplicate) {
   const uploadLabel = form.querySelector(".careers-upload-label");
   const submitBtn   = form.querySelector(".careers-submit");
 
-  const API = (typeof window.GOLDAI_API === "string"
-    ? window.GOLDAI_API
+  const API = (typeof window.XGOLD_API === "string"
+    ? window.XGOLD_API
     : "http://localhost:3001"
   ).replace(/\/$/, "");
 
