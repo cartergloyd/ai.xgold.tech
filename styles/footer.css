@@ -1,0 +1,63 @@
+/* footer.css — footnotes, link directory, legal */
+
+.footer {
+  background: var(--bg-alt);
+  color: var(--text-secondary);
+  font-size: var(--fs-fine);
+  line-height: var(--lh-body);
+  padding-block: var(--space-8) var(--space-7);
+}
+.footer h2 {
+  font-size: var(--fs-card);
+  color: var(--text);
+  margin-bottom: var(--space-5);
+}
+.footer__lede { max-width: 44rem; margin-bottom: var(--space-6); }
+
+.sources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-4) var(--space-7);
+}
+@media (min-width: 834px) { .sources { grid-template-columns: 1fr 1fr; } }
+.sources li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: var(--space-2);
+  scroll-margin-top: calc(var(--nav-height) + var(--space-5));
+}
+.sources li > span:first-child { color: var(--text-secondary); font-weight: var(--weight-semibold); }
+.sources a { color: var(--text); font-weight: var(--weight-semibold); }
+.sources a:hover { color: var(--accent); }
+.sources small { display: block; font-size: var(--fs-fine); color: var(--text-secondary); margin-top: 2px; }
+
+.footer__notes {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  gap: var(--space-3);
+  max-width: 56rem;
+}
+
+.footer__legal {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+}
+.footer__legal a { color: var(--text-secondary); }
+
+/* ---- Link directory (all pages) ---- */
+.footer__dir { display: grid; gap: var(--space-6) var(--space-7); margin-bottom: var(--space-6); }
+@media (min-width: 834px) { .footer__dir { grid-template-columns: 1fr 1fr 2fr; } }
+.footer__dir h3 { font-size: var(--fs-fine); color: var(--text); margin-bottom: var(--space-3); }
+.footer__dir ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.footer__dir a { color: var(--text-secondary); }
+.footer__dir a:hover { color: var(--text); }
+.footer__dir p { max-width: 32rem; }

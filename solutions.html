@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Solutions in action — xGold Tech</title>
+<meta name="description" content="Documented AI implementations with the starting problem, what changed, the systems involved, what was measured and the result.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="styles/button.css">
+<link rel="stylesheet" href="styles/hero.css">
+<link rel="stylesheet" href="styles/card.css">
+<link rel="stylesheet" href="styles/shelf.css">
+<link rel="stylesheet" href="styles/footer.css">
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner container-wide" aria-label="Main">
+    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="problems.html">Problems</a></li>
+      <li><a href="solutions.html" aria-current="page">Solutions</a></li>
+      <li><a href="how-we-work.html">How we work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="research.html">Research</a></li>
+    </ul>
+    <a class="btn btn--primary btn--sm" href="book.html">Start an assessment</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span class="nav__toggle-icon" aria-hidden="true"></span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container-wide">
+      <div class="section-head" style="margin-bottom:0">
+        <div class="section-head__text">
+          <p class="page-head__eyebrow">Solutions in action</p>
+          <h1 id="page-title" class="title-page">Proof you can evaluate.</h1>
+          <p class="page-head__lede">Every implementation here is reported the same way: the starting problem, what changed, the systems involved, what was measured and the result, with a link to the original source. No testimonials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="cases" aria-labelledby="cases-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="cases-title" class="title-section">Documented implementations.</h2>
+          <p class="section-head__lede">From other organizations, reported by the company or by the press. They show the approach working. They are not xGold engagements and not outcomes a new client should expect.</p>
+        </div>
+      </div>
+      <div class="grid grid--2 reveal" id="proof-grid">
+        <article class="card card--dark">
+          <p class="card__eyebrow">Providence Health + IBM · Internal hiring</p>
+          <h3 class="title-card card__title">Orchestrating existing HR systems.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Hiring managers spent most of an internal transfer on administrative steps spread across HR systems. Transfers were slow and costly to process.</dd>
+            <dt>Changed</dt><dd>An AI-driven workflow now coordinates the steps across the existing systems. No system was replaced.</dd>
+            <dt>Systems</dt><dd>Oracle HR systems, orchestrated by IBM.</dd>
+            <dt>Measured</dt><dd>Hiring-manager admin time, days to start, cost per transfer, process accuracy.</dd>
+            <dt>Result</dt><dd><strong>90% less admin work; starts 12 days sooner; 60% lower transfer cost; up to 70% more accurate.</strong> Company-reported, October 2026.</dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://newsroom.ibm.com/2026-10-07-providence-health-collaborates-with-ibm-using-ai-to-reduce-hiring-admin-time-without-replacing-a-single-system" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">AT&amp;T · Legal operations</p>
+          <h3 class="title-card card__title">Moving outside-counsel work in-house.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Routine research, drafting and document review were billed by outside law-firm associates.</dd>
+            <dt>Changed</dt><dd>A 38-person internal LegalEdge team took on that work with AI-supported research, drafting and review.</dd>
+            <dt>Systems</dt><dd>Not disclosed in the reporting.</dd>
+            <dt>Measured</dt><dd>Reliance on outside associate time.</dd>
+            <dt>Result</dt><dd><strong>Reduced outside-counsel reliance.</strong> No company-wide ROI figure reported. Reuters, October 2026.</dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://www.reuters.com/legal/legalindustry/how-att-is-using-ai-reduce-its-reliance-law-firms-2026-10-08/" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Ropes &amp; Gray · Adoption</p>
+          <h3 class="title-card card__title">Paying for the learning curve.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Billable-hour targets penalized the time lawyers needed to learn and test AI tools.</dd>
+            <dt>Changed</dt><dd>Up to 100 hours of AI training and experimentation per lawyer now count toward annual billable targets.</dd>
+            <dt>Systems</dt><dd>Firm AI tools; not itemized in the reporting.</dd>
+            <dt>Measured</dt><dd>Hours logged on AI work.</dd>
+            <dt>Result</dt><dd><strong>More than 35,000 associate hours on AI in 2026</strong> across 1,000+ eligible lawyers. Reuters, October 2026.</dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://www.reuters.com/legal/legalindustry/law-firms-give-lawyers-time-off-billing-grind-test-drive-ai-2026-10-08/" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card card--dark">
+          <p class="card__eyebrow">Hiscox + Google Cloud · Underwriting intake</p>
+          <h3 class="title-card card__title">Reading broker submissions in minutes, not days.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Broker submissions for sabotage-and-terrorism renewals took about three days to turn around.</dd>
+            <dt>Changed</dt><dd>A model reads the submission and drafts a priced quote email. An underwriter reviews every quote before it is sent.</dd>
+            <dt>Systems</dt><dd>Google Cloud Gemini; Hiscox AI Labs; broker email.</dd>
+            <dt>Measured</dt><dd>Quote turnaround time; share of the book on the process; UK productivity on submissions.</dd>
+            <dt>Result</dt><dd><strong>Turnaround about 3 days to about 3 minutes;</strong> roughly two-thirds of the book on the process; CFO cited a 40% UK productivity gain on submissions. Company-reported, 2024 to 2025.<sup class="fn"><a href="research.html#src-21">21</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://hiscoxgroup.com/node/50821" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Dow + Microsoft · Freight invoice reconciliation</p>
+          <h3 class="title-card card__title">Auditing the invoices that arrive outside the system.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Up to 4,000 shipments a day; about 20% of freight invoices, over 100,000 a year, arrived as emailed PDFs outside EDI and were never audited for overbilling.</dd>
+            <dt>Changed</dt><dd>An agent pulls PDF invoices from email, structures the data and flags mismatches to a dashboard. Staff query the data in plain language.</dd>
+            <dt>Systems</dt><dd>Microsoft Copilot Studio, Microsoft 365 Copilot, Dow's integrated data hub, email, EDI.</dd>
+            <dt>Measured</dt><dd>Anomalies found across eight months of 2024 data covering 43,000 shipments; projected savings.</dd>
+            <dt>Result</dt><dd><strong>Pilot surfaced billing anomalies such as a $30,000 surcharge against a typical $5,000.</strong> First-year savings of "millions" are projected, not realized. Vendor-reported, November 2024.<sup class="fn"><a href="research.html#src-25">25</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://www.microsoft.com/en-us/worklab/ai-impact-at-dow-copilot-identifies-millions-in-cost-savings" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Klarna + OpenAI · Customer service</p>
+          <h3 class="title-card card__title">The case that shows why you keep measuring.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Chat resolution averaged 11 minutes. Non-engineering hiring was frozen.</dd>
+            <dt>Changed</dt><dd>An assistant handling refunds, returns, payments and disputes launched in the app across 23 markets in January 2024.</dd>
+            <dt>Systems</dt><dd>Klarna app; OpenAI models.</dd>
+            <dt>Measured</dt><dd>Conversation volume, resolution time, repeat inquiries, satisfaction, headcount equivalent.</dd>
+            <dt>Result</dt><dd><strong>2.3 million conversations in the first month; resolution 11 minutes to under 2; repeat inquiries down 25%.</strong> In May 2025 the CEO said quality had fallen and Klarna began rehiring human agents. Company-reported; use both halves.<sup class="fn"><a href="research.html#src-23">23</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Octopus Energy · Customer email</p>
+          <h3 class="title-card card__title">A scoped trial with the hard cases routed to people.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Routine customer emails to the UK supplier consumed advisor time. No baseline count was published.</dd>
+            <dt>Changed</dt><dd>A three-month trial of an assistant answering routine emails end to end. Vulnerable customers, sensitive cases and complex complaints went to humans.</dd>
+            <dt>Systems</dt><dd>Kraken operating platform, owned by Octopus.</dd>
+            <dt>Measured</dt><dd>Emails handled per week, share of total email, satisfaction against comparable human replies.</dd>
+            <dt>Result</dt><dd><strong>About 8,000 emails a week, 4% of all UK customer email; satisfaction 76% against 72% for human advisors.</strong> Company-reported, July 2026.<sup class="fn"><a href="research.html#src-26">26</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://octopus.energy/press/more-news-press-releases/octopus-energy-s-ai-trial-wins-customer-approval/" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">UK Government Digital Service · 12 departments</p>
+          <h3 class="title-card card__title">Twenty thousand licences, honestly measured.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Drafting, summarizing and record updates across 12 organizations. No baseline beyond self-report.</dd>
+            <dt>Changed</dt><dd>20,000 Microsoft 365 Copilot licences for three months with change management and training.</dd>
+            <dt>Systems</dt><dd>Microsoft 365 Copilot in Teams, Word, Outlook and PowerPoint.</dd>
+            <dt>Measured</dt><dd>Self-reported daily time saved from 7,115 responses, adoption rate, satisfaction. No control group.</dd>
+            <dt>Result</dt><dd><strong>26 minutes a day on average; 17% saw no saving; adoption peaked at 83%.</strong> The report says it could not identify how the saved time was used. Government-authored, June 2025.<sup class="fn"><a href="research.html#src-27">27</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://www.gov.uk/government/news/landmark-government-trial-shows-ai-could-save-civil-servants-nearly-2-weeks-a-year" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Morgan Stanley + OpenAI · Advisor tooling</p>
+          <h3 class="title-card card__title">An assistant that writes into the system of record.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Advisors could not efficiently search about 100,000 internal research documents, and meeting notes were written by hand.</dd>
+            <dt>Changed</dt><dd>An assistant over internal research, then a meeting tool that, with client consent, drafts notes, surfaces actions, emails a summary and saves the note to the CRM.</dd>
+            <dt>Systems</dt><dd>OpenAI models; Salesforce.</dd>
+            <dt>Measured</dt><dd>Adoption by advisor team. No time or cost figures published.</dd>
+            <dt>Result</dt><dd><strong>98% of advisor teams using the assistant.</strong> Adoption only; no savings figure. Company statements via InvestmentNews, June 2024.<sup class="fn"><a href="research.html#src-28">28</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://investmentnews.com/industry-news/news/morgan-stanleys-open-ai-powered-solution-for-advisors-has-expanded-254880" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">DBS Bank · Contact-centre co-pilot</p>
+          <h3 class="title-card card__title">Giving agents the answer and the notes.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>About 500 customer service officers searched knowledge bases and wrote post-call notes by hand during and after every call.</dd>
+            <dt>Changed</dt><dd>A co-pilot transcribes the call live, searches the knowledge base for suggested answers, writes the summary and pre-fills the service request.</dd>
+            <dt>Systems</dt><dd>DBS knowledge base and service-request system; governed under the bank's AI protocol.</dd>
+            <dt>Measured</dt><dd>Transcription accuracy, time per service request, officer sentiment, query volume.</dd>
+            <dt>Result</dt><dd><strong>About 20% less time per service request</strong> across 500 staff handling 250,000+ queries a month. "Up to" wording; no published baseline. Company-reported, 2024.<sup class="fn"><a href="research.html#src-29">29</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://www.dbs.com/newsroom/DBS_empowers_its_Customer_Service_Officers_with_Gen_AI_powered_virtual_assistant_to_reduce_toil_and_enhance_customer_experience" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="demo" aria-labelledby="demo-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="demo-title" class="title-section">What a pilot report looks like.</h2>
+          <p class="section-head__lede">This is the acceptance scorecard a process owner receives at the end of a build-and-pilot phase. The figures below are illustrative, not client data.</p>
+        </div>
+      </div>
+      <div class="grid grid--bento reveal">
+        <article class="card card--alt">
+          <p class="card__eyebrow">Illustrative scorecard · Invoice intake pilot · 8 weeks</p>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Measure</th><th>Baseline</th><th>Pilot</th><th>Target</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Cost per invoice</td><td>$11.20</td><td>$4.10</td><td>≤ $5.00</td><td>Met</td></tr>
+                <tr><td>Days to post</td><td>9.8</td><td>2.6</td><td>≤ 3.0</td><td>Met</td></tr>
+                <tr><td>Exception rate</td><td>24%</td><td>11%</td><td>≤ 10%</td><td>Not met</td></tr>
+                <tr><td>Field accuracy</td><td>97.1%</td><td>99.4%</td><td>≥ 99.0%</td><td>Met</td></tr>
+                <tr><td>Review minutes per exception</td><td>—</td><td>4.2</td><td>≤ 5.0</td><td>Met</td></tr>
+                <tr><td>Unauthorized actions</td><td>—</td><td>0</td><td>0</td><td>Met</td></tr>
+                <tr><td>Run cost per invoice</td><td>—</td><td>$0.31</td><td>≤ $0.50</td><td>Met</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="card card--dark">
+          <p class="card__eyebrow">The decision</p>
+          <h3 class="title-card card__title">Expand, improve or stop.</h3>
+          <p class="card__body">Six of seven measures met. The exception rate missed because one vendor's statements arrive as scanned images; the fix is scoped at two weeks. Recommendation: expand to the remaining entities, with the scan fix in the first sprint.</p>
+          <p class="card__stat"><strong>Signed by</strong> the process owner, the finance contact and xGold.</p>
+        </article>
+      </div>
+      <p class="small muted reveal" style="max-width: 44rem; margin-top: var(--space-7);">When we publish our own implementations they will appear above in the same five-field format, including the measures that did not move.</p>
+    </div>
+  </section>
+  <section class="section section--dark" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="statement reveal">
+        <h2 id="cta-title" class="title-section">Start with one workflow.</h2>
+        <p class="statement__body">A 30-minute call. You leave with a one-page map of the workflow you picked, what it costs you today and whether it is worth a fixed-fee assessment.</p>
+        <div class="actions" style="margin-top: var(--space-7);">
+          <a class="btn btn--on-dark" href="book.html">Start an assessment</a>
+          <a class="link" href="how-we-work.html" style="color: var(--accent-on-dark)">How we work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer__dir">
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="problems.html">Problems we solve</a></li>
+          <li><a href="solutions.html">Solutions in action</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="about.html">About xGold</a></li>
+          <li><a href="research.html">Research and insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Start</h3>
+        <ul>
+          <li><a href="book.html">Start an assessment</a></li>
+          <!-- TODO: contact address -->
+          <li><a href="#contact">Email xGold Tech</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Evidence</h3>
+        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements.</p>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>Copyright © 2026 xGold Tech. All rights reserved.</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

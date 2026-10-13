@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Problems we solve — xGold Tech</title>
+<meta name="description" content="Pick the operational problem that is costing you most. See what has to change, what we build and how it is measured.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="styles/button.css">
+<link rel="stylesheet" href="styles/hero.css">
+<link rel="stylesheet" href="styles/card.css">
+<link rel="stylesheet" href="styles/shelf.css">
+<link rel="stylesheet" href="styles/footer.css">
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner container-wide" aria-label="Main">
+    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="problems.html" aria-current="page">Problems</a></li>
+      <li><a href="solutions.html">Solutions</a></li>
+      <li><a href="how-we-work.html">How we work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="research.html">Research</a></li>
+    </ul>
+    <a class="btn btn--primary btn--sm" href="book.html">Start an assessment</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span class="nav__toggle-icon" aria-hidden="true"></span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container-wide">
+      <div class="section-head" style="margin-bottom:0">
+        <div class="section-head__text">
+          <p class="page-head__eyebrow">Problems we solve</p>
+          <h1 id="page-title" class="title-page">Pick the problem. See the fix.</h1>
+          <p class="page-head__lede">Six operational problems account for most of the manual cost in a mid-sized organization. Choose yours. Each one shows the benchmark, what has to change, what we build and how it is measured.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-label="Problems by area">
+    <div class="container-wide">
+      <div class="tabs">
+        <div class="tabs__list" role="tablist" aria-label="Operational problems"><button role="tab" id="tab-documents" aria-controls="panel-documents" aria-selected="false" data-hash="documents" type="button">Documents</button><button role="tab" id="tab-reporting" aria-controls="panel-reporting" aria-selected="false" data-hash="reporting" type="button">Reporting</button><button role="tab" id="tab-integration" aria-controls="panel-integration" aria-selected="false" data-hash="integration" type="button">Integration</button><button role="tab" id="tab-support" aria-controls="panel-support" aria-selected="false" data-hash="support" type="button">Support</button><button role="tab" id="tab-agents" aria-controls="panel-agents" aria-selected="false" data-hash="agents" type="button">Agents and pilots</button><button role="tab" id="tab-governance" aria-controls="panel-governance" aria-selected="false" data-hash="governance" type="button">Governance</button></div>
+      </div>
+
+        <div id="panel-documents" role="tabpanel" aria-labelledby="tab-documents" hidden>
+          <div class="section-head">
+            <div class="section-head__text">
+              <p class="card__eyebrow">Documents</p>
+              <h2 class="title-section">Invoices, claims and forms that take days to post.</h2>
+              <p class="section-head__lede">The document arrives as a PDF or an email attachment. Someone reads it, keys it into the system, chases the missing field, routes it for approval and files it. The per-item cost looks small. The exception handling is where the money goes.</p>
+            </div>
+          </div>
+          <div class="grid grid--bento">
+            <article class="card card--alt">
+              <p class="card__eyebrow">Invoices and intake</p>
+              <div class="bench__compare"><p class="card__figure">$10.89</p><p class="muted">vs $2.78</p></div>
+              <p class="bench__label">Cost to process one invoice: average organization vs top performers. Top performers post in 3.1 days instead of 10.9 and see 9% exceptions instead of 22%.<sup class="fn"><a href="research.html#src-17">17</a></sup></p>
+              <p class="card__body">At 50,000 invoices a year the gap is about $400,000, before counting early-payment discounts missed and the seven extra days of float.</p>
+            </article>
+            <article class="card card--tint">
+              <p class="card__eyebrow">What has to change</p>
+              <h3 class="title-card card__title">Stop treating exceptions as the job.</h3>
+              <p class="card__body">Clean documents should post without a person touching them. People should see only the exceptions, with the reason the record failed and the fix already proposed. That means validating every extracted field against your master data before anything is written, not after.</p>
+            </article>
+          </div>
+          <div class="grid grid--2" style="margin-top: var(--space-4)">
+            <article class="card">
+              <p class="card__eyebrow">What we build</p>
+              <h3 class="title-card card__title">Document intake and extraction.</h3>
+              <p class="card__body">Invoices, claims, contracts and forms read, checked against vendor, item and contract records, and routed for approval under your existing rules. Exceptions go to a person with the mismatch highlighted. Clean records post straight through to the system of record.</p>
+              <p class="card__stat"><strong>Measured by</strong> cost per document, exception rate, days to post, early-payment discounts captured.</p>
+            </article>
+            <article class="card card--dark">
+              <p class="card__eyebrow">Seen in practice</p>
+              <h3 class="title-card card__title">Hiscox: broker submissions in about 3 minutes instead of about 3 days.</h3>
+              <p class="card__body">A model reads each submission and drafts a priced quote; an underwriter reviews before it goes out. About two-thirds of the book now runs this way. Company-reported, 2024 to 2025.</p>
+              <div class="card__foot"><a class="link small" href="solutions.html">Read the documented implementation</a></div>
+            </article>
+          </div>
+        </div>
+        <div id="panel-reporting" role="tabpanel" aria-labelledby="tab-reporting" hidden>
+          <div class="section-head">
+            <div class="section-head__text">
+              <p class="card__eyebrow">Reporting and close</p>
+              <h2 class="title-section">A close that takes a week, every month.</h2>
+              <p class="section-head__lede">Half of finance teams take six or more business days to close. The time goes into pulling balances from several systems, reconciling them in spreadsheets, writing variance commentary and re-checking figures that moved after they were copied.</p>
+            </div>
+          </div>
+          <div class="grid grid--bento">
+            <article class="card card--alt">
+              <p class="card__eyebrow">Reporting and close</p>
+              <div class="bench__compare"><p class="card__figure">50%</p><p class="muted">take 6+ business days</p></div>
+              <p class="bench__label">Share of finance teams whose month-end close runs six or more business days. 27% regularly take more than seven.<sup class="fn"><a href="research.html#src-18">18</a></sup></p>
+              <p class="card__body">Every extra day is a day leadership runs on last month's numbers, and a week of senior finance time spent assembling rather than analyzing.</p>
+            </article>
+            <article class="card card--tint">
+              <p class="card__eyebrow">What has to change</p>
+              <h3 class="title-card card__title">Put an economic owner on the number.</h3>
+              <p class="card__body">The controller, not the project team, defines the baseline: days to close, hours per report, corrections after release. Finance validates the result. Hours released are capacity until finance says what they were redeployed to.</p>
+            </article>
+          </div>
+          <div class="grid grid--2" style="margin-top: var(--space-4)">
+            <article class="card">
+              <p class="card__eyebrow">What we build</p>
+              <h3 class="title-card card__title">Reporting and reconciliation.</h3>
+              <p class="card__body">Close packages, reconciliations, variance commentary and management reports assembled from the ledger and source systems, with every figure traceable to its origin and every judgment call flagged for review before release.</p>
+              <p class="card__stat"><strong>Measured by</strong> days to close, hours per report, corrections after release, reconciling items open at close.</p>
+            </article>
+            <article class="card card--dark">
+              <p class="card__eyebrow">Seen in practice</p>
+              <h3 class="title-card card__title">Dow: auditing 100,000 freight invoices a year that arrived as PDFs.</h3>
+              <p class="card__body">About 20% of invoices came by email outside EDI and were never checked. An agent now structures them and flags mismatches to a dashboard. Savings are projected, not yet realized. Vendor-reported, 2024.</p>
+              <div class="card__foot"><a class="link small" href="solutions.html">Read the documented implementation</a></div>
+            </article>
+          </div>
+        </div>
+        <div id="panel-integration" role="tabpanel" aria-labelledby="tab-integration" hidden>
+          <div class="section-head">
+            <div class="section-head__text">
+              <p class="card__eyebrow">Connecting systems</p>
+              <h2 class="title-section">The handoff that lives in email and a spreadsheet.</h2>
+              <p class="section-head__lede">Every organization has a process that crosses two systems that do not talk: CRM to ERP, HR to IT, ticketing to billing. The bridge is a person who copies fields from one screen to another. It is slow, it is error-prone and nobody owns it.</p>
+            </div>
+          </div>
+          <div class="grid grid--bento">
+            <article class="card card--alt">
+              <p class="card__eyebrow">Rekeying between systems</p>
+              <div class="bench__compare"><p class="card__figure">1 to 3%</p><p class="muted">of fields</p></div>
+              <p class="bench__label">Error rate for trained staff entering data by hand, measured per field in a controlled study.<sup class="fn"><a href="research.html#src-19">19</a></sup></p>
+              <p class="card__body">On a 40-field record that is an error in roughly half of all records, each one found downstream by a customer, an auditor or a colleague who has to chase it.</p>
+            </article>
+            <article class="card card--tint">
+              <p class="card__eyebrow">What has to change</p>
+              <h3 class="title-card card__title">Redesign the whole workflow, not the step.</h3>
+              <p class="card__body">Nearly 75% of AI high performers fundamentally redesigned workflows; about 25% of everyone else did. The design covers the trigger, the approvals, the exceptions, the completion and the write-back into the system of record. No step stays in someone's inbox.</p>
+            </article>
+          </div>
+          <div class="grid grid--2" style="margin-top: var(--space-4)">
+            <article class="card">
+              <p class="card__eyebrow">What we build</p>
+              <h3 class="title-card card__title">Connecting disconnected systems.</h3>
+              <p class="card__body">Governed write-back between CRM, ERP, HR and ticketing systems through their supported interfaces. Records are validated before they move. One record, no rekeying, and every change attributable to a named identity.</p>
+              <p class="card__stat"><strong>Measured by</strong> cycle time, rekeying errors, touches per case, records reconciled between systems.</p>
+            </article>
+            <article class="card card--dark">
+              <p class="card__eyebrow">Seen in practice</p>
+              <h3 class="title-card card__title">Providence Health: nothing replaced, everything connected.</h3>
+              <p class="card__body">The hiring workflow kept its Oracle HR systems and gained an orchestration layer. 60% lower transfer cost and up to 70% better process accuracy were reported by the company.</p>
+              <div class="card__foot"><a class="link small" href="solutions.html">Read the documented implementation</a></div>
+            </article>
+          </div>
+        </div>
+        <div id="panel-support" role="tabpanel" aria-labelledby="tab-support" hidden>
+          <div class="section-head">
+            <div class="section-head__text">
+              <p class="card__eyebrow">Customer and internal support</p>
+              <h2 class="title-section">Tier-1 requests that cost seven times what they should.</h2>
+              <p class="section-head__lede">Most tier-1 questions are lookups against systems you already own: order status, policy wording, password resets, benefits eligibility. When each one reaches a person, the cost per contact is a multiple of what self-service costs, and the answer is no better.</p>
+            </div>
+          </div>
+          <div class="grid grid--bento">
+            <article class="card card--alt">
+              <p class="card__eyebrow">Support and service desks</p>
+              <div class="bench__compare"><p class="card__figure">$13.50</p><p class="muted">vs $1.84</p></div>
+              <p class="bench__label">Median cost per contact on assisted channels (phone, chat, email) vs self-service.<sup class="fn"><a href="research.html#src-20">20</a></sup></p>
+              <p class="card__body">At 200,000 assisted contacts a year, moving a third to resolved self-service is worth roughly $780,000 before any change in satisfaction.</p>
+            </article>
+            <article class="card card--tint">
+              <p class="card__eyebrow">What has to change</p>
+              <h3 class="title-card card__title">Train on real cases, then escalate with context.</h3>
+              <p class="card__body">Generic training does not change the job. An assistant has to be built and tested on your actual tickets, your knowledge base and your systems of record, and it has to hand off to a person with the full history attached rather than starting the conversation over.</p>
+            </article>
+          </div>
+          <div class="grid grid--2" style="margin-top: var(--space-4)">
+            <article class="card">
+              <p class="card__eyebrow">What we build</p>
+              <h3 class="title-card card__title">Customer and internal support.</h3>
+              <p class="card__body">Assistants that resolve tier-1 requests from your knowledge base and your systems of record, inside the channels you already run, and escalate the rest with the history attached. Low-confidence answers route to people automatically.</p>
+              <p class="card__stat"><strong>Measured by</strong> cost per contact, resolution rate, time to resolve, escalation rate, repeat contacts.</p>
+            </article>
+            <article class="card card--dark">
+              <p class="card__eyebrow">Seen in practice</p>
+              <h3 class="title-card card__title">Octopus Energy: 8,000 emails a week, 76% satisfaction against 72% for humans.</h3>
+              <p class="card__body">A three-month trial answered routine email end to end and routed vulnerable customers and complaints to people. Klarna's 2024 to 2025 experience, on the same page, shows why the measuring never stops.</p>
+              <div class="card__foot"><a class="link small" href="solutions.html">Read both implementations</a></div>
+            </article>
+          </div>
+        </div>
+        <div id="panel-agents" role="tabpanel" aria-labelledby="tab-agents" hidden>
+          <div class="section-head">
+            <div class="section-head__text">
+              <p class="card__eyebrow">Agents and pilots</p>
+              <h2 class="title-section">Pilots that work and never reach production.</h2>
+              <p class="section-head__lede">The demo is convincing. Then it meets permissions, exceptions, cost per run and the question of who is accountable when the agent acts. One in five organizations say operating costs already constrain their use of AI.</p>
+            </div>
+          </div>
+          <div class="grid grid--bento">
+            <article class="card card--alt">
+              <p class="card__eyebrow">Pilots and agents</p>
+              <div class="bench__compare"><p class="card__figure">~75%</p><p class="muted">vs ~25%</p></div>
+              <p class="bench__label">Share of AI high performers who fundamentally redesigned workflows, against everyone else. Association, not causation.<sup class="fn"><a href="research.html#src-02">2</a></sup></p>
+              <p class="card__body">Pilots that stall share a pattern: no owner, no baseline, no defined boundary for what the system may do on its own.</p>
+            </article>
+            <article class="card card--tint">
+              <p class="card__eyebrow">What has to change</p>
+              <h3 class="title-card card__title">Give the agent a budget, a boundary and a log.</h3>
+              <p class="card__body">Each agent gets its own identity, the minimum access the workflow needs, an approval gate on high-impact actions, tests that cover the failure modes and a cost per completed case that is tracked from day one. The pilot is built as the first production release, not a throwaway.</p>
+            </article>
+          </div>
+          <div class="grid grid--2" style="margin-top: var(--space-4)">
+            <article class="card">
+              <p class="card__eyebrow">What we build</p>
+              <h3 class="title-card card__title">Agents inside systems of record.</h3>
+              <p class="card__body">Agents that execute multi-step work across your systems under least-privilege identities, with human approval where you already require it, full logging and a rollback path. They do the work. Your people keep the authority.</p>
+              <p class="card__stat"><strong>Measured by</strong> cost per completed case, authorized-action rate, review time per case, rollback events.</p>
+            </article>
+            <article class="card card--dark">
+              <p class="card__eyebrow">Seen in practice</p>
+              <h3 class="title-card card__title">Morgan Stanley: an assistant that saves the note to Salesforce.</h3>
+              <p class="card__body">With client consent it drafts meeting notes, surfaces actions and writes the record into the CRM. 98% of advisor teams use it. Adoption only; no savings figure published.</p>
+              <div class="card__foot"><a class="link small" href="solutions.html">Read the documented implementation</a></div>
+            </article>
+          </div>
+        </div>
+        <div id="panel-governance" role="tabpanel" aria-labelledby="tab-governance" hidden>
+          <div class="section-head">
+            <div class="section-head__text">
+              <p class="card__eyebrow">Governance and adoption</p>
+              <h2 class="title-section">Unofficial AI is already in use. Nobody is watching it.</h2>
+              <p class="section-head__lede">In a 1,250-person survey, 66% said they had used AI at work against policy and 34% had entered customer data into public tools. Blocking does not work. An approved path that is also the easiest path does.</p>
+            </div>
+          </div>
+          <div class="grid grid--bento">
+            <article class="card card--alt">
+              <p class="card__eyebrow">Shadow AI</p>
+              <div class="bench__compare"><p class="card__figure">66%</p><p class="muted">/ 34%</p></div>
+              <p class="bench__label">Reported policy-defying AI use / customer data entered into public AI tools.<sup class="fn"><a href="research.html#src-05">5</a></sup></p>
+              <p class="card__body">Every unmanaged tool is an unlogged data flow. The first incident is usually found by a customer or a regulator, not by IT.</p>
+            </article>
+            <article class="card card--tint">
+              <p class="card__eyebrow">What has to change</p>
+              <h3 class="title-card card__title">Make the sanctioned path the easy one.</h3>
+              <p class="card__body">Inventory what is actually in use. Approve tools people will use. Set data rules by classification, assign approvers with real authority, and train by role on real tasks. 81% of CIOs expect skills gaps to obstruct their GenAI objectives; the fix is specific, not generic.</p>
+            </article>
+          </div>
+          <div class="grid grid--2" style="margin-top: var(--space-4)">
+            <article class="card">
+              <p class="card__eyebrow">What we build</p>
+              <h3 class="title-card card__title">An approved-use program.</h3>
+              <p class="card__body">A usage inventory, an approved toolset wired to single sign-on, data-handling rules by classification, role-based training built on your own cases and a risk register with named owners.</p>
+              <p class="card__stat"><strong>Measured by</strong> unauthorized-use incidents, sensitive-data events, adoption by role, time to approve a new use case.</p>
+            </article>
+            <article class="card card--dark">
+              <p class="card__eyebrow">Seen in practice</p>
+              <h3 class="title-card card__title">UK government: 20,000 licences, 26 minutes a day, and 17% saw nothing.</h3>
+              <p class="card__body">A twelve-department experiment measured honestly: self-reported savings, adoption peaking at 83%, and a report that could not say how the saved time was used. That gap is the governance and measurement work.</p>
+              <div class="card__foot"><a class="link small" href="solutions.html">Read the documented implementation</a></div>
+            </article>
+          </div>
+        </div>
+    </div>
+  </section>
+  <section class="section section--dark" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="statement reveal">
+        <h2 id="cta-title" class="title-section">Start with one workflow.</h2>
+        <p class="statement__body">A 30-minute call. You leave with a one-page map of the workflow you picked, what it costs you today and whether it is worth a fixed-fee assessment.</p>
+        <div class="actions" style="margin-top: var(--space-7);">
+          <a class="btn btn--on-dark" href="book.html">Start an assessment</a>
+          <a class="link" href="how-we-work.html" style="color: var(--accent-on-dark)">How we work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer__dir">
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="problems.html">Problems we solve</a></li>
+          <li><a href="solutions.html">Solutions in action</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="about.html">About xGold</a></li>
+          <li><a href="research.html">Research and insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Start</h3>
+        <ul>
+          <li><a href="book.html">Start an assessment</a></li>
+          <!-- TODO: contact address -->
+          <li><a href="#contact">Email xGold Tech</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Evidence</h3>
+        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements.</p>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>Copyright © 2026 xGold Tech. All rights reserved.</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

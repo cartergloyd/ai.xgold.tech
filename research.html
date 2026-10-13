@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research and insights — xGold Tech</title>
+<meta name="description" content="Source-linked findings on enterprise AI execution, the statistics behind them, and how to measure results.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="styles/button.css">
+<link rel="stylesheet" href="styles/hero.css">
+<link rel="stylesheet" href="styles/card.css">
+<link rel="stylesheet" href="styles/shelf.css">
+<link rel="stylesheet" href="styles/footer.css">
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner container-wide" aria-label="Main">
+    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="problems.html">Problems</a></li>
+      <li><a href="solutions.html">Solutions</a></li>
+      <li><a href="how-we-work.html">How we work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="research.html" aria-current="page">Research</a></li>
+    </ul>
+    <a class="btn btn--primary btn--sm" href="book.html">Start an assessment</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span class="nav__toggle-icon" aria-hidden="true"></span>
+    </button>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-head" aria-labelledby="page-title">
+    <div class="container-wide">
+      <div class="section-head" style="margin-bottom:0">
+        <div class="section-head__text">
+          <p class="page-head__eyebrow">Research and insights</p>
+          <h1 id="page-title" class="title-page">What the evidence actually says.</h1>
+          <p class="page-head__lede">A reading of the current research on enterprise AI execution, with every figure kept at its original scope and linked to its source. Updated October 2026.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="findings" aria-labelledby="findings-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="findings-title" class="title-section">Six findings that repeat across studies.</h2>
+          <p class="section-head__lede">Analyst research, surveys and recent enterprise reporting keep landing on the same obstacles. Repetition across sources signals a persistent problem, not a single verified prevalence rate.</p>
+        </div>
+      </div>
+      <div class="prose reveal">
+        <h3>1. Productivity gains are not showing up as financial return.</h3>
+        <p>80% of McKinsey's 1,719 respondents report personal productivity improvement; 37% report any positive enterprise EBIT contribution; 6% meet the high-performer definition of at least 5% EBIT impact.<sup class="fn"><a href="#src-02">2</a></sup> IBM's survey of 1,500 CFOs finds only 6% consider their finance function transformation-ready.<sup class="fn"><a href="#src-03">3</a></sup> Gartner frames the gap as an operating-cost and measurement discipline problem rather than an adoption problem.<sup class="fn"><a href="#src-15">15</a></sup></p>
+        <p class="lead">What it implies: an economic owner, a baseline, and a hard separation between time released and spending eliminated, capacity redeployed or margin created.</p>
+
+        <h3>2. Pilots work. End-to-end workflows do not get built.</h3>
+        <p>Nearly 75% of AI high performers say they fundamentally redesigned workflows, against about 25% of other respondents. This is association, not causation.<sup class="fn"><a href="#src-02">2</a></sup> SAP's own account of enterprise deployments describes pilots disconnected from systems and handoffs that stay manual after the demo.<sup class="fn"><a href="#src-08">8</a></sup></p>
+        <p class="lead">What it implies: design one process from trigger to completed outcome, including approvals, exceptions and write-back into systems of record.</p>
+
+        <h3>3. AI is disconnected from the data and systems that run the business.</h3>
+        <p>Gartner reports that organizations with successful AI initiatives invest up to four times more in data, governance and people foundations as a share of revenue, in a survey of 353 leaders. It is a correlation, not a prescribed spend.<sup class="fn"><a href="#src-07">7</a></sup> Providence's internal-hiring case combined existing Oracle systems rather than replacing them.<sup class="fn"><a href="#src-09">9</a></sup></p>
+        <p class="lead">What it implies: map sources of truth, permissions and context; validate key records; build controlled retrieval and integrations before scaling agents.</p>
+
+        <h3>4. Unofficial AI use is ahead of governance.</h3>
+        <p>In PagerDuty's survey of 1,250 office professionals, 66% reported using AI at work despite believing it was prohibited and 34% reported entering customer data into public AI tools.<sup class="fn"><a href="#src-05">5</a></sup> Akamai's traffic analysis flags unmanaged personal identities in enterprise AI use.<sup class="fn"><a href="#src-06">6</a></sup> Practitioner legal guidance recommends governing existing use rather than assuming it can be blocked.<sup class="fn"><a href="#src-04">4</a></sup> NIST's Generative AI Profile provides the voluntary control framework most organizations map to.<sup class="fn"><a href="#src-13">13</a></sup></p>
+        <p class="lead">What it implies: inventory actual usage, approve usable tools, classify sensitive data and use cases, and monitor access, outputs and high-impact decisions.</p>
+
+        <h3>5. Training rarely changes the job.</h3>
+        <p>Gartner cites 81% of CIOs expecting GenAI skills gaps to obstruct their 2025 objectives.<sup class="fn"><a href="#src-14">14</a></sup> Reuters reports Ropes &amp; Gray letting more than 1,000 lawyers count up to 100 hours of AI training toward billable targets, with over 35,000 associate hours logged in 2026, a change to incentives rather than to curriculum.<sup class="fn"><a href="#src-10">10</a></sup></p>
+        <p class="lead">What it implies: train on real tasks with approved data and realistic failure cases, assign approvers with authority, and fix the incentives that penalize learning.</p>
+
+        <h3>6. Agents add cost and operating risk that pilots do not surface.</h3>
+        <p>About one in five McKinsey respondents say AI operating costs constrain use.<sup class="fn"><a href="#src-02">2</a></sup> Google's cross-application agent announcement is notable for what it ships with: dedicated agent identities, connectors, permissions and cost controls.<sup class="fn"><a href="#src-11">11</a></sup> IBM and Ponemon find one in four malicious breaches studied were AI-enabled, in a sample of 602 breached organizations.<sup class="fn"><a href="#src-12">12</a></sup></p>
+        <p class="lead">What it implies: budgets, least-privilege identities, approval boundaries, tests, audit logs and rollback paths, and a tracked cost per successfully completed case.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="operations" aria-labelledby="ops-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="ops-title" class="title-section">What manual work costs.</h2>
+          <p class="section-head__lede">Operational benchmarks we use to size a workflow before an assessment. Each is a median or an average from a named study, with the comparison group stated.</p>
+        </div>
+      </div>
+      <div class="grid grid--2 reveal">
+        <article class="card">
+          <p class="card__eyebrow">Invoices and intake</p>
+          <div class="bench__compare"><p class="card__figure">$10.89</p><p class="muted">vs $2.78</p></div>
+          <p class="bench__label">Cost to process one invoice: average organization vs top performers. Top performers also post in 3.1 days instead of 10.9 and see 9% exceptions instead of 22%.<sup class="fn"><a href="#src-17">17</a></sup></p>
+          <p class="card__body">At 50,000 invoices a year, the gap is about $400,000 and seven calendar days of float on every payable.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Reporting and close</p>
+          <div class="bench__compare"><p class="card__figure">50%</p><p class="muted">take 6+ business days</p></div>
+          <p class="bench__label">Share of finance teams whose month-end close runs six or more business days. 27% regularly take more than seven.<sup class="fn"><a href="#src-18">18</a></sup></p>
+          <p class="card__body">Every extra close day is a day leadership decides on last month's numbers, and a week of senior finance time spent assembling rather than analyzing.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Rekeying between systems</p>
+          <div class="bench__compare"><p class="card__figure">1 to 3%</p><p class="muted">of fields</p></div>
+          <p class="bench__label">Error rate for trained staff entering data by hand, measured per field in a controlled study.<sup class="fn"><a href="#src-19">19</a></sup></p>
+          <p class="card__body">On a 40-field record, that is an error in roughly half of all records. Each one is found downstream, by a customer, an auditor or a colleague who has to chase it.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Support and service desks</p>
+          <div class="bench__compare"><p class="card__figure">$13.50</p><p class="muted">vs $1.84</p></div>
+          <p class="bench__label">Median cost per contact on assisted channels (phone, chat, email) vs self-service.<sup class="fn"><a href="#src-20">20</a></sup></p>
+          <p class="card__body">Most tier-1 requests are lookups against systems you already own. Each one that reaches an agent costs seven times what it needs to.</p>
+        </article>
+      </div>
+    
+    </div>
+  </section>
+
+<section class="section section--alt" id="numbers" aria-labelledby="numbers-title">
+    <div class="container-wide">
+      <div class="section-head section-head--center reveal">
+        <div class="section-head__text">
+          <h2 id="numbers-title" class="title-section">Useful numbers. <span class="muted">Actual denominators.</span></h2>
+          <p class="section-head__lede">Every figure keeps its original scope and links to its source.</p>
+        </div>
+      </div>
+
+      <div style="text-align: center;" class="reveal">
+        <div class="segmented" role="group" aria-label="Filter statistics">
+          <button type="button" data-filter="All" aria-pressed="true">All</button>
+          <button type="button" data-filter="Value" aria-pressed="false">Value</button>
+          <button type="button" data-filter="Execution" aria-pressed="false">Execution</button>
+          <button type="button" data-filter="Risk" aria-pressed="false">Risk</button>
+        </div>
+      </div>
+
+      <div class="grid grid--3 reveal" aria-live="polite">
+        <article class="card" data-category="Value"><p class="card__figure">80% <span class="muted">/ 37%</span></p><p class="card__body small">Personal productivity gains / any positive enterprise EBIT impact. McKinsey, 1,719 respondents.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
+        <article class="card" data-category="Value"><p class="card__figure">6%</p><p class="card__body small">Met McKinsey's AI high-performer definition, including at least 5% EBIT impact.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
+        <article class="card" data-category="Execution"><p class="card__figure">~75% <span class="muted">/ ~25%</span></p><p class="card__body small">AI high performers / other respondents who fundamentally redesigned workflows.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
+        <article class="card" data-category="Execution"><p class="card__figure">40% <span class="muted">/ 27%</span></p><p class="card__body small">Large enterprises scaling AI agents in at least one function, 2026 / 2025.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
+        <article class="card" data-category="Value"><p class="card__figure">32%</p><p class="card__body small">Skipped a software purchase because agentic coding could build it instead.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
+        <article class="card" data-category="Execution"><p class="card__figure">62% <span class="muted">/ 6%</span></p><p class="card__body small">CFOs with expanded AI responsibility / finance judged transformation-ready. IBM, 1,500 CFOs.<sup class="fn"><a href="#src-03">3</a></sup></p></article>
+        <article class="card" data-category="Risk"><p class="card__figure">66% <span class="muted">/ 34%</span></p><p class="card__body small">Policy-defying AI use / customer data entered into public AI tools. PagerDuty, 1,250 respondents.<sup class="fn"><a href="#src-05">5</a></sup></p></article>
+        <article class="card" data-category="Execution"><p class="card__figure">Up to 4×</p><p class="card__body small">Foundation spending among successful AI initiatives, as a share of revenue. Gartner, 353 leaders.<sup class="fn"><a href="#src-07">7</a></sup></p></article>
+        <article class="card" data-category="Risk"><p class="card__figure">1 in 4</p><p class="card__body small">Malicious breaches that were AI-enabled, among 602 breached organizations. IBM/Ponemon.<sup class="fn"><a href="#src-12">12</a></sup></p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="measurement" aria-labelledby="meas-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="meas-title" class="title-section">How to measure an AI implementation.</h2>
+          <p class="section-head__lede">One primary business metric the process owner will defend, then five supporting measures. Definitions we use, in plain terms.</p>
+        </div>
+      </div>
+      <div class="grid grid--3 reveal">
+        <article class="card card--alt"><p class="card__eyebrow">Hours recovered</p><p class="card__body">Staff time no longer spent on the workflow, counted from time studies or system timestamps, and what that time was redeployed to. Capacity until finance books it.</p></article>
+        <article class="card card--alt"><p class="card__eyebrow">Cost per transaction</p><p class="card__body">Fully loaded cost per invoice, case, report or contact: labor, review, exceptions, licenses, inference and monitoring, divided by acceptable completions.</p></article>
+        <article class="card card--alt"><p class="card__eyebrow">Error and rework rate</p><p class="card__body">Exceptions, corrections and escalations per hundred items, measured at the same point in the process before and after.</p></article>
+        <article class="card card--alt"><p class="card__eyebrow">Processing time</p><p class="card__body">Elapsed time from the triggering event to a completed, valid outcome. Not the time to produce a draft.</p></article>
+        <article class="card card--alt"><p class="card__eyebrow">Revenue impact</p><p class="card__body">Margin attributable to the change through faster quotes, fewer lost cases or higher conversion, against a credible counterfactual.</p></article>
+        <article class="card card--alt"><p class="card__eyebrow">Run cost and risk</p><p class="card__body">Inference, licenses, integration and monitoring per period, plus unauthorized actions, sensitive-data events and audit completeness.</p></article>
+      </div>
+      <p class="body muted reveal" style="max-width: 44rem; margin-top: var(--space-7);">Two outside anchors for this. Deloitte's guidance for CFOs calls for locked pre-deployment baselines and names missing baselines as the largest source of indefensible ROI claims.<sup class="fn"><a href="#src-30">30</a></sup> Gartner's survey of 724 respondents finds only about a third of teams report high productivity gains, and tells CFOs to challenge assumed headcount savings until workflows are redesigned.<sup class="fn"><a href="#src-31">31</a></sup> The UK government experiment is a usable template for measuring hours recovered: an active user is one interaction or more, adoption is active users over licences, and time saved is a survey-band midpoint capped at an hour a day, with the self-report caveat stated.<sup class="fn"><a href="#src-27">27</a></sup></p>
+      <p class="body muted reveal" style="max-width: 44rem; margin-top: var(--space-4);">The value rule: hours saved are capacity, not savings. A defensible case records spending avoided, capacity demonstrably redeployed and attributable margin, then subtracts build, license, model, review and operating costs.<sup class="fn"><a href="#src-15">15</a></sup><sup class="fn"><a href="#src-02">2</a></sup></p>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="sources" aria-labelledby="sources-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="sources-title" class="title-section">Sources.</h2>
+          <p class="section-head__lede">Primary studies and case announcements are linked. The recent reporting window is 22 September to 13 October 2026. Older foundational evidence is labeled by date.</p>
+        </div>
+      </div>
+      <div class="footer" style="padding:0;background:transparent">
+      <ol class="sources">
+      <li id="src-01"><span>1.</span><div><a href="https://www.gartner.com/en/articles/ai-value-crisis" target="_blank" rel="noopener noreferrer">Gartner. AI Is Facing a Value Crisis. Here's What to Do About It.</a><small>Apr 22, 2026 · Analyst article</small></div></li>
+      <li id="src-02"><span>2.</span><div><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener noreferrer">McKinsey. The state of AI in 2026: On the road to ROI.</a><small>Aug 25, 2026 · Global survey; 1,719 respondents, 97 nations</small></div></li>
+      <li id="src-03"><span>3.</span><div><a href="https://newsroom.ibm.com/2026-09-30-ibm-study-as-ai-scales-enterprise-wide,-cfos-play-an-expanded-role-in-transformation" target="_blank" rel="noopener noreferrer">IBM Institute for Business Value. CFO transformation study.</a><small>Sep 30, 2026 · Company-sponsored survey; 1,500 CFOs</small></div></li>
+      <li id="src-04"><span>4.</span><div><a href="https://www.reuters.com/legal/legalindustry/framework-governing-employees-existing-use-generative-ai--pracin-2026-10-07/" target="_blank" rel="noopener noreferrer">Reuters Legal Industry. A framework for governing employees' existing use of generative AI.</a><small>Oct 7, 2026 · Practitioner legal analysis</small></div></li>
+      <li id="src-05"><span>5.</span><div><a href="https://www.pagerduty.com/newsroom/shadow-ai-workplace-survey-2026/" target="_blank" rel="noopener noreferrer">PagerDuty. 2026 Shadow AI Survey.</a><small>Jun 11, 2026 · Vendor-commissioned survey; 1,250 office professionals</small></div></li>
+      <li id="src-06"><span>6.</span><div><a href="https://www.akamai.com/lp/state-of-the-internet/enterprise-ai-risk-report" target="_blank" rel="noopener noreferrer">Akamai. Enterprise AI Usage Risk Report 2026.</a><small>2026 · Vendor research on observed AI interactions</small></div></li>
+      <li id="src-07"><span>7.</span><div><a href="https://www.gartner.com/en/newsroom/press-releases/2026-04-16-gartner-says-organizations-with-successful-ai-initiatives-invest-up-to-four-times-more-in-data-and-analytics-foundations" target="_blank" rel="noopener noreferrer">Gartner. Successful AI initiatives invest more in data foundations.</a><small>Apr 16, 2026 · Survey of 353 data, analytics and AI leaders</small></div></li>
+      <li id="src-08"><span>8.</span><div><a href="https://www.expresscomputer.in/news/the-autonomous-enterprise-grows-up-saps-ai-playbook-moves-from-pilots-to-proof/139620/" target="_blank" rel="noopener noreferrer">Express Computer. SAP's AI playbook moves from pilots to proof.</a><small>Oct 8, 2026 · Executive interview</small></div></li>
+      <li id="src-09"><span>9.</span><div><a href="https://newsroom.ibm.com/2026-10-07-providence-health-collaborates-with-ibm-using-ai-to-reduce-hiring-admin-time-without-replacing-a-single-system" target="_blank" rel="noopener noreferrer">IBM / Providence. AI and automation in internal hiring.</a><small>Oct 7, 2026 · Company-reported results</small></div></li>
+      <li id="src-10"><span>10.</span><div><a href="https://www.reuters.com/legal/legalindustry/law-firms-give-lawyers-time-off-billing-grind-test-drive-ai-2026-10-08/" target="_blank" rel="noopener noreferrer">Reuters. Law firms allocate billable hours to AI experimentation.</a><small>Oct 8, 2026 · Reporting on training incentives</small></div></li>
+      <li id="src-11"><span>11.</span><div><a href="https://cloud.google.com/blog/products/ai-machine-learning/welcome-to-gemini-at-work-2026" target="_blank" rel="noopener noreferrer">Google Cloud. Welcome to Gemini at Work 2026.</a><small>Oct 8, 2026 · Vendor announcement</small></div></li>
+      <li id="src-12"><span>12.</span><div><a href="https://newsroom.ibm.com/2026-07-29-ibm-study-one-in-four-malicious-breaches-are-ai-enabled,-costing-companies-6-million-on-average" target="_blank" rel="noopener noreferrer">IBM / Ponemon. 2026 Cost of a Data Breach Report.</a><small>Jul 29, 2026 · Study of 602 breached organizations</small></div></li>
+      <li id="src-13"><span>13.</span><div><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST. AI Risk Management Framework and GenAI Profile.</a><small>2023–2024 · Voluntary guidance</small></div></li>
+      <li id="src-14"><span>14.</span><div><a href="https://www.gartner.com/en/articles/ai-literacy-program" target="_blank" rel="noopener noreferrer">Gartner. Fix AI Literacy to Unlock ROI.</a><small>Apr 24, 2026 · Analyst article; finding relates to 2025 objectives</small></div></li>
+      <li id="src-15"><span>15.</span><div><a href="https://www.gartner.com/en/articles/rein-in-ai-spend" target="_blank" rel="noopener noreferrer">Gartner. The New AI Challenge Isn't Adoption. It's AI Spend.</a><small>Aug 31, 2026 · Analyst article</small></div></li>
+      <li id="src-17"><span>17.</span><div><a href="https://www.corpay.com/resources/blog/ap-team-productivity-benchmarks" target="_blank" rel="noopener noreferrer">APQC Open Standards Benchmarking, via Corpay. AP team productivity benchmarks.</a><small>2025 · Cost per invoice $2.78 vs $10.89; cycle time 3.1 vs 10.9 days; exceptions 9% vs 22%</small></div></li>
+      <li id="src-18"><span>18.</span><div><a href="https://www.cfo.com/news/50-of-finance-take-week-to-close-books-zone-close-survey/746085/" target="_blank" rel="noopener noreferrer">CFO.com, reporting Ledge's 2025 month-end close benchmarks.</a><small>Apr 23, 2025 · Survey of 100 finance professionals; vendor research</small></div></li>
+      <li id="src-19"><span>19.</span><div><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9380367" target="_blank" rel="noopener noreferrer">Garza et al. Measuring and controlling medical record abstraction error rates. BMC Medical Research Methodology.</a><small>2022 · Error rate between 1% (all-field) and 3% (populated-field) in a multi-site observational study</small></div></li>
+      <li id="src-20"><span>20.</span><div><a href="https://www.gartner.com/en/documents/5164231" target="_blank" rel="noopener noreferrer">Gartner. Benchmarks to Assess Your Customer Service Costs.</a><small>Feb 1, 2024 · Median cost per contact $1.84 self-service, $13.50 assisted</small></div></li>
+      <li id="src-16"><span>16.</span><div><a href="https://www.reuters.com/legal/legalindustry/how-att-is-using-ai-reduce-its-reliance-law-firms-2026-10-08/" target="_blank" rel="noopener noreferrer">Reuters. How AT&amp;T is using AI to reduce reliance on law firms.</a><small>Oct 8, 2026 · Reported enterprise use case</small></div></li>
+      <li id="src-21"><span>21.</span><div><a href="https://hiscoxgroup.com/node/50821" target="_blank" rel="noopener noreferrer">Hiscox. AI-augmented underwriting for sabotage and terrorism risks.</a><small>Aug 12, 2024 · Company release; turnaround baseline given by the CFO in Nov 2025 (source 22)</small></div></li>
+      <li id="src-22"><span>22.</span><div><a href="https://www.reinsurancene.ws/ai-adoption-drives-productivity-growth-and-opens-business-opportunities-hiscox-cfo-cooper/" target="_blank" rel="noopener noreferrer">Reinsurance News. Hiscox CFO on AI adoption and productivity.</a><small>Nov 7, 2025 · Executive remarks; company-reported</small></div></li>
+      <li id="src-23"><span>23.</span><div><a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/" target="_blank" rel="noopener noreferrer">Klarna. AI assistant handles two-thirds of customer service chats in its first month.</a><small>Feb 27, 2024 · Company release; read with source 24</small></div></li>
+      <li id="src-24"><span>24.</span><div><a href="https://www.entrepreneur.com/business-news/klarna-ceo-reverses-course-by-hiring-more-humans-not-ai/491396" target="_blank" rel="noopener noreferrer">Entrepreneur, reporting Bloomberg. Klarna CEO on rehiring human agents.</a><small>May 9, 2025 · Press report of CEO remarks</small></div></li>
+      <li id="src-25"><span>25.</span><div><a href="https://www.microsoft.com/en-us/worklab/ai-impact-at-dow-copilot-identifies-millions-in-cost-savings" target="_blank" rel="noopener noreferrer">Microsoft WorkLab. AI impact at Dow.</a><small>Nov 13, 2024 · Vendor case study; savings projected, not realized</small></div></li>
+      <li id="src-26"><span>26.</span><div><a href="https://octopus.energy/press/more-news-press-releases/octopus-energy-s-ai-trial-wins-customer-approval/" target="_blank" rel="noopener noreferrer">Octopus Energy. AI trial wins customer approval.</a><small>Jul 7, 2026 · Company release; the platform is Octopus-owned</small></div></li>
+      <li id="src-27"><span>27.</span><div><a href="https://www.gov.uk/government/news/landmark-government-trial-shows-ai-could-save-civil-servants-nearly-2-weeks-a-year" target="_blank" rel="noopener noreferrer">UK Government Digital Service. Microsoft 365 Copilot experiment findings.</a><small>Jun 2, 2025 · Government-authored; self-reported time, 7,115 responses, no control group</small></div></li>
+      <li id="src-28"><span>28.</span><div><a href="https://investmentnews.com/industry-news/news/morgan-stanleys-open-ai-powered-solution-for-advisors-has-expanded-254880" target="_blank" rel="noopener noreferrer">InvestmentNews. Morgan Stanley's OpenAI-powered advisor tools.</a><small>Jun 28, 2024 · Press report of company statements; adoption only</small></div></li>
+      <li id="src-29"><span>29.</span><div><a href="https://www.dbs.com/newsroom/DBS_empowers_its_Customer_Service_Officers_with_Gen_AI_powered_virtual_assistant_to_reduce_toil_and_enhance_customer_experience" target="_blank" rel="noopener noreferrer">DBS Bank. Gen-AI virtual assistant for customer service officers.</a><small>Jul 18, 2024 · Company release; 20% figure from a Nov 2024 executive statement, no baseline</small></div></li>
+      <li id="src-30"><span>30.</span><div><a href="https://www.deloitte.com/ch/en/services/audit-assurance/perspectives/a-cfos-guide-to-ai-value-realisation.html" target="_blank" rel="noopener noreferrer">Deloitte. A CFO's guide to AI value realisation.</a><small>Jul 23, 2026 · Calls for locked pre-deployment baselines and monthly monitoring</small></div></li>
+      <li id="src-31"><span>31.</span><div><a href="https://www.gartner.com/en/newsroom/press-releases/2025-03-25-gartner-says-cfos-should-reset-expectations-about-ais-impact-on-workforce-productivity-and-headcount" target="_blank" rel="noopener noreferrer">Gartner. CFOs should reset expectations about AI's impact on productivity and headcount.</a><small>Mar 25, 2025 · Survey of 724 respondents</small></div></li>
+    </ol>
+      <div class="footer__notes">
+      <p>Survey figures describe respondents under each study's sampling and definitions, not the share of all enterprises with a given problem. Association does not demonstrate causality. Gartner's foundation-spend finding is correlational. Case results from Providence, AT&amp;T, Ropes &amp; Gray and Google are company- or press-reported and not independently audited; they are not typical outcomes a new client should expect.</p>
+      <p>This page describes xGold Tech's consulting approach. It does not claim xGold Tech delivered the externally reported case results or guarantee a particular return.</p>
+    </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer__dir">
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="problems.html">Problems we solve</a></li>
+          <li><a href="solutions.html">Solutions in action</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="about.html">About xGold</a></li>
+          <li><a href="research.html">Research and insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Start</h3>
+        <ul>
+          <li><a href="book.html">Start an assessment</a></li>
+          <!-- TODO: contact address -->
+          <li><a href="#contact">Email xGold Tech</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Evidence</h3>
+        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements.</p>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>Copyright © 2026 xGold Tech. All rights reserved.</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

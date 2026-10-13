@@ -1,0 +1,32 @@
+/* shelf.css — horizontal shelf that bleeds off the right edge */
+
+.shelf { position: relative; }
+.shelf__track {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-inline: max(var(--gutter), calc((100vw - var(--container-wide)) / 2));
+  padding-bottom: var(--space-2);
+  scroll-padding-inline: max(var(--gutter), calc((100vw - var(--container-wide)) / 2));
+}
+.shelf__track::-webkit-scrollbar { display: none; }
+.shelf__track > li {
+  flex: 0 0 min(82vw, 340px);
+  scroll-snap-align: start;
+  display: flex;
+}
+.shelf__track > li > .card { width: 100%; }
+
+.shelf__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.shelf__controls .round svg { width: 14px; height: 14px; }
+.shelf__controls .round[disabled] { opacity: 0.35; cursor: default; }

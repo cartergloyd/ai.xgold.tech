@@ -1,162 +1,344 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>xGold</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=3">
-    <link rel="stylesheet" href="footer.css?v=3">
-  </head>
-  <body>
-    <main class="homepage">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>xGold Tech — Enterprise AI, implemented.</title>
+<meta name="description" content="xGold Tech builds AI into the systems you already run, so documents get processed, reports get produced and cases get closed faster, with savings your finance team can verify.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="styles/button.css">
+<link rel="stylesheet" href="styles/hero.css">
+<link rel="stylesheet" href="styles/card.css">
+<link rel="stylesheet" href="styles/shelf.css">
+<link rel="stylesheet" href="styles/footer.css">
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav__inner container-wide" aria-label="Main">
+    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
+    <ul class="nav__links" id="nav-menu">
+      <li><a href="problems.html">Problems</a></li>
+      <li><a href="solutions.html">Solutions</a></li>
+      <li><a href="how-we-work.html">How we work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="research.html">Research</a></li>
+    </ul>
+    <a class="btn btn--primary btn--sm" href="book.html">Start an assessment</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span class="nav__toggle-icon" aria-hidden="true"></span>
+    </button>
+  </nav>
+</header>
 
-      <!-- ── Fixed navigation ribbon ───────────────────────────────── -->
-      <header class="ribbon" aria-label="Primary navigation">
-        <div class="ribbon-inner">
-          <a class="wordmark" href="/" aria-label="xGold homepage">xGold</a>
-          <div class="ribbon-actions">
-            <a class="contact-button" href="contact.html">Contact Us</a>
-            <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
-        </div>
-      </header>
+<main id="main">
 
-      <nav class="site-menu" id="site-menu" aria-label="Menu">
-        <a href="approach.html">Our Approach</a>
-        <a href="newsletters.html">Newsletters</a>
-        <!-- newsletters:nav:start --><a href="workflow-notes-02.html">Latest Newsletter</a><!-- newsletters:nav:end -->
-        <a href="team.html">The Team</a>
-        <a href="industries.html">Industries</a>
-      </nav>
+<section class="hero" aria-labelledby="hero-title">
+    <div class="hero__tint" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <p class="hero__lockup">x<span class="gold">Gold</span> Tech <span class="muted">Enterprise AI</span></p>
+      <h1 id="hero-title" class="title-page hero__title">One workflow. Measured savings. <span class="muted">Then the next.</span></h1>
 
-      <!-- ── Hero ──────────────────────────────────────────────────── -->
-      <section class="hero" aria-labelledby="hero-title">
-        <video class="hero-bg" autoplay muted loop playsinline poster="assets/enterprise-command-center.png">
-          <source src="assets/hero.mp4" type="video/mp4">
-        </video>
-        <div class="hero-content">
-          <div class="hero-text">
-            <div class="hero-badge">
-              <span class="hero-badge-icon"></span>
-              <span class="hero-badge-name">xGold</span>
-            </div>
-            <h1 id="hero-title">Reducing operational<br>costs with automation<br>&amp; AI</h1>
-          </div>
-          <div class="hero-actions" aria-label="Hero actions">
-            <a href="contact.html">Engage</a>
-            <a href="approach.html">Go Deeper</a>
-          </div>
-        </div>
-      </section>
+      <ul class="tiles" aria-label="What we build">
+        <li><a href="#b1"><span class="tile" aria-hidden="true">01</span>Documents</a></li>
+        <li><a href="#b2"><span class="tile" aria-hidden="true">02</span>Reporting</a></li>
+        <li><a href="#b3"><span class="tile" aria-hidden="true">03</span>Integration</a></li>
+        <li><a href="#b4"><span class="tile" aria-hidden="true">04</span>Support</a></li>
+        <li><a href="#b5"><span class="tile" aria-hidden="true">05</span>Agents</a></li>
+        <li><a href="#b6"><span class="tile" aria-hidden="true">06</span>Governance</a></li>
+      </ul>
 
-      <!-- ── Infinite carousel ────────────────────────────────────────
-           Section label bar removed per design update.
-           Cards injected by script.js from CAROUSEL_CARDS.
-           ─────────────────────────────────────────────────────────── -->
-      <section class="carousel-section" aria-label="The Latest">
-        <div class="carousel-outer">
-          <div class="carousel-viewport">
-            <div class="carousel-track" id="carousel-track" role="list" aria-label="Latest articles and newsletters"></div>
-          </div>
-        </div>
-      </section>
+      <p class="hero__body"><strong>xGold Tech builds AI into the systems you already run,</strong> so documents get processed, reports get produced and cases get closed in a fraction of the time, <strong>with savings your finance team can verify.</strong></p>
 
-      <!-- ── Careers ───────────────────────────────────────────────────
-           Minimalist Apple-style application form.
-           JS handles validation + fade/slide confirmation transition.
-           ─────────────────────────────────────────────────────────── -->
-      <section class="careers-section" aria-labelledby="careers-title">
-        <div class="careers-inner">
-          <h2 class="careers-headline" id="careers-title">Join us</h2>
-
-          <div class="careers-body">
-            <form class="careers-form" id="careers-form" novalidate>
-              <input
-                type="email"
-                class="careers-input"
-                id="careers-email"
-                name="email"
-                placeholder="your@company.com"
-                required
-                autocomplete="email"
-                aria-label="Email address"
-              >
-              <!-- File input hidden; label styled as a button -->
-              <label class="careers-upload" aria-label="Upload résumé">
-                <input
-                  type="file"
-                  class="careers-file"
-                  id="careers-resume"
-                  name="resume"
-                  accept=".pdf,.doc,.docx"
-                >
-                <span class="careers-upload-label">Upload résumé</span>
-              </label>
-              <button type="submit" class="careers-submit">Apply</button>
-            </form>
-
-            <!-- Confirmation: revealed by JS after submit -->
-            <p class="careers-confirmation" id="careers-confirmation" role="status" aria-live="polite">
-              We will be in touch.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── Video carousel ──────────────────────────────────────────────
-           Cards injected by script.js from VIDEO_CARDS.
-           ─────────────────────────────────────────────────────────── -->
-      <section class="video-section" aria-labelledby="video-section-title">
-        <div class="video-section-header">
-          <h2 class="video-section-title" id="video-section-title">Watch</h2>
-        </div>
-        <div class="video-carousel-outer">
-          <div class="video-carousel-viewport">
-            <div class="video-carousel-track" id="video-carousel-track" role="list" aria-label="Video resources and courses"></div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <section class="footer-column">
-          <h2>What we do</h2>
-          <a href="approach.html">Our approach</a>
-          <a href="industries.html">Industries</a>
-          <a href="contact.html">Contact</a>
-        </section>
-        <section class="footer-column">
-          <h2>Our thinking</h2>
-          <a href="approach.html">Workflow architecture</a>
-          <a href="newsletters.html">Newsletters</a>
-          <!-- newsletters:footer:start --><a href="workflow-notes-02.html">Latest newsletter</a><!-- newsletters:footer:end -->
-        </section>
-        <section class="footer-column">
-          <h2>Careers</h2>
-          <a href="team.html">The team</a>
-          <a href="#careers-title">Apply now</a>
-        </section>
+      <div class="actions">
+        <a class="btn btn--primary" href="book.html">Start an assessment</a>
+        <a class="link" href="#build">See what we build</a>
       </div>
-      <div class="footer-bottom">
-        <span>xGold</span>
-        <span>Intelligence. Embedded. Guaranteed.</span>
-      </div>
-    </footer>
+    </div>
+  </section>
 
-    <!--
-      Production: set XGOLD_API before script.js so the careers form
-      posts to the real server instead of localhost:3001.
-        <script>window.XGOLD_API = 'https://api.xgold.tech';</script>
-    -->
-    <script src="script.js?v=3"></script>
-  </body>
+<section class="section section--alt" id="cost" aria-labelledby="cost-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="cost-title" class="title-section">The work that quietly costs the most.</h2>
+          <p class="section-head__lede">Manual steps between systems look cheap per task. Across a year they are the largest cost most operations teams never see on a line item.</p>
+        </div>
+        <a class="btn btn--secondary section-head__action" href="problems.html">All six problems</a>
+      </div>
+
+      <div class="grid grid--2 reveal">
+        <article class="card">
+          <p class="card__eyebrow">Invoices and intake</p>
+          <div class="bench__compare"><p class="card__figure">$10.89</p><p class="muted">vs $2.78</p></div>
+          <p class="bench__label">Cost to process one invoice: average organization vs top performers. Top performers also post in 3.1 days instead of 10.9 and see 9% exceptions instead of 22%.<sup class="fn"><a href="research.html#src-17">17</a></sup></p>
+          <p class="card__body">At 50,000 invoices a year, the gap is about $400,000 and seven calendar days of float on every payable.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Reporting and close</p>
+          <div class="bench__compare"><p class="card__figure">50%</p><p class="muted">take 6+ business days</p></div>
+          <p class="bench__label">Share of finance teams whose month-end close runs six or more business days. 27% regularly take more than seven.<sup class="fn"><a href="research.html#src-18">18</a></sup></p>
+          <p class="card__body">Every extra close day is a day leadership decides on last month's numbers, and a week of senior finance time spent assembling rather than analyzing.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Rekeying between systems</p>
+          <div class="bench__compare"><p class="card__figure">1 to 3%</p><p class="muted">of fields</p></div>
+          <p class="bench__label">Error rate for trained staff entering data by hand, measured per field in a controlled study.<sup class="fn"><a href="research.html#src-19">19</a></sup></p>
+          <p class="card__body">On a 40-field record, that is an error in roughly half of all records. Each one is found downstream, by a customer, an auditor or a colleague who has to chase it.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Support and service desks</p>
+          <div class="bench__compare"><p class="card__figure">$13.50</p><p class="muted">vs $1.84</p></div>
+          <p class="bench__label">Median cost per contact on assisted channels (phone, chat, email) vs self-service.<sup class="fn"><a href="research.html#src-20">20</a></sup></p>
+          <p class="card__body">Most tier-1 requests are lookups against systems you already own. Each one that reaches an agent costs seven times what it needs to.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<section class="section" id="build" aria-labelledby="build-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="build-title" class="title-section"><span class="kw">Build</span> the piece that moves the number.</h2>
+          <p class="section-head__lede">Six implementations we deliver inside your existing systems. Each one is scoped to a workflow, an owner and a metric before we write a line of code.</p>
+        </div>
+        <a class="btn btn--secondary section-head__action" href="problems.html">Pick your problem</a>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card card--alt reveal" id="b1">
+          <p class="card__eyebrow">Documents</p>
+          <h3 class="title-card card__title">Document intake and extraction.</h3>
+          <p class="card__body">Invoices, claims, contracts and forms read, checked against your master data and routed for approval. Exceptions go to a person. Clean records post straight through.</p>
+          <p class="card__stat"><strong>Measured by</strong> cost per document, exception rate, days to post.</p>
+                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#documents">Learn more</a></div>
+        </article>
+        <article class="card card--alt reveal" id="b2">
+          <p class="card__eyebrow">Reporting</p>
+          <h3 class="title-card card__title">Reporting and reconciliation.</h3>
+          <p class="card__body">Close packages, variance commentary and management reports assembled from the ledger and source systems, with every figure traceable to its origin.</p>
+          <p class="card__stat"><strong>Measured by</strong> days to close, hours per report, corrections after release.</p>
+                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#reporting">Learn more</a></div>
+        </article>
+        <article class="card card--alt reveal" id="b3">
+          <p class="card__eyebrow">Integration</p>
+          <h3 class="title-card card__title">Connecting disconnected systems.</h3>
+          <p class="card__body">The handoffs that live in email and spreadsheets between CRM, ERP, HR and ticketing systems replaced with governed write-back. One record, no rekeying.</p>
+          <p class="card__stat"><strong>Measured by</strong> cycle time, rekeying errors, touches per case.</p>
+                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#integration">Learn more</a></div>
+        </article>
+        <article class="card card--alt reveal" id="b4">
+          <p class="card__eyebrow">Support</p>
+          <h3 class="title-card card__title">Customer and internal support.</h3>
+          <p class="card__body">Assistants that resolve tier-1 requests from your knowledge base and your systems of record, and escalate the rest with the full history attached.</p>
+          <p class="card__stat"><strong>Measured by</strong> cost per contact, resolution rate, time to resolve.</p>
+                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#support">Learn more</a></div>
+        </article>
+        <article class="card card--alt reveal" id="b5">
+          <p class="card__eyebrow">Agents</p>
+          <h3 class="title-card card__title">Agents inside systems of record.</h3>
+          <p class="card__body">Agents with their own identity, least-privilege access and an approval gate on every high-impact action. They do the work. Your people keep the authority.</p>
+          <p class="card__stat"><strong>Measured by</strong> cost per completed case, authorized-action rate, review time.</p>
+                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#agents">Learn more</a></div>
+        </article>
+        <article class="card card--alt reveal" id="b6">
+          <p class="card__eyebrow">Governance</p>
+          <h3 class="title-card card__title">An approved-use program.</h3>
+          <p class="card__body">A usage inventory, approved tools, data rules and training on real tasks by role, so the sanctioned path is also the easiest one.</p>
+          <p class="card__stat"><strong>Measured by</strong> unauthorized-use incidents, sensitive-data events, adoption by role.</p>
+                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#governance">Learn more</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<section class="section section--dark" aria-labelledby="thread-title">
+    <div class="container">
+      <div class="statement reveal">
+        <h2 id="thread-title" class="title-section">Not a license. Not a prompt. <span class="muted">A working process.</span></h2>
+        <p class="statement__body">AI earns its place when a named owner can show a repeatable result, a defined risk boundary and a cost the business can defend. Everything on this site is in service of that.</p>
+      </div>
+    </div>
+  </section>
+
+<section class="section" id="prove" aria-labelledby="prove-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="prove-title" class="title-section"><span class="kw">Proof</span> you can evaluate.</h2>
+          <p class="section-head__lede">Documented implementations, each with the starting problem, what changed, the systems involved, what was measured and the result. Linked to the original source.</p>
+        </div>
+        <a class="btn btn--secondary section-head__action" href="solutions.html">Solutions in action</a>
+      </div>
+
+      <div class="grid grid--2 reveal" id="proof-grid">
+        <article class="card card--dark">
+          <p class="card__eyebrow">Providence Health + IBM · Internal hiring</p>
+          <h3 class="title-card card__title">Orchestrating existing HR systems.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Hiring managers spent most of an internal transfer on administrative steps spread across HR systems. Transfers were slow and costly to process.</dd>
+            <dt>Changed</dt><dd>An AI-driven workflow now coordinates the steps across the existing systems. No system was replaced.</dd>
+            <dt>Systems</dt><dd>Oracle HR systems, orchestrated by IBM.</dd>
+            <dt>Measured</dt><dd>Hiring-manager admin time, days to start, cost per transfer, process accuracy.</dd>
+            <dt>Result</dt><dd><strong>90% less admin work; starts 12 days sooner; 60% lower transfer cost; up to 70% more accurate.</strong> Company-reported, October 2026.</dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://newsroom.ibm.com/2026-10-07-providence-health-collaborates-with-ibm-using-ai-to-reduce-hiring-admin-time-without-replacing-a-single-system" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+        <article class="card card--alt">
+          <p class="card__eyebrow">Hiscox + Google Cloud · Underwriting intake</p>
+          <h3 class="title-card card__title">Reading broker submissions in minutes, not days.</h3>
+          <dl class="spec">
+            <dt>Problem</dt><dd>Broker submissions for sabotage-and-terrorism renewals took about three days to turn around.</dd>
+            <dt>Changed</dt><dd>A model reads the submission and drafts a priced quote email. An underwriter reviews every quote before it is sent.</dd>
+            <dt>Systems</dt><dd>Google Cloud Gemini; Hiscox AI Labs; broker email.</dd>
+            <dt>Measured</dt><dd>Quote turnaround time; share of the book on the process; UK productivity on submissions.</dd>
+            <dt>Result</dt><dd><strong>Turnaround about 3 days to about 3 minutes;</strong> roughly two-thirds of the book on the process; CFO cited a 40% UK productivity gain on submissions. Company-reported, 2024 to 2025.<sup class="fn"><a href="research.html#src-21">21</a></sup></dd>
+          </dl>
+          <div class="card__foot"><a class="link link--external small" href="https://hiscoxgroup.com/node/50821" target="_blank" rel="noopener noreferrer">Original source</a></div>
+        </article>
+      </div>
+
+      <p class="small muted reveal" style="max-width: 44rem; margin-top: var(--space-7);">Other organizations' documented implementations, not xGold engagements. <a class="link" href="solutions.html">All implementations and a sample pilot report</a></p>
+    </div>
+  </section>
+
+<section class="section section--alt" id="plan" aria-labelledby="plan-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="plan-title" class="title-section"><span class="kw">Plan</span> for the time, money and effort.</h2>
+          <p class="section-head__lede">Three phases. Each is priced before it starts and ends in a decision you make with evidence in hand. Scope, responsibilities, costs and controls are on the <a href="how-we-work.html">How we work</a> page.</p>
+        </div>
+        <a class="btn btn--secondary section-head__action" href="how-we-work.html">How we work</a>
+      </div>
+
+      <!-- TODO: confirm durations and pricing approach -->
+      <div class="grid grid--3 reveal">
+        <article class="card">
+          <p class="phase__when">Phase 1 · Weeks 1 to 3</p>
+          <h3 class="title-card card__title">Scoping assessment.</h3>
+          <p class="card__body">Fixed fee, quoted before we start and credited toward the build. We inventory current AI use, map one to three workflows, baseline cost and quality, and compare non-AI alternatives.</p>
+          <ul class="phase__list">
+            <li>Current-state process map and baseline</li>
+            <li>Future-state workflow, permission model and test cases</li>
+            <li>Implementation estimate and stop/go recommendation</li>
+          </ul>
+          <dl class="phase__you"><dt>What we need from you</dt><dd>A process owner for about two hours a week, read access to the systems involved, one finance contact.</dd></dl>
+        </article>
+        <article class="card card--dark">
+          <p class="phase__when">Phase 2 · Weeks 4 to 12</p>
+          <h3 class="title-card card__title">Build and pilot.</h3>
+          <p class="card__body">Scoped and priced from the assessment. We build the smallest production-relevant version, connect it, instrument every step and run it on real work with the people who own it.</p>
+          <ul class="phase__list">
+            <li>Working pilot in the live workflow, with review queue and logging</li>
+            <li>Approved-use rules and role-based training</li>
+            <li>Acceptance scorecard against the baseline</li>
+          </ul>
+          <dl class="phase__you"><dt>What we need from you</dt><dd>A sponsor who can approve go-live, five to ten people to run the pilot, IT for access provisioning.</dd></dl>
+        </article>
+        <article class="card">
+          <p class="phase__when">Phase 3 · Monthly</p>
+          <h3 class="title-card card__title">Operate and decide.</h3>
+          <p class="card__body">A monthly retainer sized to run cost and review load. We track outcomes, exceptions, human review and spend against the baseline, then expand, improve or stop.</p>
+          <ul class="phase__list">
+            <li>Operating dashboard and finance-validated benefits</li>
+            <li>Monthly decision review</li>
+            <li>Expansion plan for the next workflow</li>
+          </ul>
+          <dl class="phase__you"><dt>What we need from you</dt><dd>The owner at one review a month. Nothing else.</dd></dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<section class="section section--dark" id="start" aria-labelledby="start-title">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <div class="section-head__text">
+          <h2 id="start-title" class="title-section">Your next step is a 30-minute call.</h2>
+          <p class="section-head__lede">You leave it with a one-page map of the workflow you picked, what it costs you today and whether it is worth an assessment. No deck, no proposal, no obligation.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2 reveal">
+        <article class="card card--on-dark">
+          <label class="picker__label" for="constraint">Your immediate constraint</label>
+          <select class="select" id="constraint">
+            <option value="value">We cannot establish ROI</option>
+            <option value="pilot">Our pilots have not scaled</option>
+            <option value="risk">We lack safe AI controls</option>
+            <option value="people">Employees need better workflows</option>
+            <option value="cost">Agent costs or reliability are unclear</option>
+          </select>
+          <div class="picker__rec" aria-live="polite">
+            <p class="picker__label">Your first deliverable</p>
+            <h3 id="rec-title" class="title-card card__title">Baseline-backed value hypothesis</h3>
+            <p id="rec-detail" class="card__body">Map one current process, define its cost and quality baseline, identify a decision owner and agree what financial outcome would justify investment.</p>
+          </div>
+        </article>
+
+        <article class="card card--on-dark">
+          <p class="picker__label">What we ask on the call</p>
+          <ol class="questions">
+            <li>What is today's measured cost, delay, error or lost-opportunity rate?</li>
+            <li>Which systems, permissions and human approvals define a valid outcome?</li>
+            <li>Could a simpler non-AI automation solve part of it?</li>
+            <li>Which failure is unacceptable, and what must be auditable?</li>
+            <li>What result would justify expansion, and what would stop spend?</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="statement reveal" style="margin-top: var(--section-pad-y);">
+        <h2 class="title-section">Hire xGold Tech for one workflow.</h2>
+        <p class="statement__body">If the call shows a case, the next step is the fixed-fee assessment. If it does not, we tell you, and you keep the map.</p>
+        <div class="actions" style="margin-top: var(--space-7);">
+          <!-- TODO: replace both hrefs with the real booking link and contact address -->
+          <a class="btn btn--on-dark" href="book.html">Start an assessment</a>
+          <a class="btn btn--on-dark-outline" href="#contact">Email xGold Tech</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer__dir">
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="problems.html">Problems we solve</a></li>
+          <li><a href="solutions.html">Solutions in action</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="about.html">About xGold</a></li>
+          <li><a href="research.html">Research and insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Start</h3>
+        <ul>
+          <li><a href="book.html">Start an assessment</a></li>
+          <!-- TODO: contact address -->
+          <li><a href="#contact">Email xGold Tech</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Evidence</h3>
+        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements.</p>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>Copyright © 2026 xGold Tech. All rights reserved.</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
 </html>
