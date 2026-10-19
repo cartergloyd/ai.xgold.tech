@@ -1,0 +1,36 @@
+/* work.css — generated work pages and their cards */
+
+.card--link { transition: transform var(--duration-fast) var(--ease); }
+.card--link:hover { transform: scale(1.01); }
+.card__cover { color: inherit; }
+.card__cover:hover { text-decoration: none; }
+.card__cover::after { content: ""; position: absolute; inset: 0; }
+.card--link .card__foot { justify-content: space-between; align-items: center; }
+
+.page-head__eyebrow a { color: var(--text-secondary); }
+.page-head__eyebrow a:hover { color: var(--text); }
+
+.work-prose h2 { margin: var(--space-8) 0 var(--space-4); }
+.work-prose h2:first-child { margin-top: 0; }
+.work-prose ul, .work-prose ol { margin: var(--space-4) 0 0; padding-left: 1.25rem; display: grid; gap: var(--space-2); }
+.work-prose ul + p, .work-prose ol + p, .work-prose figure + p, .work-prose blockquote + p, .work-prose .callout + p, .work-prose .work-stats + p { margin-top: var(--space-5); }
+.work-prose code { font-size: 0.9em; background: var(--bg-alt); padding: 1px 6px; border-radius: 6px; }
+.work-prose blockquote {
+  margin: var(--space-6) 0 0;
+  padding: var(--space-5) var(--space-6);
+  background: var(--bg-alt);
+  border-radius: var(--radius-card-sm);
+  font-size: var(--fs-lede);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
+}
+.work-prose blockquote cite { display: block; margin-top: var(--space-3); font-style: normal; font-size: var(--fs-small); color: var(--text-secondary); }
+.work-prose figure { margin: var(--space-6) 0 0; }
+.work-prose figure img { display: block; width: 100%; height: auto; border-radius: var(--radius-card); background: var(--bg-alt); }
+.work-prose figcaption { margin-top: var(--space-3); font-size: var(--fs-fine); color: var(--text-secondary); }
+.callout { margin: var(--space-6) 0 0; padding: var(--space-5) var(--space-6); background: var(--card-tint); color: #fff; border-radius: var(--radius-card-sm); }
+.callout p { color: #fff; }
+.work-stats { display: grid; gap: var(--space-5) var(--space-7); margin: var(--space-6) 0 0; }
+@media (min-width: 480px) { .work-stats { grid-template-columns: repeat(3, 1fr); } }
+.work-stats .card__figure { margin-bottom: var(--space-1); }
+.work-sources { margin: var(--space-4) 0 0; padding-left: 1.25rem; display: grid; gap: var(--space-2); font-size: var(--fs-small); }

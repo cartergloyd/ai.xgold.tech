@@ -1,0 +1,9 @@
+{
+  "name": "xgold-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:work": "node scripts/build-work.mjs",
+    "preview:work": "node scripts/build-work.mjs --include-drafts"
+  }
+}

@@ -195,3 +195,10 @@
 .safeguards dt { font-weight: var(--weight-semibold); }
 .safeguards dd { margin: var(--space-1) 0 0; color: var(--text-secondary); }
 .section--dark .safeguards dd { color: var(--text-on-dark-secondary); }
+
+/* Dark cards: keep cover links and stat lines legible */
+.card--dark a.card__cover, .card--on-dark a.card__cover { color: inherit; }
+.card--dark .card__stat, .card--on-dark .card__stat { color: var(--text-on-dark-secondary); }
+.card--dark .card__stat strong, .card--on-dark .card__stat strong { color: var(--text-on-dark); }
+.card--tint .card__stat { color: rgba(255, 255, 255, 0.75); }
+.card--tint .card__stat strong { color: #fff; }
