@@ -123,7 +123,7 @@ workflow. Optional: role, what it costs today, named-owner checkbox, send-questi
 On submit the card swaps to a confirmation panel. `data-endpoint` on the form is empty:
 set it to a form handler URL to actually deliver submissions (JSON POST).
 
-Open items across the site: `#contact` placeholders (footer + home closing block), `data-endpoint` on the form, About page placeholders, named platforms in Fit, phase durations and pricing approach in Plan/Costs.
+Form backend (2026-10-20): Supabase project ekmukamjcmlizopalhmq, table `assessment_requests`, RLS insert-only for anon, publishable key embedded in book.html, honeypot field `website`. Schema in `supabase/schema.sql`. Open items: `#contact` placeholders (footer + home closing block), About page placeholders, named platforms in Fit, phase durations and pricing approach in Plan/Costs, optional Database Webhook for notifications.
 
 ## Reconciliations with CLAUDE.md
 1. **Single accent** — kept for all interactive elements. Pillar keyword colors and tinted

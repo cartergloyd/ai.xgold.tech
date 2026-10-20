@@ -1,2 +1,4 @@
 .claude/
 .claire/
+.env
+.env.*

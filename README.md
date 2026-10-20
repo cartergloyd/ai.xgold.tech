@@ -5,7 +5,7 @@ Static site for xGold Tech. Plain HTML and CSS, no build step for the pages them
 - `index.html` and six section pages: problems, solutions, how-we-work, about, research, book
 - `tokens.css` holds every design token; components in `styles/` reference tokens only
 - `CLAUDE.md` is the design system; `DESIGN-NOTES.md` records the decisions behind the current layout
-- `book.html` posts to the URL in its form's `data-endpoint` attribute; empty until a handler is configured
+- `book.html` writes submissions to the Supabase table `assessment_requests` using the publishable key (insert-only; schema in `supabase/schema.sql`). Read them in the Supabase Table Editor. Never put the secret key in this repo.
 
 ## Publishing work
 

@@ -217,3 +217,8 @@ select.field__input ~ .field__label {
 .form-success p { color: var(--text-secondary); margin-top: var(--space-3); }
 .form-success .link { display: inline-block; margin-top: var(--space-6); }
 [hidden] { display: none !important; }
+
+/* Honeypot: present in the DOM, never visible, never focusable */
+.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.form-card__error { display: block; margin: 0 var(--space-6) var(--space-5); }
+.form-card__error[hidden] { display: none; }

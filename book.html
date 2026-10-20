@@ -21,8 +21,14 @@
 <main class="form-main" id="main">
   <div>
     <div class="form-card" id="book-card">
-      <!-- TODO: set data-endpoint to your form handler URL. Without it the page shows the confirmation locally. -->
-      <form id="book-form" data-endpoint="" method="post" action="#" novalidate>
+      <!-- Submissions go to Supabase (insert-only for the public key; see supabase/schema.sql).
+           data-endpoint is a fallback for a generic JSON POST handler if Supabase is ever removed. -->
+      <form id="book-form"
+            data-supabase-url="https://ekmukamjcmlizopalhmq.supabase.co"
+            data-supabase-key="sb_publishable_7TItdEriesKLAqAiAOVYHQ_Tlo_FxCJ"
+            data-supabase-table="assessment_requests"
+            data-endpoint=""
+            method="post" action="#" novalidate>
         <div class="form-card__body">
           <h1 class="form-card__title">Start an assessment</h1>
           <p class="form-card__lede">Tell us about one workflow. We reply within one business day to schedule a 30-minute scoping call.</p>
@@ -86,6 +92,11 @@
               <p class="field__hint">Delay, error rate, headcount or missed revenue. A rough number is fine.</p>
             </div>
 
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
             <label class="choice">
               <input type="checkbox" name="owner" value="yes">
               <span>This workflow already has a named business owner.</span>
@@ -102,6 +113,8 @@
           <button class="btn btn--primary btn--block" id="book-submit" type="submit" disabled>Request a call</button>
         </div>
       </form>
+
+      <p class="field__error form-card__error" id="book-error" role="alert" hidden></p>
 
       <div class="form-card__body form-success" id="book-success" hidden tabindex="-1" aria-live="polite">
         <div class="form-success__mark" aria-hidden="true"></div>
