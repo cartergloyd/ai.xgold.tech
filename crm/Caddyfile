@@ -1,0 +1,5 @@
+# TLS is automatic (Let's Encrypt). Point crm.xgold.tech's A/AAAA record at this host first.
+crm.xgold.tech {
+    encode zstd gzip
+    reverse_proxy server:3000
+}

@@ -7,6 +7,10 @@ Static site for xGold Tech. Plain HTML and CSS, no build step for the pages them
 - `CLAUDE.md` is the design system; `DESIGN-NOTES.md` records the decisions behind the current layout
 - `book.html` writes submissions to the Supabase table `assessment_requests` using the publishable key (insert-only; schema in `supabase/schema.sql`). Read them in the Supabase Table Editor. Never put the secret key in this repo.
 
+## Internal CRM
+
+`crm/` holds the self-hosting kit for [Twenty](https://github.com/twentyhq/twenty) at `crm.xgold.tech`, behind its own login. Public pages only link to it from the footer. `supabase/functions/sync-to-twenty/` pushes each assessment request into Twenty as a lead. See `crm/README.md`.
+
 ## Publishing work
 
 Add a JSON file to `content/work/` and push to `main`. A GitHub Action generates `work/<slug>.html` and updates the "Our work" block on `solutions.html`. Field reference: `content/work/README.md`. Local preview:
