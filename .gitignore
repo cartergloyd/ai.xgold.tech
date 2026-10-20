@@ -2,3 +2,4 @@
 .claire/
 .env
 .env.*
+!.env.example
