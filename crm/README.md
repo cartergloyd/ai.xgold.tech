@@ -1,5 +1,10 @@
 # Internal CRM (Twenty)
 
+**Home-server installation:** use [HOMELAB.md](HOMELAB.md). That installation
+uses the existing PostgreSQL and Cloudflare Tunnel, the home assessment API,
+and a private local lead-sync service. The generic VPS/Supabase kit below is
+retained for reference and is not the live deployment.
+
 [Twenty](https://github.com/twentyhq/twenty) is the open-source CRM behind `crm.xgold.tech`.
 It is a separate application with its own login; nothing on the public site can reach it
 without signing in. The public site only links to it from the footer ("Team sign in").
