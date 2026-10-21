@@ -1,0 +1,19 @@
+[Unit]
+Description=Private assessment-to-Twenty CRM synchronization
+After=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/home/gold/server-platform/crm/bridge.env
+ExecStart=/home/gold/.local/node/bin/node --max-old-space-size=96 /home/gold/server-platform/ai-site-src/crm/lead-sync.mjs
+WorkingDirectory=/home/gold/server-platform/ai-site-src
+Restart=on-failure
+RestartSec=30
+MemoryMax=192M
+MemorySwapMax=0
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+
+[Install]
+WantedBy=default.target
