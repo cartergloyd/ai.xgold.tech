@@ -66,7 +66,7 @@ services:
   umami:
     # Built with BASE_PATH=/stats by .github/workflows/build-umami.yml in the site repo;
     # pulled, not built, so the RAM-limited host never runs a Next.js build.
-    image: ghcr.io/cartergloyd/umami-stats:${UMAMI_VERSION:-v2.19.0}
+    image: ghcr.io/cartergloyd/umami-stats:v2.19.0@sha256:58f95929a565ef2380962502680f1bf4239690567b233ee1dbba68512385a6ea
     container_name: homelab-umami
     restart: unless-stopped
     mem_limit: 384m

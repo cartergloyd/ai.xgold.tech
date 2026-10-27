@@ -93,7 +93,7 @@ function head(base, title, desc) {
 <link rel="stylesheet" href="${base}styles/shelf.css">
 <link rel="stylesheet" href="${base}styles/footer.css">
 <link rel="stylesheet" href="${base}styles/work.css">
-<script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="__UMAMI_WEBSITE_ID__" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
+<script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
 </head>
 <body id="top">
 ${GENERATED}

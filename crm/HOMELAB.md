@@ -115,3 +115,19 @@ Before rolling the site back, reconcile any submissions already stored at home.
 
 Avoid using a production contact as a test: use a clearly marked synthetic
 request, verify its CRM records, then remove those records and the local request.
+
+## Umami installation status (2026-10-27)
+
+The GitHub-hosted build succeeded and the pinned image is installed. Local heartbeat
+passes on 127.0.0.1:3021; database migrations completed. The default admin password
+has been replaced with a generated password stored as UMAMI_ADMIN_PASSWORD in the
+private CRM .env (0600). The www.xgold.tech Website ID is
+`5d539dd6-0f8a-4aba-bcf9-4c824209c159`, configured in the public pages and work-page generator.
+
+The database is named umami, with a separate non-superuser owner and an explicit
+pg_hba rule for that database/user on the platform Docker subnet. Encrypted OneDrive
+backup discovery automatically includes it and the CRM .env.
+
+Public tracking is pending the Cloudflare stats* tunnel route and exact-path Access
+bypass applications described above. The public tracker still redirects to Access
+until those changes are applied; the dashboard must remain protected.
