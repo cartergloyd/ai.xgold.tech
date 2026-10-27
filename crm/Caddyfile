@@ -1,5 +1,15 @@
 # TLS is automatic (Let's Encrypt). Point crm.xgold.tech's A/AAAA record at this host first.
+# On the homelab the Cloudflare Tunnel does this job instead; see README.
 crm.xgold.tech {
     encode zstd gzip
-    reverse_proxy server:3000
+
+    # Umami: analytics for the public site, same hostname, /stats path
+    handle_path /stats* {
+        rewrite * /stats{uri}
+        reverse_proxy umami:3000
+    }
+
+    handle {
+        reverse_proxy server:3000
+    }
 }

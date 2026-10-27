@@ -121,6 +121,13 @@ the form is a Supabase Edge Function (`supabase/functions/sync-to-twenty`) fired
 Webhook (`supabase/twenty-sync.sql`); it creates Company → Person → Opportunity(NEW) → Note and
 marks the Supabase row synced. No Twenty credential ever reaches the browser.
 
+## Analytics (added 2026-10-27)
+Umami, cookieless, no consent banner. Runs inside the CRM stack and is read at
+`crm.xgold.tech/stats` (built with BASE_PATH=/stats). Tracker tag in every page head and in the
+generator, website id placeholder `__UMAMI_WEBSITE_ID__`. Events: `cta`(placement), `problem-tab`(area),
+`work-open`(slug), `source-click`, `assessment-started`, `assessment-submitted`(constraint, workflow).
+Never send field values. Footer carries a one-sentence disclosure.
+
 ## Booking page (`book.html`, `styles/form.css`, `book.js`)
 Modeled on Apple Business's "Add your organization details" screen. No nav, no scrolling
 destinations: gray page, centered wordmark, a "Cancel" link back to the site, one 516px

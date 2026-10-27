@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="styles/layout.css">
 <link rel="stylesheet" href="styles/button.css">
 <link rel="stylesheet" href="styles/form.css">
+<script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="__UMAMI_WEBSITE_ID__" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
 </head>
 <body class="page-form">
 
@@ -21,9 +22,13 @@
 <main class="form-main" id="main">
   <div>
     <div class="form-card" id="book-card">
-      <!-- Validated, write-only home API. CRM credentials remain on the server. -->
+      <!-- Submissions go to Supabase (insert-only for the public key; see supabase/schema.sql).
+           data-endpoint is a fallback for a generic JSON POST handler if Supabase is ever removed. -->
       <form id="book-form"
-            data-endpoint="https://ai-api.xgold.tech/assessment/requests"
+            data-supabase-url="https://ekmukamjcmlizopalhmq.supabase.co"
+            data-supabase-key="sb_publishable_7TItdEriesKLAqAiAOVYHQ_Tlo_FxCJ"
+            data-supabase-table="assessment_requests"
+            data-endpoint=""
             method="post" action="#" novalidate>
         <div class="form-card__body">
           <h1 class="form-card__title">Start an assessment</h1>

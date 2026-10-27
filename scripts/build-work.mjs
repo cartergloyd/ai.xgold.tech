@@ -93,6 +93,7 @@ function head(base, title, desc) {
 <link rel="stylesheet" href="${base}styles/shelf.css">
 <link rel="stylesheet" href="${base}styles/footer.css">
 <link rel="stylesheet" href="${base}styles/work.css">
+<script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="__UMAMI_WEBSITE_ID__" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
 </head>
 <body id="top">
 ${GENERATED}
@@ -107,7 +108,7 @@ ${GENERATED}
       <li><a href="${base}about.html">About</a></li>
       <li><a href="${base}research.html">Research</a></li>
     </ul>
-    <a class="btn btn--primary btn--sm" href="${base}book.html">Start an assessment</a>
+    <a class="btn btn--primary btn--sm" href="${base}book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
       <span class="nav__toggle-icon" aria-hidden="true"></span>
     </button>
@@ -139,7 +140,7 @@ function foot(base) {
       </div>
       <div>
         <h3>Evidence</h3>
-        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="${base}research.html#sources">Research page</a>. Our own work is reported in the same five fields, including the measures that did not move.</p>
+        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="${base}research.html#sources">Research page</a>. Our own work is reported in the same five fields, including the measures that did not move. Visits are counted with Umami, an open-source tool that sets no cookies and stores no personal data.</p>
       </div>
     </div>
     <div class="footer__legal">
@@ -160,7 +161,7 @@ const CTA = (base) => `  <section class="section section--dark" aria-labelledby=
         <h2 id="cta-title" class="title-section">Start with one workflow.</h2>
         <p class="statement__body">A 30-minute call. You leave with a one-page map of the workflow you picked, what it costs you today and whether it is worth a fixed-fee assessment.</p>
         <div class="actions" style="margin-top: var(--space-7);">
-          <a class="btn btn--on-dark" href="${base}book.html">Start an assessment</a>
+          <a class="btn btn--on-dark" href="${base}book.html" data-umami-event="cta" data-umami-event-placement="closing">Start an assessment</a>
           <a class="link" href="${base}how-we-work.html" style="color: var(--accent-on-dark)">How we work</a>
         </div>
       </div>
@@ -239,7 +240,7 @@ ${renderBlocks(e.body, base)}
     <div class="container-wide">
       <div class="prose reveal">
         <h2 id="src-title" class="title-card">Sources and evidence.</h2>
-        ${e.sources?.length ? `<ol class="work-sources">${e.sources.map((s) => `<li><a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer">${inline(s.label)}</a>${s.note ? ` <span class="muted">· ${inline(s.note)}</span>` : ''}</li>`).join('')}</ol>` : ''}
+        ${e.sources?.length ? `<ol class="work-sources">${e.sources.map((s) => `<li><a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener noreferrer" data-umami-event="source-click">${inline(s.label)}</a>${s.note ? ` <span class="muted">· ${inline(s.note)}</span>` : ''}</li>`).join('')}</ol>` : ''}
         ${e.evidence ? `<p class="small muted" style="margin-top: var(--space-5)">${inline(e.evidence)}</p>` : ''}
       </div>
     </div>
@@ -272,7 +273,7 @@ function renderCard(e, i) {
   const eyebrow = [e.type, AREAS[e.area], e.status].filter(Boolean).join(' · ');
   return `        <article class="card card--link${i === 0 ? ' card--dark' : ' card--alt'}">
           <p class="card__eyebrow">${esc(eyebrow)}</p>
-          <h3 class="title-card card__title"><a class="card__cover" href="${href}">${inline(e.title)}</a></h3>
+          <h3 class="title-card card__title"><a class="card__cover" href="${href}" data-umami-event="work-open" data-umami-event-slug="${esc(e.slug)}">${inline(e.title)}</a></h3>
           <p class="card__body">${inline(e.summary)}</p>
           ${e.hero_stat ? `<p class="card__stat"><strong>${esc(e.hero_stat.figure)}</strong> ${inline(e.hero_stat.label)}</p>` : ''}
           <div class="card__foot"><span class="fine">${esc(fmtDate(e.date))}</span><span class="link small">Read</span></div>
