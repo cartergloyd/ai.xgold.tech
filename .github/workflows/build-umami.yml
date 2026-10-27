@@ -1,6 +1,9 @@
 name: Build Umami image (BASE_PATH=/stats)
 
 on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/build-umami.yml]
   workflow_dispatch:
     inputs:
       version:
@@ -24,8 +27,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v6
         with:
-          context: https://github.com/umami-software/umami.git#${{ inputs.version }}
+          context: https://github.com/umami-software/umami.git#${{ inputs.version || 'v2.19.0' }}
           build-args: |
             BASE_PATH=/stats
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/umami-stats:${{ inputs.version }}
+          tags: ghcr.io/${{ github.repository_owner }}/umami-stats:${{ inputs.version || 'v2.19.0' }}
