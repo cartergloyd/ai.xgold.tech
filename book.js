@@ -1,4 +1,4 @@
-/* book.js — intake form behaviour. Works without JS as a plain form post. */
+/* book.js — validated home-API intake with a stable request identifier for retries. */
 (function () {
   var form = document.getElementById('book-form');
   if (!form) return;
@@ -7,11 +7,7 @@
   var success = document.getElementById('book-success');
   var errorBox = document.getElementById('book-error');
   var endpoint = form.dataset.endpoint || '';
-  var sb = {
-    url: (form.dataset.supabaseUrl || '').replace(/\/$/, ''),
-    key: form.dataset.supabaseKey || '',
-    table: form.dataset.supabaseTable || ''
-  };
+  var requestId = crypto.randomUUID();
 
   function refresh() {
     submit.disabled = !form.checkValidity();
@@ -20,7 +16,7 @@
   form.addEventListener('change', refresh);
   refresh();
 
-  /* Analytics: one "started" event per page view, no field values sent */
+  /* Analytics: one "started" event per page view; no field values are sent */
   var started = false;
   form.addEventListener('input', function () {
     if (started || !window.umami) return;
@@ -60,35 +56,12 @@
     /* Honeypot filled: a bot. Show success, send nothing. */
     if (data.website) { done(); return; }
 
-    if (sb.url && sb.key && sb.table) {
-      var row = {
-        name: data.name,
-        email: data.email,
-        company: data.company,
-        role: data.role || null,
-        constraint_area: data.constraint,
-        workflow: data.workflow,
-        cost_today: data.cost || null,
-        has_owner: data.owner === 'yes',
-        send_questions: data.send_questions === 'yes',
-        source: location.pathname + (document.referrer ? ' ← ' + document.referrer : '')
-      };
-      fetch(sb.url + '/rest/v1/' + sb.table, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': sb.key,
-          'Authorization': 'Bearer ' + sb.key,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify(row)
-      }).then(function (r) { r.ok ? done() : fail(); }).catch(fail);
-      return;
-    }
-
-    if (!endpoint) { done(); return; }
+    if (!endpoint) { fail(); return; }
+    data.request_id = requestId;
+    data.source = (location.pathname + (document.referrer ? ' ← ' + document.referrer : '')).slice(0, 500);
     fetch(endpoint, {
       method: 'POST',
+      credentials: 'omit',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
     }).then(function (r) { r.ok ? done() : fail(); }).catch(fail);

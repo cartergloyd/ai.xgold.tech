@@ -22,13 +22,9 @@
 <main class="form-main" id="main">
   <div>
     <div class="form-card" id="book-card">
-      <!-- Submissions go to Supabase (insert-only for the public key; see supabase/schema.sql).
-           data-endpoint is a fallback for a generic JSON POST handler if Supabase is ever removed. -->
+      <!-- Validated, write-only home API. CRM credentials remain on the server. -->
       <form id="book-form"
-            data-supabase-url="https://ekmukamjcmlizopalhmq.supabase.co"
-            data-supabase-key="sb_publishable_7TItdEriesKLAqAiAOVYHQ_Tlo_FxCJ"
-            data-supabase-table="assessment_requests"
-            data-endpoint=""
+            data-endpoint="https://ai-api.xgold.tech/assessment/requests"
             method="post" action="#" novalidate>
         <div class="form-card__body">
           <h1 class="form-card__title">Start an assessment</h1>

@@ -58,6 +58,38 @@ on subsequent polls. Use normal Twenty invitations for additional people, and
 add their addresses to the Cloudflare Access policy separately. Review owner
 MFA and invite-only/single-workspace settings in Twenty.
 
+## Analytics (Umami at crm.xgold.tech/stats)
+
+The public site counts visits with Umami: open source, cookieless, no personal data, no
+consent banner. It is read at `https://crm.xgold.tech/stats`, behind the same Cloudflare
+Access wall as Twenty, so the team has one hostname and one sign-in for the CRM and the
+numbers. Umami's sub-path is a build-time option, so the image is prebuilt by the site
+repo's `build-umami` workflow and published to `ghcr.io/cartergloyd/umami-stats` (make the
+package public once under GitHub → Packages, or add a pull secret). The host never builds it.
+
+Install: create a separate non-superuser role and database on the platform Postgres, in the
+same pattern as the other apps:
+
+```sql
+create role umami login password '<UMAMI_DB_PASSWORD>';
+create database umami owner umami;
+```
+
+Add `UMAMI_DB_PASSWORD` and `UMAMI_APP_SECRET` (`openssl rand -hex 32`) to the 0600 `.env`,
+add the `umami` service from `homelab-compose.yml` to the live compose, `docker compose up -d
+umami`, and check `curl --fail http://127.0.0.1:3021/stats/api/heartbeat`.
+
+Tunnel and Access: add a Public Hostname rule `crm.xgold.tech` with **path `stats*`** →
+`http://127.0.0.1:3021`, ordered above the catch-all rule for Twenty. Then add an Access
+**bypass** policy for the two paths the browser tracker needs, `/stats/script.js` and
+`/stats/api/send`, and nothing else under `/stats`.
+
+First login `admin` / `umami`; change the password; Settings → Websites → Add
+`www.xgold.tech`; copy the Website ID and replace `__UMAMI_WEBSITE_ID__` across the site
+(command in README.md). Events the site sends: `cta`, `problem-tab`, `work-open`,
+`source-click`, `assessment-started`, `assessment-submitted`. None carry contact details.
+Add the `umami` database to the OneDrive backup discovery.
+
 ## Backups and operations
 
 The existing encrypted OneDrive pipeline discovers the crm database alongside

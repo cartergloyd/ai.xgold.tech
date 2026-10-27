@@ -1,0 +1,31 @@
+name: Build Umami image (BASE_PATH=/stats)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Umami git tag to build
+        default: v2.19.0
+        required: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: https://github.com/umami-software/umami.git#${{ inputs.version }}
+          build-args: |
+            BASE_PATH=/stats
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/umami-stats:${{ inputs.version }}
