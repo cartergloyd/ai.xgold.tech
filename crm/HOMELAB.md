@@ -140,3 +140,28 @@ PostgreSQL. The temporary test website and events were removed afterward.
 Twenty and Umami health checks pass. The encrypted OneDrive snapshot
 `2026-10-27T222137Z` includes Umami and the CRM secrets/configuration; downloaded
 ciphertext integrity and isolated restores passed for all five databases.
+
+## Completion follow-up (2026-10-27)
+
+Public workspace invitation links are disabled, workspace discovery is limited to
+members and invitees, multi-workspace mode is disabled, and no approved email
+domains grant automatic entry. Owner authenticator enrollment remains an owner
+step in Twenty's profile settings. Workspace MFA enforcement has not been enabled
+before the owner enrolls. There are no additional team members to invite yet.
+
+The dashboard now includes a healthy Umami analytics card with its database,
+website/user counts and encrypted backup status. A seven-day observation timer
+samples the four CRM containers every fifteen minutes and reports problems and
+a final summary; a monthly reminder runs on the first at 09:00 America/Chicago.
+These jobs do not upgrade or restart production services.
+
+Browser acceptance passed at 375, 768 and 1440 pixels. A real CTA click, page
+views and assessment start/submission events persisted through the public
+analytics endpoint in an isolated test website. A synthetic browser assessment
+synchronized Company, Person, Opportunity and Note records into Twenty with no
+retries; the temporary analytics and lead records were removed afterward.
+
+Unpublished people/qualification placeholders were removed. Contact links now
+use the working assessment form until a public contact email is supplied.
+For LinkedIn fields, import templates and future Sales Navigator scope, see
+[PROSPECT-IMPORT.md](PROSPECT-IMPORT.md).

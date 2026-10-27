@@ -48,7 +48,7 @@
       submit.disabled = false;
       submit.textContent = 'Request a call';
       if (errorBox) {
-        errorBox.textContent = 'Something went wrong sending your request. Please try again in a moment, or email us directly.';
+        errorBox.textContent = 'Something went wrong sending your request. Please try again in a moment, or return to this form later.';
         errorBox.hidden = false;
       }
     };

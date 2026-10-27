@@ -134,7 +134,7 @@ function foot(base) {
         <h3>Start</h3>
         <ul>
           <li><a href="${base}book.html">Start an assessment</a></li>
-          <li><a href="#contact">Email xGold Tech</a></li>
+          <li><a href="${base}book.html">Contact xGold Tech</a></li>
           <li><a href="https://crm.xgold.tech" rel="nofollow">Team sign in</a></li>
         </ul>
       </div>
