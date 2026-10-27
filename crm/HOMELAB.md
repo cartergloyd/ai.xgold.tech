@@ -128,6 +128,15 @@ The database is named umami, with a separate non-superuser owner and an explicit
 pg_hba rule for that database/user on the platform Docker subnet. Encrypted OneDrive
 backup discovery automatically includes it and the CRM .env.
 
-Public tracking is pending the Cloudflare stats* tunnel route and exact-path Access
-bypass applications described above. The public tracker still redirects to Access
-until those changes are applied; the dashboard must remain protected.
+Cloudflare setup is complete. The existing tunnel routes `^/stats(/.*)?$` on
+`crm.xgold.tech` to `http://127.0.0.1:3021` before the Twenty catch-all. Separate
+Access applications bypass login for `/stats/script.js` and `/stats/api/send`.
+The existing CRM Access policy continues to protect the dashboard and other APIs.
+
+Public verification passed: script GET 200, collection preflight 204 with CORS,
+and anonymous page-view/custom-event POSTs 200 with both events persisted in
+PostgreSQL. The temporary test website and events were removed afterward.
+`/stats`, `/stats/api/websites`, and the CRM root still redirect to Access (302).
+Twenty and Umami health checks pass. The encrypted OneDrive snapshot
+`2026-10-27T222137Z` includes Umami and the CRM secrets/configuration; downloaded
+ciphertext integrity and isolated restores passed for all five databases.
