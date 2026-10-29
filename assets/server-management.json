@@ -1,0 +1,12 @@
+{
+  "title": "One Dashboard. Faster Response.",
+  "description": "Bring server operations into one dashboard, with visibility into services, storage, network health, and scheduled tasks. ChatGPT MCP connectors enable remote agentic management through conversation, while an integrated agent responds to new alerts by investigating logs and service health. Sensitive actions require approval, and activity and findings remain available for review.",
+  "features": [
+    "Unified server monitoring and management",
+    "Remote management through ChatGPT MCP connectors",
+    "Automatic investigation of new alerts",
+    "Approval controls for sensitive actions",
+    "Recorded activity and maintenance reports"
+  ],
+  "audience": "Home server administrators and professional server operators"
+}
