@@ -369,3 +369,24 @@ a.latest-card:hover {
     font-size: clamp(1.25rem, 7vw, 1.8rem);
   }
 }
+
+/* Featured implementation showcase */
+#featured-work { scroll-margin-top: 110px; }
+.featured-work { position: relative; z-index: 1; padding: 80px clamp(24px, 6vw, 110px); background: #11120f; border-block: 1px solid var(--line); }
+.featured-heading { max-width: 950px; margin-bottom: 38px; }
+.featured-heading > span { color: var(--champagne); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; }
+.featured-heading h2 { font-family: Fraunces, Georgia, serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.1; margin: 20px 0; }
+.featured-heading p, .featured-detail p, .featured-detail li { color: #d6d6ce; line-height: 1.8; font-size: 14px; }
+.featured-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.featured-media video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--line); border-radius: 12px; }
+.featured-caption, .featured-credit { color: #bbbcb3; font-size: 11px; line-height: 1.7; }
+.featured-detail h3 { font-size: 21px; margin: 0 0 18px; color: var(--champagne); }
+.featured-detail ul { padding-left: 22px; }
+.featured-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 25px; }
+.featured-links a { color: var(--champagne); border-bottom: 1px solid var(--gold); padding-bottom: 6px; font-size: 13px; }
+.featured-json { margin-top: 32px; padding: 20px; border: 1px solid var(--line); border-radius: 8px; }
+.featured-json summary { cursor: pointer; color: var(--champagne); }
+.featured-json pre { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; color: #d6d6ce; font-size: 13px; }
+.featured-credit a { text-decoration: underline; }
+.featured-work a:focus-visible, .featured-json summary:focus-visible { outline: 2px solid var(--champagne); outline-offset: 5px; }
+@media (max-width: 850px) { .featured-grid { grid-template-columns: 1fr; gap: 24px; } .featured-work { padding-block: 50px; } }
