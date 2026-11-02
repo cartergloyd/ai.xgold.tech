@@ -30,73 +30,86 @@ Privacy behavior:
 
 Counting change: since this deploy, Umami's "Visitors" counts browsers. Before, it counted monthly anonymous IP and browser hashes, so numbers from before and after the deploy can't be compared directly.
 
-## Hooking it up to Twenty
+## In Twenty: website activity on each Person
 
-Goal: when you open a Person in Twenty, you see when they first found the site, how often they've come back, and which pages they read.
+`crm/lead-sync.mjs` copies each lead's website activity onto their Person record and adds a
+one-time note listing the pages they read before reaching out. It is off until the steps
+below are done; without them the service syncs leads exactly as before.
 
-### 1. Read-only access to Umami's database
+What it writes:
 
-The bridge already runs next to the platform Postgres. Give it a read-only role:
-
-```sql
--- as the umami database owner, connected to the umami database
-create role crm_umami_reader login password '<generated>';
-grant connect on database umami to crm_umami_reader;
-grant usage on schema public to crm_umami_reader;
-grant select on session, session_data, website_event to crm_umami_reader;
-```
-
-Add a pg_hba rule for that role on the umami database, following the pattern of the other apps.
-Then put `UMAMI_DATABASE_URL` and `UMAMI_WEBSITE_ID=5d539dd6-0f8a-4aba-bcf9-4c824209c159` in the
-0600 `bridge.env`.
-
-### 2. Fields in Twenty
-
-In Settings → Data model → People, add these fields and allow the `home-assessment-sync`
-key's role to update them:
-
-| Field | Type | Value |
+| Field (People) | Type | Value |
 |---|---|---|
 | Website first seen | Date and time | earliest event across the person's sessions |
 | Website last seen | Date and time | latest event |
-| Website visits | Number | distinct `visit_id` count |
-| Website pageviews | Number | `event_type = 1` count |
-| Website entry source | Text | first pageview's referrer domain or `utm_source`/`utm_campaign` |
-| Website activity | Links | `https://crm.xgold.tech/stats/websites/<website>/sessions/<session_id>` |
+| Website visits | Number | distinct Umami visits (a visit ends after 30 idle minutes) |
+| Website pageviews | Number | pageviews only; CTA clicks and other events are not counted |
+| Website entry source | Text | first pageview's UTM source/medium/campaign, else referrer, else "Direct", then the landing path |
+| Website activity | Links | the person's most recent Umami session |
 
-### 3. Bridge change (`crm/lead-sync.mjs`)
+Plus a note **Website activity before request**, linked to the Person and the Opportunity:
+first seen, visit and pageview counts, entry source, and up to 50 pageviews before the request
+(UTC). It is written once per request. The fields keep updating.
 
-Add this to the bridge (it is not implemented yet):
+How it decides:
 
-1. **Find the sessions.** Match on email so that every browser the person used is included:
+- **Matching.** Sessions are matched by the `request_id` that `book.js` sends with
+  `umami.identify`, across every request with that email, so a person who used two browsers
+  gets both. It never matches on email alone: only the submitting browser knew its
+  `request_id`, so a forged identify call with someone's email can't attach a stranger's
+  visits to their record.
+- **One person, newest request.** When the same email has several requests, only the newest
+  one drives the fields.
+- **Schedule.** The service looks up a lead right after it reaches Twenty. If no session has
+  appeared yet, it retries every 2 minutes for the first hour, then stops. GPC browsers,
+  opted-out browsers and blocked trackers never send identify. While a person is active, it
+  refreshes every 30 minutes; after 7 quiet days, once a day. It only sends a PATCH when a
+  value changed.
+- **Priority and failures.** Website activity runs only when no lead is waiting. A failure
+  (for example, a missing People field, or Umami down) sets `web_last_error`, retries that
+  request after an hour and pauses the step for 5 minutes. Lead sync is unaffected. Logs carry
+  status lines only, never emails, URLs or upstream text.
+
+### Turn it on (one time, on the homelab)
+
+1. **Schema.** Re-apply `directus/assessment-schema.sql` to the ai database as its owner. It
+   is idempotent and adds four `web_*` columns to `assessment_crm_sync`. Existing leads become
+   due once, so they get backfilled.
+2. **Read-only Umami role.** As the umami database owner, connected to the umami database:
    ```sql
-   select distinct session_id from session_data
-   where website_id = $1 and data_key = 'email' and string_value = $2;
+   create role crm_umami_reader login password '<generated>';
+   grant connect on database umami to crm_umami_reader;
+   grant usage on schema public to crm_umami_reader;
+   grant select on session, session_data, website_event to crm_umami_reader;
    ```
-2. **Aggregate the sessions:**
-   ```sql
-   select min(created_at) first_seen, max(created_at) last_seen,
-          count(distinct visit_id) visits,
-          count(*) filter (where event_type = 1) pageviews
-   from website_event where website_id = $1 and session_id = any($2);
-   ```
-   Get the entry source from the earliest `event_type = 1` row (`referrer_domain`, `utm_*`, `url_path`).
-3. **Write to Twenty:** `PATCH /rest/people/<person_id>` with the fields above. The `Twenty`
-   class only has `ensure()` today, so add an `update()` method beside it. Optionally add a
-   one-time Note, "Website activity before request", listing up to 50 pageviews (time, path,
-   title). Give it a deterministic ID such as `recordId('web-note', row.id)` and a noteTarget to
-   the person.
-4. **Timing.** The identify call reaches Umami a moment after the request is stored, so the
-   first lookup can come back empty. Store `umami_synced_at` in `assessment_crm_sync` (new
-   column in `directus/assessment-schema.sql`). Retry within the first hour, then refresh
-   every person with sessions every 15–60 minutes so "last seen" and "visits" stay current
-   when they come back.
-5. Keep the bridge's logging rules: counts only, no emails or URLs in logs.
+   Add a pg_hba rule so that role can reach the umami database from wherever the bridge
+   connects for `AI_DATABASE_URL`.
+3. **Twenty fields.** In Settings → Data model → People, add the six fields above with exactly
+   those labels. Twenty derives the API names `websiteFirstSeen`, `websiteLastSeen`,
+   `websiteVisits`, `websitePageviews`, `websiteEntrySource` and `websiteActivity`; the bridge
+   writes those names. If the `home-assessment-sync` key's role limits fields, allow these, plus
+   creating notes and note targets (it already does both for leads).
+4. **bridge.env (0600).** Add `UMAMI_DATABASE_URL=postgresql://crm_umami_reader:<password>@<host>:5432/umami`.
+   Optional: `UMAMI_WEBSITE_ID` (defaults to `5d539dd6-0f8a-4aba-bcf9-4c824209c159`) and
+   `UMAMI_PUBLIC_URL` (defaults to `https://crm.xgold.tech/stats`, used for the links).
+5. **Deploy.** Pull `main` in `/home/gold/server-platform/ai-site-src`, run
+   `node crm/test-lead-sync.mjs`, then `systemctl --user restart gold-assessment-crm-sync.service`.
+   `journalctl --user -u gold-assessment-crm-sync.service` should show `Website activity sync on`.
+   If it shows `off`, the line says which step is missing.
 
-### 4. Verify
+### Check it
 
-Follow the existing practice: send a clearly synthetic request from a fresh browser, browse a
-few pages first, and confirm the Umami session shows the properties and the Twenty person shows the fields.
+Follow the existing practice: from a fresh browser, open a few pages, then submit a clearly
+synthetic request. Within a few minutes, the Twenty Person should show the six fields and the
+note, and the log should show `Website activity synchronized to CRM`. To look at state:
+
+```sql
+select r.created_at, s.web_next_check_at, s.web_fingerprint is not null as patched,
+       s.web_note_id is not null as noted, s.web_last_error
+from assessment_crm_sync s join assessment_requests r on r.id = s.request_id
+order by r.created_at desc limit 10;
+```
+
 Then remove the synthetic Umami session, Twenty records and local request.
 
 ## Known limits and follow-ups
