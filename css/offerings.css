@@ -1,0 +1,94 @@
+/* Offering buttons under the hero title. Light, dark, and gold tiles alternate. */
+
+.offerings {
+  --tile: clamp(var(--space-8), 2rem + 6vw, var(--space-9));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5) clamp(var(--space-4), 2.5vw, var(--space-6));
+  margin: var(--hero-gap-media) auto;
+  padding: 0;
+  list-style: none;
+}
+
+.offering {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: max(var(--tile), 4.75rem);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.offering:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.offering:focus-visible {
+  outline: none;
+}
+
+.offering-tile {
+  display: grid;
+  place-items: center;
+  width: var(--tile);
+  aspect-ratio: 1;
+  border-radius: var(--radius-card);
+  background: var(--bg-alt);
+  color: var(--text);
+  transition: transform var(--duration) var(--ease);
+}
+
+/* .surface-dark re-scopes tokens: --bg-alt is charcoal and --accent-text is gold. */
+.offering-tile.surface-dark {
+  background: var(--bg-alt);
+  color: var(--accent-text);
+}
+
+.offering-tile--gold {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.offering-tile svg {
+  width: 44%;
+  height: 44%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.offering:hover .offering-tile {
+  transform: scale(1.02);
+}
+
+.offering:focus-visible .offering-tile {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.offering-label {
+  font-size: var(--fs-fine);
+  line-height: var(--lh-snug);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+@media (max-width: 733px) {
+  /* Four per row: 4 × 72 px plus three 12 px gaps fits a 331 px column. */
+  .offerings {
+    max-width: 21rem;
+    gap: var(--space-5) var(--space-3);
+  }
+
+  .offering {
+    width: 4.5rem;
+  }
+
+  .offering-tile {
+    border-radius: var(--radius-card-sm);
+  }
+}

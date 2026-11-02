@@ -1,0 +1,45 @@
+/* Footer. BRAND.md §6: --bg-alt, 12 px, --text-secondary. Hairline dividers allowed here. */
+
+.footer {
+  padding-block: var(--space-6) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  background: var(--bg-alt);
+  color: var(--text-secondary);
+  font-size: var(--fs-fine);
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--hairline);
+}
+
+.footer-head {
+  margin: 0 0 var(--space-2);
+  color: var(--text);
+  font-size: var(--fs-fine);
+  font-weight: var(--weight-semibold);
+}
+
+.footer-col ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer a {
+  color: var(--text-secondary);
+}
+
+.footer a:hover {
+  color: var(--text);
+}
+
+.footer-legal {
+  margin: var(--space-6) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--hairline);
+}
