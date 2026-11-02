@@ -1,0 +1,5 @@
+.claude/
+.claire/
+.env
+.env.*
+!.env.example

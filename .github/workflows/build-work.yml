@@ -1,0 +1,35 @@
+name: Publish work pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/work/**"
+      - "scripts/build-work.mjs"
+      - "styles/work.css"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build work pages
+        run: node scripts/build-work.mjs
+      - name: Commit generated pages
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing to publish."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add work solutions.html
+          git commit -m "Publish work pages"
+          git push

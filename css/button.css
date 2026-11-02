@@ -1,0 +1,49 @@
+/* Buttons. BRAND.md §6. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border: var(--btn-border-width) solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--on-accent);
+  font: inherit;
+  font-size: var(--btn-font-size);
+  line-height: var(--lh-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease);
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+  color: var(--on-accent);
+  text-decoration: none;
+}
+
+.btn--secondary {
+  border-color: var(--accent-text);
+  background: transparent;
+  color: var(--accent-text);
+}
+
+.btn--secondary:hover {
+  border-color: var(--accent-text-hover);
+  background: transparent;
+  color: var(--accent-text-hover);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--btn-gap);
+}
+
+@media (pointer: coarse) {
+  .btn {
+    min-height: var(--tap-target);
+  }
+}

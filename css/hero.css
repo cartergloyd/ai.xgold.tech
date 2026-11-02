@@ -1,0 +1,47 @@
+/* Hero. Lockup, title, offerings, tagline, one action. BRAND.md §6. */
+
+.hero {
+  padding-top: calc(var(--hero-pad-top) + var(--space-7));
+}
+
+/* Lockup: monogram, then wordmark. Gap equals clear space (25% of monogram width).
+   Wordmark cap height matches the X (about 75% of monogram height). */
+.lockup {
+  --lockup-h: var(--space-7);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--lockup-h) * 777 / 548 * var(--logo-clearspace));
+  margin: 0;
+}
+
+.lockup .monogram {
+  height: var(--lockup-h);
+}
+
+.lockup-word {
+  font-size: calc(var(--lockup-h) * 0.75 / 0.72);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: var(--ls-display);
+  color: var(--text);
+}
+
+.hero-title {
+  margin: var(--space-5) 0 0;
+}
+
+.hero-lead {
+  max-width: 34em;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+.hero .actions {
+  margin-top: var(--hero-gap-actions);
+}
+
+@media (max-width: 733px) {
+  .lockup {
+    --lockup-h: var(--space-6);
+  }
+}
