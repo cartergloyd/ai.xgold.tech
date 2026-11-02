@@ -64,6 +64,16 @@
       credentials: 'omit',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(data)
-    }).then(function (r) { r.ok ? done() : fail(); }).catch(fail);
+    }).then(function (r) {
+      if (!r.ok) return fail();
+      /* Link this browser's visits to the stored request (no-op when tracking is off) */
+      if (window.xgVisitor) xgVisitor.identify({
+        request_id: requestId,
+        name: data.name.trim(),
+        email: data.email.trim().toLowerCase(),
+        company: data.company.trim()
+      });
+      done();
+    }).catch(fail);
   });
 })();
