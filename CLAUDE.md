@@ -88,7 +88,7 @@ The site is light only. There is no dark mode: pages stay white when the device 
 ## Global nav
 
 - Slim bar (~44–48px tall), centered, translucent background with blur.
-- xGold monogram at the left, then a flat list of short text items in small (12–14px) gray text that darkens on hover, then one gold pill ("Start an assessment"). One nav for every page: `css/nav.css` + `js/nav.js`.
+- Keep it sparse: xGold monogram at the left; on the right, two short text items (About, Research) in small (12–14px) gray text that darkens on hover, a small outline "Log in" pill (team sign-in at crm.xgold.tech) and one gold "Start an assessment" pill. Other pages are reached from the home page and the footer. One nav for every page: `css/nav.css` + `js/nav.js`.
 - Optional promo strip directly beneath: one sentence, small text, inline `--accent-text` link with a `›` chevron, light gray or white background.
 - On mobile, collapse to a menu icon with a full-screen menu.
 

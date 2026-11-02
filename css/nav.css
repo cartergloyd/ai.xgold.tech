@@ -66,19 +66,46 @@
   list-style: none;
 }
 
-.nav-links a:not(.nav-cta) {
+.nav-links a:not(.nav-cta):not(.nav-login) {
   color: var(--text-secondary);
   font-size: var(--fs-fine);
   transition: color var(--duration-fast) var(--ease);
 }
 
-.nav-links a:not(.nav-cta):hover,
+.nav-links a:not(.nav-cta):not(.nav-login):hover,
 .nav-links a[aria-current="page"] {
   color: var(--text);
   text-decoration: none;
 }
 
-/* The one filled pill in the bar. The hit area extends to the tap target. */
+/* Two small pills, 12 px apart: Log in (outline) and the one filled pill.
+   Both hit areas extend to the tap target. */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--btn-gap);
+}
+
+.nav-login {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: calc(var(--space-1) - 1px) calc(var(--space-3) - 1px);
+  border: 1px solid var(--accent-text);
+  border-radius: var(--radius-pill);
+  color: var(--accent-text);
+  font-size: var(--fs-fine);
+  line-height: var(--lh-body);
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+}
+
+.nav-login:hover {
+  border-color: var(--accent-text-hover);
+  color: var(--accent-text-hover);
+  text-decoration: none;
+}
+
 .nav-cta {
   position: relative;
   display: inline-flex;
@@ -99,6 +126,7 @@
   text-decoration: none;
 }
 
+.nav-login::before,
 .nav-cta::before {
   content: "";
   position: absolute;
@@ -165,15 +193,23 @@
     padding: var(--space-6) max(var(--gutter), env(safe-area-inset-left, 0px));
   }
 
-  .nav-links a:not(.nav-cta) {
+  .nav-links a:not(.nav-cta):not(.nav-login) {
     color: var(--text);
     font-size: var(--fs-lead);
     font-weight: var(--weight-semibold);
   }
 
-  .nav-links .nav-cta {
+  .nav-links .nav-buttons {
     margin-top: var(--space-4);
+  }
+
+  .nav-links .nav-cta {
     padding: var(--btn-pad-y) var(--btn-pad-x);
+    font-size: var(--btn-font-size);
+  }
+
+  .nav-links .nav-login {
+    padding: calc(var(--btn-pad-y) - 1px) calc(var(--btn-pad-x) - 1px);
     font-size: var(--btn-font-size);
   }
 

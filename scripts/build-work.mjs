@@ -111,12 +111,12 @@ ${GENERATED}
     </button>
     <nav class="nav-menu" id="nav-menu" aria-label="Main">
       <ul class="nav-links">
-        <li><a href="${base}problems.html">Problems</a></li>
-        <li><a href="${base}solutions.html" aria-current="page">Solutions</a></li>
-        <li><a href="${base}how-we-work.html">How we work</a></li>
         <li><a href="${base}about.html">About</a></li>
         <li><a href="${base}research.html">Research</a></li>
-        <li><a class="nav-cta" href="${base}book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
+        <li class="nav-buttons">
+          <a class="nav-login" href="https://crm.xgold.tech" rel="nofollow">Log in</a>
+          <a class="nav-cta" href="${base}book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
+        </li>
       </ul>
     </nav>
   </div>

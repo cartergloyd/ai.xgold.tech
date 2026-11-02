@@ -80,8 +80,9 @@ brand values. New components use the brand names directly.
 
 ## Site map (progressive disclosure, 2026-10-13)
 Homepage states value, establishes relevance and offers one next step. Every section on it has a
-"learn more" action into the page that holds the detail. Shared nav on every page:
-Problems · Solutions · How we work · About · Research · [Start an assessment → book.html].
+"learn more" action into the page that holds the detail. Shared nav on every page (trimmed 2026-11-02):
+About · Research · [Log in → crm.xgold.tech] · [Start an assessment → book.html].
+Problems, Solutions and How we work are reached from the home page tiles and the footer.
 Shared footer: link directory + evidence note; the numbered source list lives only on research.html,
 and every footnote marker on other pages links to `research.html#src-NN`.
 
@@ -166,8 +167,8 @@ Form backend (2026-10-20): Supabase project ekmukamjcmlizopalhmq, table `assessm
 All pages follow `BRAND.md` through one `tokens.css` (brand tokens plus the "Site components"
 mapping). The home page's own components are in `css/` (button, hero, offerings, reel, footer)
 and `js/reel.js`; the other pages use `styles/`. Every page shares one nav: `css/nav.css` and
-`js/nav.js`, with the monogram (`assets/xgold-monogram.svg`), the five links, `aria-current` on the
-current page, and one gold "Start an assessment" pill. The nav is duplicated per page and in the
+`js/nav.js`, with the monogram (`assets/xgold-monogram.svg`), About and Research (`aria-current` on the
+current page), a small outline "Log in" pill and one gold "Start an assessment" pill. The nav is duplicated per page and in the
 work-page generator; edit them together. The favicon (`assets/favicon.svg`) switches the X to
 white in dark browser tabs; the pages themselves never switch.
 The monogram is traced from the logo PNG. On the home page it is an inline SVG symbol whose X
