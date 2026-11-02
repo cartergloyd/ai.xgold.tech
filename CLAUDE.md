@@ -2,6 +2,8 @@
 
 This project follows the visual language of apple.com: restrained, spacious, product-first. When building or editing any UI here, follow these rules. If a request conflicts with them, ask before deviating.
 
+`BRAND.md` is the xGold brand standard (color, logo, type, voice) and applies to every page. Where this file and `BRAND.md` differ, `BRAND.md` wins.
+
 > Values below are close approximations of Apple's published CSS, not an official spec. Treat them as design tokens we own, and keep them in one place (`tokens.css`).
 
 ## Core principles
@@ -18,15 +20,16 @@ This project follows the visual language of apple.com: restrained, spacious, pro
 :root {
   /* Color */
   --bg: #ffffff;
-  --bg-alt: #f5f5f7;          /* alternating section background */
+  --bg-alt: #f5f4f1;          /* alternating section background */
   --bg-dark: #000000;
-  --text: #1d1d1f;            /* near-black, never pure #000 for body text */
-  --text-secondary: #6e6e73;
-  --text-on-dark: #f5f5f7;
-  --accent: #0066cc;          /* links, primary buttons (light backgrounds) */
-  --accent-on-dark: #2997ff;
-  --label-accent: #bf4800;    /* tiny "New" / "Pre-order" eyebrow labels only */
-  --hairline: rgba(0, 0, 0, 0.12);
+  --text: #1d1d1b;            /* near-black, never pure #000 for body text */
+  --text-secondary: #6b6862;
+  --text-on-dark: #f5f4f1;
+  --accent: #d0a048;          /* gold fills: primary buttons, marks, logo */
+  --on-accent: #1d1d1b;       /* text on gold fills, never white */
+  --accent-text: #8a6414;     /* gold text: links, outline buttons, status labels, headline keyword */
+  --accent-on-dark: #d0a048;  /* gold text on dark surfaces */
+  --hairline: rgba(29, 29, 27, 0.12);
 
   /* Typography */
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
@@ -37,7 +40,8 @@ This project follows the visual language of apple.com: restrained, spacious, pro
   --radius-pill: 980px;
 
   /* Layout */
-  --container-max: 1024px;    /* content column; wide layouts up to ~1440px */
+  --content-max: 980px;       /* standard column (--container-max) */
+  --content-wide: 1260px;     /* wide rows, nav and footer (--container-wide) */
   --gutter: 22px;             /* mobile; scale to ~40px+ on desktop */
   --section-pad-y: clamp(64px, 10vw, 120px);
 
@@ -52,14 +56,14 @@ The site is light only. There is no dark mode: pages stay white when the device 
 ## Color rules
 
 - Page backgrounds alternate between `--bg` and `--bg-alt`, or use `--bg-dark` for product-on-black moments.
-- Exactly one interactive color: `--accent`. Do not add secondary brand colors.
-- `--label-accent` is for small eyebrow labels (NEW, PRE-ORDER, New Colors) only. Never use it for buttons, links, or large text.
+- Exactly one accent: gold. Do not add secondary brand colors. Gold has three jobs: fill (`--accent` with `--on-accent` text), text (`--accent-text`; gold `--accent` on white fails as text), and wash (`--accent-wash`, selection only).
+- Status labels ("New", "Beta") are sentence case, small, in `--accent-text`. Never all caps.
 - Muted gray is used for the second half of a headline ("The latest. <span class="muted">Take a look at what's new.</span>") and for captions and metadata.
 
 ## Typography
 
 - Font: system San Francisco stack (see `--font`). No decorative or secondary typefaces.
-- Page title: very large (clamp ~48–96px), bold (600–700), tight line-height (~1.05), slightly negative letter-spacing (about -0.02em).
+- Page title: very large (clamp ~48–96px), semibold (600), tight line-height (~1.05), slightly negative letter-spacing (about -0.02em).
 - Section headline: 40–56px, semibold, same tight treatment.
 - Card headline: 28–40px, semibold.
 - Body and links: 17px, regular, line-height ~1.4.
@@ -69,7 +73,7 @@ The site is light only. There is no dark mode: pages stay white when the device 
 
 ## Layout and spacing
 
-- Content lives in a centered container (`--container-max`) with consistent gutters. Page titles, shelves, and card rows share the same left edge.
+- Content lives in a centered container (`--container-max` 980px, or `--container-wide` 1260px for wide rows, the nav and the footer) with consistent gutters. Page titles, shelves, and card rows share the same left edge.
 - Backgrounds go full-bleed. Content stays in the container.
 - Vertical rhythm between sections: `--section-pad-y` (64–120px). Between a title and its content: 48–80px.
 - Prefer CSS grid/flexbox. No fixed pixel widths for layout. Use `max-width` and fluid units.
@@ -84,8 +88,8 @@ The site is light only. There is no dark mode: pages stay white when the device 
 ## Global nav
 
 - Slim bar (~44–48px tall), centered, translucent background with blur.
-- Apple-style flat list of short text items in small (12–14px) gray text that darkens on hover. Search and bag are icons at the right.
-- Optional promo strip directly beneath: one sentence, small text, inline blue link with a `›` chevron, light gray or white background.
+- xGold monogram at the left, then a flat list of short text items in small (12–14px) gray text that darkens on hover, then one gold pill ("Start an assessment"). One nav for every page: `css/nav.css` + `js/nav.js`.
+- Optional promo strip directly beneath: one sentence, small text, inline `--accent-text` link with a `›` chevron, light gray or white background.
 - On mobile, collapse to a menu icon with a full-screen menu.
 
 ## Hero
@@ -99,7 +103,7 @@ The site is light only. There is no dark mode: pages stay white when the device 
 
 - Radius `--radius-card`. No borders, no heavy shadows. A card is defined by its background (black, white, or a soft tint).
 - Consistent internal order:
-  1. Eyebrow label (small, `--label-accent`), e.g. NEW
+  1. Status label (small, `--accent-text`, sentence case), e.g. New
   2. Product name (large, semibold)
   3. One-line tagline
   4. Price or offer in smaller, lighter text
@@ -112,21 +116,21 @@ The site is light only. There is no dark mode: pages stay white when the device 
 
 | Type | Style |
 |------|-------|
-| Primary | Filled `--accent`, white text, pill radius, 8–12px × 16–22px padding, 17px text |
-| Secondary | Transparent, 1px `--accent` border, `--accent` text, pill radius |
-| On dark media | White filled pill (dark text) + white-outline pill |
-| Tertiary | Plain text link in `--accent` with a trailing `›` ("Learn more ›") |
+| Primary | Filled `--accent` (gold), `--on-accent` (ink) text, never white, pill radius, 8–12px × 16–22px padding, 17px text |
+| Secondary | Transparent, 1px `--accent-text` border, `--accent-text` text, pill radius |
+| On dark media | The same gold filled pill; outline and text links use `--accent-on-dark` |
+| Tertiary | Plain text link in `--accent-text` with a trailing `›` ("Learn more ›") |
 | External | Trailing `↗` ("Find a store ↗") |
 | Carousel control | Round, translucent gray, chevron icon, overlaid on edge of the shelf |
 
 - Buttons are small and quiet. Do not make them oversized or add shadows.
-- Hover: slightly darker/lighter fill. Focus: visible 2px focus ring in `--accent` with offset.
+- Hover: slightly darker/lighter fill. Focus: visible 2px focus ring in `--focus-ring` (`--accent-text`) with offset.
 - Never use more than two buttons side by side in one component.
 
 ## Icon shelves
 
 - Row of transparent-background product cutouts with a short label beneath (e.g. "Apple Watch Ultra 4").
-- Optional tiny `--label-accent` tag under the label ("New", "New Colors").
+- Optional tiny `--accent-text` status label under the label ("New"), sentence case.
 - Overflows horizontally with a chevron to scroll. Equal spacing between items.
 
 ## Imagery
@@ -169,7 +173,7 @@ Used for campaigns, offers, and partner-facing ads (e.g. Apple Ads "Drive busine
 
 **Headline**
 - One sentence split into two lines: a hook line and a subject line.
-- Hook line may use the promo gradient (`--gradient-promo`, warm orange to coral) via `background-clip: text`. Subject line is solid `--text`.
+- Hook line may use the gold gradient (`--gradient-gold`, `.t-gold`) via `background-clip: text`, on dark surfaces only. Subject line is solid `--text`.
 - Use the gradient on one headline line per banner, never on body text or buttons.
 - Keep the gradient text at a size ≥ 32px and verify contrast against `--bg-alt`.
 
@@ -221,7 +225,7 @@ Used for campaigns, offers, and partner-facing ads (e.g. Apple Ads "Drive busine
 - Use whitespace generously and let one message own each section.
 - Alternate white, light gray, and black sections.
 - Crop product images off card edges for depth.
-- Keep every interactive element in the one accent color.
+- Keep every interactive element in the one accent color (gold).
 
 **Don't**
 - Add borders, drop shadows, gradients on UI chrome, or multiple accent colors. (Gradients and soft shadows are allowed only in promotional-banner illustration and the single gradient headline line. See "Promotional banners".)

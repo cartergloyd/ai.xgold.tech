@@ -30,7 +30,7 @@
 }
 .sources li > span:first-child { color: var(--text-secondary); font-weight: var(--weight-semibold); }
 .sources a { color: var(--text); font-weight: var(--weight-semibold); }
-.sources a:hover { color: var(--accent); }
+.sources a:hover { color: var(--accent-text); }
 .sources small { display: block; font-size: var(--fs-fine); color: var(--text-secondary); margin-top: 2px; }
 
 .footer__notes {

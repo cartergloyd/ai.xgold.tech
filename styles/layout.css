@@ -7,7 +7,7 @@ html { scroll-behavior: smooth; }
   left: var(--gutter);
   top: -100px;
   background: var(--bg);
-  color: var(--accent);
+  color: var(--accent-text);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
   z-index: 100;
@@ -36,7 +36,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: var(--weight-semibold); }
   font-size: var(--fs-page-title);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
 }
 .title-section {
   font-size: var(--fs-section);
@@ -102,7 +102,7 @@ sup.fn a:hover { opacity: 1; text-decoration: underline; }
   max-width: 56rem;
   margin-inline: auto;
 }
-.statement .title-section { font-size: var(--fs-page-title); font-weight: var(--weight-bold); }
+.statement .title-section { font-size: var(--fs-page-title); font-weight: var(--weight-semibold); }
 .statement__body {
   max-width: 40rem;
   margin: var(--space-6) auto 0;
@@ -262,7 +262,7 @@ sup.fn a:hover { opacity: 1; text-decoration: underline; }
 /* ---- Minimal table (illustrative scorecard) ---- */
 .table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
 .table th, .table td { text-align: left; padding: var(--space-3) var(--space-4); vertical-align: top; }
-.table th { font-size: var(--fs-fine); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); font-weight: var(--weight-semibold); }
+.table th { font-size: var(--fs-fine); color: var(--text-secondary); font-weight: var(--weight-semibold); }
 .table tbody tr:nth-child(odd) td { background: var(--bg-alt); }
 .table tbody tr td:first-child { font-weight: var(--weight-semibold); }
 .table tbody tr:first-child td:first-child { border-top-left-radius: var(--radius-card-sm); }

@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="only light">
-<title>Solutions in action — xGold Tech</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>Solutions in action | xGold Tech</title>
 <meta name="description" content="Documented AI implementations with the starting problem, what changed, the systems involved, what was measured and the result.">
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles/layout.css">
-<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="css/nav.css">
 <link rel="stylesheet" href="styles/button.css">
 <link rel="stylesheet" href="styles/hero.css">
 <link rel="stylesheet" href="styles/card.css">
@@ -22,20 +23,24 @@
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
-  <nav class="nav__inner container-wide" aria-label="Main">
-    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
-    <ul class="nav__links" id="nav-menu">
-      <li><a href="problems.html">Problems</a></li>
-      <li><a href="solutions.html" aria-current="page">Solutions</a></li>
-      <li><a href="how-we-work.html">How we work</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="research.html">Research</a></li>
-    </ul>
-    <a class="btn btn--primary btn--sm" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-      <span class="nav__toggle-icon" aria-hidden="true"></span>
+  <div class="container--wide nav-inner">
+    <a class="nav-logo" href="index.html" aria-label="xGold Tech home">
+      <img class="monogram" src="assets/xgold-monogram.svg" alt="" width="34" height="24">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span></span><span></span>
     </button>
-  </nav>
+    <nav class="nav-menu" id="nav-menu" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="problems.html">Problems</a></li>
+        <li><a href="solutions.html" aria-current="page">Solutions</a></li>
+        <li><a href="how-we-work.html">How we work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a class="nav-cta" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <main id="main">
@@ -46,7 +51,7 @@
           <p class="page-head__eyebrow">Solutions in action</p>
           <h1 id="page-title" class="title-page">Proof you can evaluate.</h1>
           <p class="page-head__lede">Every implementation here is reported the same way: the starting problem, what changed, the systems involved, what was measured and the result, with a link to the original source. No testimonials.</p>
-          <p><a class="link" href="#server-management">Watch our server management solution ↓</a></p>
+          <p><a class="link" href="#server-management">Watch the server management demo ↓</a></p>
         </div>
       </div>
     </div>
@@ -55,11 +60,11 @@
   <section class="section section--alt server-showcase" id="server-management" aria-labelledby="server-title">
     <div class="container-wide">
       <div class="section-head"><div class="section-head__text">
-        <p class="page-head__eyebrow">Featured solution · Server operations</p>
+        <p class="page-head__eyebrow">Featured demo · Server operations</p>
         <h2 id="server-title" class="title-section">One dashboard. Faster response.</h2>
         <p class="section-head__lede">Server visibility, remote management through ChatGPT, and an agent ready to investigate new alerts.</p>
       </div></div>
-      <figure class="server-film"><video controls playsinline preload="metadata" poster="assets/server-management.jpg" aria-label="Server management solution demonstration, 22 seconds"><source src="assets/server-management.mp4" type="video/mp4"><a href="assets/server-management.mp4">Download the demonstration</a></video><figcaption class="small muted">22-second overview. Illustrative dashboard data. No narration.</figcaption></figure>
+      <figure class="server-film"><video controls playsinline preload="metadata" poster="assets/server-management.jpg" aria-label="Server management demonstration, 22 seconds"><source src="assets/server-management.mp4" type="video/mp4"><a href="assets/server-management.mp4">Download the demonstration</a></video><figcaption class="small muted">22-second overview. Illustrative dashboard data. No narration.</figcaption></figure>
       <div class="server-details">
         <div><h3 class="title-card">Connected tools.<br>Human oversight.</h3><p>Bring services, storage, network health and scheduled tasks into one view. Use ChatGPT MCP connectors to inspect and manage operations remotely through conversation.</p><p>An integrated agent investigates new alerts using logs and service health. Sensitive actions require approval, with activity and findings available for review.</p><a class="btn btn--primary" href="book.html">Discuss your server operations</a></div>
         <div><h3 class="title-card">From alert to investigation.</h3><ol><li>Detect a new operational alert.</li><li>Investigate logs and service status.</li><li>Request approval for sensitive actions.</li><li>Record activity and findings for review.</li></ol><p class="small muted">A functional demonstration for personal and professional server operations. No measured response-time or savings claim is made.</p><a class="link" href="assets/server-management.json" download>Download the project JSON ↓</a></div>
@@ -300,6 +305,7 @@
   </div>
 </footer>
 
+<script src="js/nav.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>

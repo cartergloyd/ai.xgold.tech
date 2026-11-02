@@ -16,12 +16,19 @@
   min-height: 72px;
   padding: var(--space-4) var(--gutter);
 }
+/* Lockup: monogram, then wordmark. Gap is the clear space (25% of monogram width);
+   wordmark cap height matches the X (75% of monogram height). */
 .form-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--logo-min-height) * 777 / 548 * var(--logo-clearspace));
   color: var(--text);
-  font-size: var(--fs-card);
+  font-size: calc(var(--logo-min-height) * 0.75 / 0.72);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  letter-spacing: var(--ls-display);
 }
+.form-header__brand img { display: block; height: var(--logo-min-height); width: auto; }
 .form-header__brand:hover { text-decoration: none; }
 .form-header__close {
   position: absolute;
@@ -92,7 +99,7 @@
   -webkit-appearance: none;
   transition: border-color var(--duration-fast) var(--ease);
 }
-.field__input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+.field__input:focus { outline: 2px solid var(--focus-ring); outline-offset: -1px; border-color: var(--focus-ring); }
 .field__input::placeholder { color: transparent; }
 textarea.field__input { min-height: 120px; resize: vertical; padding-top: 28px; }
 select.field__input {
@@ -172,11 +179,11 @@ select.field__input ~ .field__label {
   content: "";
   width: 5px;
   height: 10px;
-  border: solid #fff;
+  border: solid var(--on-accent);
   border-width: 0 2px 2px 0;
   transform: translateY(-1px) rotate(45deg);
 }
-.choice input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.choice input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
 /* ---- Card footer with the single action ---- */
 .form-card__foot {
@@ -210,7 +217,7 @@ select.field__input ~ .field__label {
   content: "";
   width: 12px;
   height: 22px;
-  border: solid #fff;
+  border: solid var(--on-accent);
   border-width: 0 3px 3px 0;
   transform: translateY(-3px) rotate(45deg);
 }

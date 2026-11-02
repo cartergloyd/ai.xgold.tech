@@ -83,11 +83,12 @@ function head(base, title, desc) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="only light">
-<title>${esc(title)} — xGold Tech</title>
+<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
+<title>${esc(title)} | xGold Tech</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="stylesheet" href="${base}tokens.css">
 <link rel="stylesheet" href="${base}styles/layout.css">
-<link rel="stylesheet" href="${base}styles/nav.css">
+<link rel="stylesheet" href="${base}css/nav.css">
 <link rel="stylesheet" href="${base}styles/button.css">
 <link rel="stylesheet" href="${base}styles/hero.css">
 <link rel="stylesheet" href="${base}styles/card.css">
@@ -101,20 +102,24 @@ function head(base, title, desc) {
 ${GENERATED}
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
-  <nav class="nav__inner container-wide" aria-label="Main">
-    <a class="nav__brand" href="${base}index.html">x<span class="gold">Gold</span> Tech</a>
-    <ul class="nav__links" id="nav-menu">
-      <li><a href="${base}problems.html">Problems</a></li>
-      <li><a href="${base}solutions.html" aria-current="page">Solutions</a></li>
-      <li><a href="${base}how-we-work.html">How we work</a></li>
-      <li><a href="${base}about.html">About</a></li>
-      <li><a href="${base}research.html">Research</a></li>
-    </ul>
-    <a class="btn btn--primary btn--sm" href="${base}book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-      <span class="nav__toggle-icon" aria-hidden="true"></span>
+  <div class="container--wide nav-inner">
+    <a class="nav-logo" href="${base}index.html" aria-label="xGold Tech home">
+      <img class="monogram" src="${base}assets/xgold-monogram.svg" alt="" width="34" height="24">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span></span><span></span>
     </button>
-  </nav>
+    <nav class="nav-menu" id="nav-menu" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="${base}problems.html">Problems</a></li>
+        <li><a href="${base}solutions.html" aria-current="page">Solutions</a></li>
+        <li><a href="${base}how-we-work.html">How we work</a></li>
+        <li><a href="${base}about.html">About</a></li>
+        <li><a href="${base}research.html">Research</a></li>
+        <li><a class="nav-cta" href="${base}book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 `;
 }
@@ -152,6 +157,7 @@ function foot(base) {
   </div>
 </footer>
 
+<script src="${base}js/nav.js" defer></script>
 <script src="${base}script.js" defer></script>
 </body>
 </html>

@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="only light">
-<title>How we work — xGold Tech</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>How we work | xGold Tech</title>
 <meta name="description" content="Scope, process, responsibilities, costs, controls and deliverables for an xGold Tech engagement.">
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles/layout.css">
-<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="css/nav.css">
 <link rel="stylesheet" href="styles/button.css">
 <link rel="stylesheet" href="styles/hero.css">
 <link rel="stylesheet" href="styles/card.css">
@@ -20,20 +21,24 @@
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
-  <nav class="nav__inner container-wide" aria-label="Main">
-    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
-    <ul class="nav__links" id="nav-menu">
-      <li><a href="problems.html">Problems</a></li>
-      <li><a href="solutions.html">Solutions</a></li>
-      <li><a href="how-we-work.html" aria-current="page">How we work</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="research.html">Research</a></li>
-    </ul>
-    <a class="btn btn--primary btn--sm" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-      <span class="nav__toggle-icon" aria-hidden="true"></span>
+  <div class="container--wide nav-inner">
+    <a class="nav-logo" href="index.html" aria-label="xGold Tech home">
+      <img class="monogram" src="assets/xgold-monogram.svg" alt="" width="34" height="24">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span></span><span></span>
     </button>
-  </nav>
+    <nav class="nav-menu" id="nav-menu" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="problems.html">Problems</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li><a href="how-we-work.html" aria-current="page">How we work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a class="nav-cta" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <main id="main">
@@ -322,6 +327,7 @@
   </div>
 </footer>
 
+<script src="js/nav.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>

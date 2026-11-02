@@ -18,17 +18,17 @@
 }
 .btn:hover { text-decoration: none; }
 
-.btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn--primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--on-accent); }
 
-.btn--secondary { background: transparent; color: var(--accent); border-color: var(--accent); }
-.btn--secondary:hover { background: var(--accent); color: #fff; }
+.btn--secondary { background: transparent; color: var(--accent-text); border-color: var(--accent-text); }
+.btn--secondary:hover { color: var(--accent-text-hover); border-color: var(--accent-text-hover); }
 
-/* On dark media: white filled + white outline */
-.btn--on-dark { background: var(--text-on-dark); color: var(--bg-dark); border-color: var(--text-on-dark); }
-.btn--on-dark:hover { background: #fff; }
-.btn--on-dark-outline { background: transparent; color: var(--text-on-dark); border-color: var(--text-on-dark); }
-.btn--on-dark-outline:hover { background: var(--text-on-dark); color: var(--bg-dark); }
+/* On dark: the same gold pills. Gold text never sits on gold. */
+.btn--on-dark { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn--on-dark:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--on-accent); }
+.btn--on-dark-outline { background: transparent; color: var(--accent-on-dark); border-color: var(--accent-on-dark); }
+.btn--on-dark-outline:hover { color: var(--accent-on-dark); }
 
 .btn--sm {
   min-height: 28px;
@@ -36,7 +36,7 @@
   font-size: var(--fs-fine);
 }
 
-.link { color: var(--accent); }
+.link { color: var(--accent-text); }
 .link::after { content: " \203A"; }           /* › */
 .link--external::after { content: " \2197"; } /* ↗ */
 

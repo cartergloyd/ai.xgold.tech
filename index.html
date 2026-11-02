@@ -6,9 +6,8 @@
     <meta name="color-scheme" content="only light">
     <title>xGold Tech/AI</title>
     <meta name="description" content="We break workflows into parts and automate each one permanently.">
-    <link rel="icon" href="assets/xgold-monogram.svg" type="image/svg+xml">
-    <!-- Home page follows BRAND.md through css/tokens.css. Other pages still use /tokens.css and styles/. -->
-    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="tokens.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
@@ -29,9 +28,9 @@
     <a class="skip" href="#main">Skip to content</a>
 
     <header class="nav">
-      <div class="container nav-inner">
+      <div class="container--wide nav-inner">
         <a class="nav-logo" href="index.html" aria-label="xGold Tech home">
-          <svg class="monogram" aria-hidden="true" focusable="false"><use href="#xg-monogram"/></svg>
+          <img class="monogram" src="assets/xgold-monogram.svg" alt="" width="34" height="24">
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
           <span></span><span></span>
@@ -43,7 +42,7 @@
             <li><a href="how-we-work.html">How we work</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="research.html">Research</a></li>
-            <li><a class="btn btn--small" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
+            <li><a class="nav-cta" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
           </ul>
         </nav>
       </div>

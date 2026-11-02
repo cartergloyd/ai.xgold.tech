@@ -3,7 +3,7 @@
 Static site for xGold Tech. Plain HTML and CSS, no build step for the pages themselves. Served by GitHub Pages at the domain in `CNAME`.
 
 - `index.html` and six section pages: problems, solutions, how-we-work, about, research, book
-- `tokens.css` holds every design token; components in `styles/` reference tokens only
+- `BRAND.md` is the brand standard. `tokens.css` holds every design token; components in `styles/` (inner pages), `css/` (home page and the shared nav) and `js/` reference tokens only
 - `CLAUDE.md` is the design system; `DESIGN-NOTES.md` records the decisions behind the current layout
 - `book.html` writes submissions to the Supabase table `assessment_requests` using the publishable key (insert-only; schema in `supabase/schema.sql`). Read them in the Supabase Table Editor. Never put the secret key in this repo.
 

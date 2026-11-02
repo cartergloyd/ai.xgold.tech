@@ -35,19 +35,6 @@
   color: var(--accent-text-hover);
 }
 
-/* Nav-sized pill. The hit area extends to the tap target. */
-.btn--small {
-  position: relative;
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--fs-fine);
-}
-
-.btn--small::before {
-  content: "";
-  position: absolute;
-  inset: calc(var(--space-3) * -1) calc(var(--space-1) * -1);
-}
-
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -56,7 +43,7 @@
 }
 
 @media (pointer: coarse) {
-  .btn:not(.btn--small) {
+  .btn {
     min-height: var(--tap-target);
   }
 }

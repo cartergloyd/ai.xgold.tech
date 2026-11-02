@@ -30,7 +30,7 @@ building any component.
   is `--text`. Headline left, a single "Learn more" pill right-aligned on the same row.
 - This is a controlled exception to "exactly one accent": each top-level pillar
   (Run / Grow …) owns one word-color and one tinted card color. Everything interactive
-  stays `--accent` blue.
+  stays gold (`--accent`).
 - Section bg: `--bg-alt` with the headline block, then cards.
 
 ### Bento card grid
@@ -53,17 +53,17 @@ building any component.
 | App icon shelf | Shelf of platform/model logos or service glyphs we work with |
 | Device render in wide card | Product UI render: dashboards, agent consoles, architecture diagrams |
 | Success Stories | Case studies |
-| Sign In | Contact / Book a call (single blue pill) |
+| Sign In | Start an assessment (single gold pill) |
 
-## Palette (locked after review 2026-10-13)
-Neutrals plus exactly two colors. **Blue** `--accent` for every interactive element and the
-single tinted card. **Gold** `--brand-gold` for the wordmark "Gold" and the one keyword in
-each section headline (Solve / Deliver / Prove). No other color anywhere.
+## Palette (superseded 2026-11-02 by BRAND.md)
+Was: blue `--accent` for interactive elements plus gold for the wordmark and keywords.
+Now: warm neutrals and gold only, per `BRAND.md`. Gold fills (`--accent`) carry ink text
+(`--on-accent`); gold text uses `--accent-text`; the headline keyword (`.kw`) is `--accent-text`.
+The one emphasized card in a row (`.card--tint`) is charcoal, not blue.
 
-## Width (locked after review)
-`--container-wide: 1120px`, centered, 40px gutters on desktop. At 1440 that leaves 120px
-margins each side. Nav wordmark and all section headlines share the same left edge.
-Only the Deliver shelf bleeds past the right edge.
+## Width (updated 2026-11-02)
+Brand widths: 980px standard (`--container-max`), 1260px wide (`--container-wide`), 40px
+gutters on desktop. The nav, section headlines and footer share the wide left edge.
 
 ## Copy rules (locked after review)
 - Solutions first. Card headline is what we do ("Finish the workflow, not the demo."),
@@ -73,9 +73,10 @@ Only the Deliver shelf bleeds past the right edge.
   live in the footer. No fine print the customer does not need inside the page body.
 - Page ends with a direct hire: "Hire xGold Tech for one workflow." + two pills.
 
-## Project tokens (end of `tokens.css`)
-`--brand-gold` · `--tint-hero` · `--card-tint` · `--card-dark-bg` · `--surface-on-dark` ·
-`--control-bg` · `--fs-lede`.
+## Project tokens (`tokens.css`, "Site components" block)
+The names `styles/` uses (`--brand-gold`, `--card-tint`, `--card-dark-bg`, `--surface-on-dark`,
+`--control-bg`, `--fs-lede`, `--container-max`, `--container-wide`, form tokens) are mapped to
+brand values. New components use the brand names directly.
 
 ## Site map (progressive disclosure, 2026-10-13)
 Homepage states value, establishes relevance and offers one next step. Every section on it has a
@@ -161,18 +162,21 @@ Form backend (2026-10-20): Supabase project ekmukamjcmlizopalhmq, table `assessm
   `button.css`, `footer.css`). Plain HTML/CSS, IntersectionObserver for fade-up reveals.
 - Breakpoints to verify: 375 / 768 / 1440. Reduced motion verified. No dark mode.
 
-## Home page on BRAND.md (2026-11-02)
-`index.html` follows `BRAND.md`, the xGold brand standard, through `css/tokens.css` and the
-components in `css/` and `js/`. Gold is the only accent there: fills use `--accent` with
-`--on-accent` text, and gold text uses `--accent-text`. The monogram is an inline SVG symbol
-traced from the logo PNG (`assets/xgold-monogram.svg` is the standalone file); its X takes
-`--logo-x`, so it reads ink on light and white on dark.
-No dark mode, site-wide, at the owner's request (2026-11-02): every page stays white when the
-device is in dark mode (`color-scheme: only light` in both token files, plus a color-scheme meta
-tag in each page head and in the work-page generator).
-The other pages still use `/tokens.css` and `styles/` with the blue accent. Moving them to
-`BRAND.md` is open. Nav links, footer content and the Umami tag on the home page match the
-other pages; keep them in sync when editing.
+## Brand standard on every page (2026-11-02)
+All pages follow `BRAND.md` through one `tokens.css` (brand tokens plus the "Site components"
+mapping). The home page's own components are in `css/` (button, hero, offerings, reel, footer)
+and `js/reel.js`; the other pages use `styles/`. Every page shares one nav: `css/nav.css` and
+`js/nav.js`, with the monogram (`assets/xgold-monogram.svg`), the five links, `aria-current` on the
+current page, and one gold "Start an assessment" pill. The nav is duplicated per page and in the
+work-page generator; edit them together. The favicon (`assets/favicon.svg`) switches the X to
+white in dark browser tabs; the pages themselves never switch.
+The monogram is traced from the logo PNG. On the home page it is an inline SVG symbol whose X
+takes `--logo-x`, so it reads ink on light and white on dark tiles.
+No dark mode, site-wide, at the owner's request: every page stays white when the device is in
+dark mode (`color-scheme: only light` in `tokens.css`, plus a color-scheme meta tag in each page
+head and in the generator).
+Copy: page titles use " | " instead of em dashes. The nav label and page name "Solutions" use a
+word BRAND.md bans; renaming it is open.
 Demo reel: add a `<figure class="reel-slide">` with a `<video>` per demo in `index.html`.
 Videos play in order and loop. Dots appear once there are two or more slides.
 
