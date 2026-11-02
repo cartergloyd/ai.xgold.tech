@@ -159,7 +159,7 @@ Form backend (2026-10-20): Supabase project ekmukamjcmlizopalhmq, table `assessm
 ## Build plan when content arrives
 - `index.html` + `tokens.css` + `styles/` (`nav.css`, `hero.css`, `shelf.css`, `card.css`,
   `button.css`, `footer.css`). Plain HTML/CSS, IntersectionObserver for fade-up reveals.
-- Breakpoints to verify: 375 / 768 / 1440. Dark mode and reduced motion verified.
+- Breakpoints to verify: 375 / 768 / 1440. Reduced motion verified. No dark mode.
 
 ## Home page on BRAND.md (2026-11-02)
 `index.html` follows `BRAND.md`, the xGold brand standard, through `css/tokens.css` and the
@@ -167,10 +167,10 @@ components in `css/` and `js/`. Gold is the only accent there: fills use `--acce
 `--on-accent` text, and gold text uses `--accent-text`. The monogram is an inline SVG symbol
 traced from the logo PNG (`assets/xgold-monogram.svg` is the standalone file); its X takes
 `--logo-x`, so it reads ink on light and white on dark.
-The home page is light only, at the owner's request: it stays white when the device is in dark
-mode (`color-scheme: only light`). Adding `data-color-scheme="auto"` to `<html>` turns dark mode
-back on. This departs from BRAND.md §12.
-The other pages still use `/tokens.css` and `styles/` with the blue accent, and still follow dark mode. Moving them to
+No dark mode, site-wide, at the owner's request (2026-11-02): every page stays white when the
+device is in dark mode (`color-scheme: only light` in both token files, plus a color-scheme meta
+tag in each page head and in the work-page generator).
+The other pages still use `/tokens.css` and `styles/` with the blue accent. Moving them to
 `BRAND.md` is open. Nav links, footer content and the Umami tag on the home page match the
 other pages; keep them in sync when editing.
 Demo reel: add a `<figure class="reel-slide">` with a `<video>` per demo in `index.html`.

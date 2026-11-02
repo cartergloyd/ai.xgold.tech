@@ -45,18 +45,9 @@ This project follows the visual language of apple.com: restrained, spacious, pro
   --ease: cubic-bezier(0.28, 0.11, 0.32, 1);
   --duration: 0.5s;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --bg-alt: #1d1d1f;
-    --text: #f5f5f7;
-    --text-secondary: #a1a1a6;
-    --accent: #2997ff;
-    --hairline: rgba(255, 255, 255, 0.16);
-  }
-}
 ```
+
+The site is light only. There is no dark mode: pages stay white when the device is in dark mode (`color-scheme: only light` in `tokens.css` and `<meta name="color-scheme" content="only light">` in every page head). Do not add `prefers-color-scheme` rules. Dark sections and cards (`--bg-dark`) are part of the design and stay.
 
 ## Color rules
 
@@ -215,7 +206,7 @@ Used for campaigns, offers, and partner-facing ads (e.g. Apple Ads "Drive busine
 - Body text contrast ≥ 4.5:1. Verify text over imagery.
 - All interactive elements keyboard-reachable with visible focus states.
 - Semantic HTML: one `h1` per page, logical heading order, `nav`, `main`, `footer` landmarks.
-- Autoplay media has a pause control. Respect `prefers-reduced-motion` and `prefers-color-scheme`.
+- Autoplay media has a pause control. Respect `prefers-reduced-motion`. The site is light only, so `prefers-color-scheme` is not followed.
 
 ## Implementation notes
 
@@ -247,5 +238,5 @@ Used for campaigns, offers, and partner-facing ads (e.g. Apple Ads "Drive busine
 - [ ] Hero has one message and at most two actions
 - [ ] Cards follow the label → name → tagline → price → image order
 - [ ] Works at 375px, 768px, and 1440px widths
-- [ ] Reduced-motion and dark-mode behavior verified
+- [ ] Reduced motion verified, and the page stays white with the device in dark mode
 - [ ] Alt text and focus states present

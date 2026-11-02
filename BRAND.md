@@ -392,14 +392,14 @@ Precise. Calm. Brief. Every sentence earns its place.
 - Semantic HTML: one `h1`, logical heading order, `nav`, `main`, `footer`.
 - Decorative media: `alt=""` or `aria-hidden="true"`.
 - Autoplay has a pause control.
-- Respect `prefers-reduced-motion` and `prefers-color-scheme`.
+- Respect `prefers-reduced-motion`. The site is light only: no dark mode, and pages stay white when the device is in dark mode.
 - Fine print stays real, selectable text. Never bake it into an image.
 
 ## 13. Implementation
 
 - Plain HTML and CSS with custom properties. Use a utility framework only if the project already does, and map classes to tokens.
 - `tokens.css` loads first. Nothing else defines color, radius, or size.
-- Dark values exist twice in `tokens.css` (the media query and `.surface-dark`). Change both.
+- Dark values live in `.surface-dark` in `tokens.css`, for dark tiles on a light page. There is no dark mode.
 - Do not add animation dependencies. Use CSS and `IntersectionObserver`.
 - Web type renders as SF on Apple devices and Helvetica Neue, Helvetica, or Arial elsewhere. Design for the fallback.
 
@@ -422,7 +422,7 @@ Precise. Calm. Brief. Every sentence earns its place.
 - [ ] Hero: one message, at most two actions
 - [ ] Cards follow label, name, tagline, price, image
 - [ ] Works at 375, 768, and 1440 px
-- [ ] Light, dark, and reduced-motion verified
+- [ ] Reduced motion verified, and the page stays white with the device in dark mode
 - [ ] Alt text and focus states present
 - [ ] Copy passes the banned list
 - [ ] Logo clear space and minimum size respected

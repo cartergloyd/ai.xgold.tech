@@ -5,7 +5,9 @@
    ========================================================================== */
 
 :root {
-  color-scheme: light dark;
+  /* Light only: no dark mode. Pages stay white when the device is in dark mode,
+     and "only" stops browsers from force-darkening them. */
+  color-scheme: only light;
 
   /* ---- Color ---------------------------------------------------------- */
   --bg: #ffffff;
@@ -101,25 +103,6 @@
   }
 }
 
-/* ---- Dark mode ---------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --bg-alt: #1d1d1f;
-    --bg-elevated: #1d1d1f;
-
-    --text: #f5f5f7;
-    --text-secondary: #a1a1a6;
-
-    --accent: #2997ff;
-    --accent-hover: #4aa8ff;
-    --label-accent: #ff9f0a;
-
-    --hairline: rgba(255, 255, 255, 0.16);
-    --nav-bg: rgba(0, 0, 0, 0.72);
-  }
-}
-
 /* ---- Reduced motion ----------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   :root {
@@ -185,7 +168,7 @@ a:hover {
   --brand-gold: #b07a1e;          /* wordmark "Gold" + headline keyword */
   --tint-hero: #faf6ee;           /* radial wash behind the centered hero */
   --card-tint: #2f6fc4;           /* one tinted card per row, white text */
-  --card-dark-bg: #000000;        /* black card on light pages; lifted in dark mode */
+  --card-dark-bg: #000000;        /* black card on light pages */
   --surface-on-dark: #1d1d1f;     /* card surface inside a --bg-dark section */
   --control-bg: #e8e8ed;          /* segmented control track */
 
@@ -196,16 +179,3 @@ a:hover {
   --radius-field: 12px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --brand-gold: #e0b26b;
-    --tint-hero: #15110a;
-    --card-tint: #2a66b8;
-    --card-dark-bg: #2c2c2e;
-    --surface-on-dark: #1d1d1f;
-    --control-bg: #2c2c2e;
-    --page-form-bg: #000000;
-    --field-border: #6e6e73;
-    --field-error: #ff453a;
-  }
-}
