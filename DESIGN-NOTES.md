@@ -167,7 +167,10 @@ components in `css/` and `js/`. Gold is the only accent there: fills use `--acce
 `--on-accent` text, and gold text uses `--accent-text`. The monogram is an inline SVG symbol
 traced from the logo PNG (`assets/xgold-monogram.svg` is the standalone file); its X takes
 `--logo-x`, so it reads ink on light and white on dark.
-The other pages still use `/tokens.css` and `styles/` with the blue accent. Moving them to
+The home page is light only, at the owner's request: it stays white when the device is in dark
+mode (`color-scheme: only light`). Adding `data-color-scheme="auto"` to `<html>` turns dark mode
+back on. This departs from BRAND.md §12.
+The other pages still use `/tokens.css` and `styles/` with the blue accent, and still follow dark mode. Moving them to
 `BRAND.md` is open. Nav links, footer content and the Umami tag on the home page match the
 other pages; keep them in sync when editing.
 Demo reel: add a `<figure class="reel-slide">` with a `<video>` per demo in `index.html`.

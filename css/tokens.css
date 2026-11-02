@@ -5,7 +5,9 @@
    ========================================================================== */
 
 :root {
-  color-scheme: light dark;
+  /* Light only, like apple.com: the page stays white when the device is in dark mode.
+     "only" also stops browsers from force-darkening the page. */
+  color-scheme: only light;
 
   /* ---- Palette primitives (do not use directly in components) --------- */
   --gold: #d0a048;          /* sampled from the monogram */
@@ -150,9 +152,12 @@
 }
 
 /* ---- Dark mode ----------------------------------------------------------
+   Off by default (see color-scheme above). To follow the device setting again,
+   add data-color-scheme="auto" to <html>.
    Same values as .surface-dark below. Keep the two blocks in sync. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root[data-color-scheme="auto"] {
+    color-scheme: dark;
     --bg: var(--black);
     --bg-alt: var(--charcoal);
     --bg-elevated: var(--charcoal);
