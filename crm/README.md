@@ -5,8 +5,9 @@ uses the existing PostgreSQL and Cloudflare Tunnel, the home assessment API,
 and a private local lead-sync service. The generic VPS/Supabase kit below is
 retained for reference and is not the live deployment.
 
-**Analytics:** the public site's visit counting (Umami, cookieless) is served from the
-same hostname at `crm.xgold.tech/stats`. Live setup is in [HOMELAB.md](HOMELAB.md) under
+**Analytics:** the public site's visit counting (Umami, with a first-party visitor cookie)
+is served from the same hostname at `crm.xgold.tech/stats`. To see who is viewing and how to
+hook that into Twenty, see [VISITOR-TRACKING.md](VISITOR-TRACKING.md). Live setup is in [HOMELAB.md](HOMELAB.md) under
 "Analytics"; the generic `docker-compose.yml` below also carries it for the VPS case.
 
 [Twenty](https://github.com/twentyhq/twenty) is the open-source CRM behind `crm.xgold.tech`.

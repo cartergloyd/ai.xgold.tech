@@ -57,6 +57,22 @@
   color: var(--text);
 }
 
+/* Tracking opt-out (visitor.js): reads as an inline footer link. */
+.footer-toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-secondary);
+  font: inherit;
+  text-align: start;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer-toggle:hover {
+  color: var(--text);
+}
+
 .footer-legal {
   display: flex;
   flex-wrap: wrap;

@@ -128,6 +128,12 @@ generator, website id placeholder `__UMAMI_WEBSITE_ID__`. Events: `cta`(placemen
 `work-open`(slug), `source-click`, `assessment-started`, `assessment-submitted`(constraint, workflow).
 Never send field values. Footer carries a one-sentence disclosure.
 
+Visitor identity (2026-11-02, supersedes "cookieless" above): `visitor.js` sets a first-party
+`xg_vid` cookie and Umami's `data-before-send` hook sends it as the session's distinct id. After
+a stored assessment request, `book.js` calls `umami.identify` with request_id, name, email and
+company. GPC/DNT browsers stay anonymous. The footer disclosure now says so and ends with an
+inline "Stop tracking this browser" button (`.footer__toggle`). Details: `crm/VISITOR-TRACKING.md`.
+
 ## Booking page (`book.html`, `styles/form.css`, `book.js`)
 Modeled on Apple Business's "Add your organization details" screen. No nav, no scrolling
 destinations: gray page, centered wordmark, a "Cancel" link back to the site, one 516px
