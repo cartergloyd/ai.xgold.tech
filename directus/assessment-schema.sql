@@ -26,6 +26,15 @@ CREATE TABLE IF NOT EXISTS assessment_crm_sync (
  last_error text
 );
 CREATE INDEX IF NOT EXISTS assessment_crm_sync_pending ON assessment_crm_sync(next_attempt_at) WHERE synced_at IS NULL;
+-- Website activity sync (crm/VISITOR-TRACKING.md). Re-running is safe. Existing rows get
+-- web_next_check_at = now(), so leads stored before this change are looked up once too.
+-- NULL web_next_check_at means no further lookups for that request.
+ALTER TABLE assessment_crm_sync
+ ADD COLUMN IF NOT EXISTS web_next_check_at timestamptz DEFAULT now(),
+ ADD COLUMN IF NOT EXISTS web_fingerprint text,
+ ADD COLUMN IF NOT EXISTS web_note_id uuid,
+ ADD COLUMN IF NOT EXISTS web_last_error text;
+CREATE INDEX IF NOT EXISTS assessment_crm_sync_web_due ON assessment_crm_sync(web_next_check_at) WHERE web_next_check_at IS NOT NULL;
 INSERT INTO directus_collections(collection,icon,note)
 VALUES ('assessment_requests','contact_page','Private website assessment submissions'),('assessment_crm_sync','sync','Private server-side CRM sync state')
 ON CONFLICT(collection) DO NOTHING;

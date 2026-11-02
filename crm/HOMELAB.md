@@ -50,7 +50,9 @@ key in Settings → Developers → API named `home-assessment-sync`. Scope its r
 to the CRM objects it needs where supported. Store it only in the 0600 file
 `/home/gold/server-platform/crm/twenty-api-key`; never paste it in an issue or
 commit it. `bridge.env` is also 0600 and contains `AI_DATABASE_URL`,
-`TWENTY_API_KEY_FILE` and `TWENTY_BASE_URL=http://127.0.0.1:3020`.
+`TWENTY_API_KEY_FILE` and `TWENTY_BASE_URL=http://127.0.0.1:3020`. Adding the read-only
+`UMAMI_DATABASE_URL` turns on website activity on each Person; setup is in
+[VISITOR-TRACKING.md](VISITOR-TRACKING.md) under "In Twenty".
 
 The bridge waits when its key file is absent, empty or has unsafe permissions.
 The owner can rotate the key by replacing that file. The service reads it again
