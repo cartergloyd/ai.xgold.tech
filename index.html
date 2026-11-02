@@ -1,343 +1,195 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>xGold Tech — Enterprise AI, implemented.</title>
-<meta name="description" content="xGold Tech builds AI into the systems you already run, so documents get processed, reports get produced and cases get closed faster, with savings your finance team can verify.">
-<link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="styles/layout.css">
-<link rel="stylesheet" href="styles/nav.css">
-<link rel="stylesheet" href="styles/button.css">
-<link rel="stylesheet" href="styles/hero.css">
-<link rel="stylesheet" href="styles/card.css">
-<link rel="stylesheet" href="styles/shelf.css">
-<link rel="stylesheet" href="styles/footer.css">
-<script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
-</head>
-<body id="top">
-<a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <nav class="nav__inner container-wide" aria-label="Main">
-    <a class="nav__brand" href="index.html">x<span class="gold">Gold</span> Tech</a>
-    <ul class="nav__links" id="nav-menu">
-      <li><a href="problems.html">Problems</a></li>
-      <li><a href="solutions.html">Solutions</a></li>
-      <li><a href="how-we-work.html">How we work</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="research.html">Research</a></li>
-    </ul>
-    <a class="btn btn--primary btn--sm" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-      <span class="nav__toggle-icon" aria-hidden="true"></span>
-    </button>
-  </nav>
-</header>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>xGold Tech/AI</title>
+    <meta name="description" content="We break workflows into parts and automate each one permanently.">
+    <link rel="icon" href="assets/xgold-monogram.svg" type="image/svg+xml">
+    <!-- Home page follows BRAND.md through css/tokens.css. Other pages still use /tokens.css and styles/. -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/offerings.css">
+    <link rel="stylesheet" href="css/reel.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
+  </head>
+  <body id="top">
+    <!-- Monogram. Fills follow --logo-x and --logo-g, so the X switches with the surface. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="xg-monogram" viewBox="0 0 777 548">
+        <path style="fill:var(--logo-x)" fill-rule="evenodd" d="M2.0 524.6C2.0 524.3 5.3 522.5 9.2 520.5C25.4 512.2 38.3 502.1 51.3 487.6C55.8 482.5 76.9 455.2 98.1 426.9C147.5 361.0 155.8 350.0 165.5 336.8C169.9 330.8 176.1 322.4 179.2 318.2C194.9 297.2 196.3 295.0 195.2 292.7C194.7 291.5 190.3 285.8 185.6 280.0C180.8 274.2 173.8 265.7 170.0 261.0C166.2 256.3 147.3 233.4 127.9 210.0C79.0 151.2 63.3 135.8 40.1 124.2L30.4 119.3L39.9 118.6C52.4 117.8 186.9 117.8 194.8 118.6L200.9 119.3L195.2 123.0C184.7 129.9 179.8 137.3 179.2 147.5C178.4 160.0 181.5 165.4 206.0 193.0C215.5 203.7 226.0 215.7 229.4 219.7C244.8 237.8 261.8 257.7 263.1 259.0C264.7 260.7 270.4 267.5 283.0 282.5C287.6 288.0 291.9 293.2 292.7 294.0C312.2 316.6 330.0 339.1 329.4 340.3C328.9 340.9 318.0 354.7 305.1 370.8C286.3 394.4 281.5 399.9 280.5 398.8C278.9 397.1 259.6 372.9 254.2 365.9C246.1 355.2 248.4 354.0 229.9 378.2C220.9 389.9 209.6 404.7 204.8 411.0C199.9 417.3 193.0 426.3 189.4 431.0C173.6 451.3 161.6 467.8 159.4 472.2C156.0 478.9 153.7 489.5 154.5 495.0C155.3 500.3 159.1 509.1 162.7 513.8C164.1 515.7 168.0 519.0 171.4 521.1L177.5 525.0L89.8 525.0C41.5 525.0 2.0 524.8 2.0 524.6Z"/>
+        <path style="fill:var(--logo-g)" fill-rule="evenodd" d="M519.0 544.9C452.7 541.4 397.1 517.4 343.3 468.9C327.8 454.9 303.9 428.9 290.6 411.5C287.7 407.6 284.5 403.9 283.6 403.1C282.7 402.4 282.0 401.3 282.0 400.8C282.0 399.6 329.2 340.1 330.2 340.1C330.6 340.0 333.7 343.5 337.2 347.7C340.7 352.0 345.5 357.8 348.0 360.6C350.5 363.4 356.5 370.4 361.5 376.1C376.2 393.1 399.7 416.6 411.5 425.9C426.4 437.8 443.5 448.8 457.5 455.4C471.6 462.1 493.9 468.9 509.0 471.1C520.1 472.7 551.3 472.7 561.5 471.1C570.8 469.7 588.1 465.1 597.2 461.6C613.3 455.6 635.8 441.6 647.5 430.3C656.1 422.0 666.1 410.1 669.5 403.8L672.5 398.5L672.5 356.5C672.5 333.4 672.2 313.7 671.8 312.8C671.1 311.1 666.1 311.0 587.5 311.0L503.9 311.0L522.2 290.9C532.3 279.9 542.0 269.0 543.7 266.8C545.5 264.6 550.1 259.4 554.0 255.4L561.0 248.0L667.8 248.2L774.5 248.5L774.8 329.9L775.0 411.4L772.6 414.9C768.2 421.6 749.6 443.5 739.5 453.9C691.4 503.5 629.9 535.2 566.9 542.9C546.3 545.4 536.1 545.8 519.0 544.9ZM287.0 287.3C281.8 280.9 270.3 267.4 265.5 261.9C249.2 243.1 240.1 231.7 240.6 230.7C241.0 230.0 244.5 225.0 248.4 219.5C252.3 214.0 256.4 208.0 257.6 206.0C258.7 204.1 262.3 198.8 265.6 194.3C268.8 189.8 274.8 181.5 278.7 175.8C325.5 109.0 358.4 74.6 402.4 46.8C426.7 31.4 448.3 21.3 472.2 14.1C493.8 7.6 501.8 6.1 526.0 3.5C554.1 0.5 584.7 2.5 616.0 9.1C647.4 15.8 681.2 31.4 712.4 53.3C726.6 63.3 752.5 87.7 751.8 90.4C751.6 91.0 738.0 104.8 721.6 121.0L691.7 150.5L689.6 147.6C667.2 116.4 640.7 94.2 612.6 83.1C589.6 74.0 576.2 71.5 550.0 71.6C527.2 71.6 514.7 73.5 494.8 80.0C463.4 90.3 437.6 107.1 409.5 135.5C387.6 157.5 365.2 188.2 304.3 279.2C298.9 287.2 294.1 293.9 293.5 293.9C292.9 293.9 290.0 291.0 287.0 287.3Z"/>
+      </symbol>
+    </svg>
+    <a class="skip" href="#main">Skip to content</a>
 
-<main id="main">
-
-<section class="hero" aria-labelledby="hero-title">
-    <div class="hero__tint" aria-hidden="true"></div>
-    <div class="container hero__inner">
-      <p class="hero__lockup">x<span class="gold">Gold</span> Tech <span class="muted">Enterprise AI</span></p>
-      <h1 id="hero-title" class="title-page hero__title">One workflow. Measured savings. <span class="muted">Then the next.</span></h1>
-
-      <ul class="tiles" aria-label="What we build">
-        <li><a href="#b1"><span class="tile" aria-hidden="true">01</span>Documents</a></li>
-        <li><a href="#b2"><span class="tile" aria-hidden="true">02</span>Reporting</a></li>
-        <li><a href="#b3"><span class="tile" aria-hidden="true">03</span>Integration</a></li>
-        <li><a href="#b4"><span class="tile" aria-hidden="true">04</span>Support</a></li>
-        <li><a href="#b5"><span class="tile" aria-hidden="true">05</span>Agents</a></li>
-        <li><a href="#b6"><span class="tile" aria-hidden="true">06</span>Governance</a></li>
-      </ul>
-
-      <p class="hero__body"><strong>xGold Tech builds AI into the systems you already run,</strong> so documents get processed, reports get produced and cases get closed in a fraction of the time, <strong>with savings your finance team can verify.</strong></p>
-
-      <div class="actions">
-        <a class="btn btn--primary" href="book.html" data-umami-event="cta" data-umami-event-placement="hero">Start an assessment</a>
-        <a class="link" href="#build">See what we build</a>
-      </div>
-    </div>
-  </section>
-
-<section class="section section--alt" id="cost" aria-labelledby="cost-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="cost-title" class="title-section">The work that quietly costs the most.</h2>
-          <p class="section-head__lede">Manual steps between systems look cheap per task. Across a year they are the largest cost most operations teams never see on a line item.</p>
-        </div>
-        <a class="btn btn--secondary section-head__action" href="problems.html">All six problems</a>
-      </div>
-
-      <div class="grid grid--2 reveal">
-        <article class="card">
-          <p class="card__eyebrow">Invoices and intake</p>
-          <div class="bench__compare"><p class="card__figure">$10.89</p><p class="muted">vs $2.78</p></div>
-          <p class="bench__label">Cost to process one invoice: average organization vs top performers. Top performers also post in 3.1 days instead of 10.9 and see 9% exceptions instead of 22%.<sup class="fn"><a href="research.html#src-17">17</a></sup></p>
-          <p class="card__body">At 50,000 invoices a year, the gap is about $400,000 and seven calendar days of float on every payable.</p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">Reporting and close</p>
-          <div class="bench__compare"><p class="card__figure">50%</p><p class="muted">take 6+ business days</p></div>
-          <p class="bench__label">Share of finance teams whose month-end close runs six or more business days. 27% regularly take more than seven.<sup class="fn"><a href="research.html#src-18">18</a></sup></p>
-          <p class="card__body">Every extra close day is a day leadership decides on last month's numbers, and a week of senior finance time spent assembling rather than analyzing.</p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">Rekeying between systems</p>
-          <div class="bench__compare"><p class="card__figure">1 to 3%</p><p class="muted">of fields</p></div>
-          <p class="bench__label">Error rate for trained staff entering data by hand, measured per field in a controlled study.<sup class="fn"><a href="research.html#src-19">19</a></sup></p>
-          <p class="card__body">On a 40-field record, that is an error in roughly half of all records. Each one is found downstream, by a customer, an auditor or a colleague who has to chase it.</p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">Support and service desks</p>
-          <div class="bench__compare"><p class="card__figure">$13.50</p><p class="muted">vs $1.84</p></div>
-          <p class="bench__label">Median cost per contact on assisted channels (phone, chat, email) vs self-service.<sup class="fn"><a href="research.html#src-20">20</a></sup></p>
-          <p class="card__body">Most tier-1 requests are lookups against systems you already own. Each one that reaches an agent costs seven times what it needs to.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-<section class="section" id="build" aria-labelledby="build-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="build-title" class="title-section"><span class="kw">Build</span> the piece that moves the number.</h2>
-          <p class="section-head__lede">Six implementations we deliver inside your existing systems. Each one is scoped to a workflow, an owner and a metric before we write a line of code.</p>
-        </div>
-        <a class="btn btn--secondary section-head__action" href="problems.html">Pick your problem</a>
-      </div>
-
-      <div class="grid grid--3">
-        <article class="card card--alt reveal" id="b1">
-          <p class="card__eyebrow">Documents</p>
-          <h3 class="title-card card__title">Document intake and extraction.</h3>
-          <p class="card__body">Invoices, claims, contracts and forms read, checked against your master data and routed for approval. Exceptions go to a person. Clean records post straight through.</p>
-          <p class="card__stat"><strong>Measured by</strong> cost per document, exception rate, days to post.</p>
-                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#documents">Learn more</a></div>
-        </article>
-        <article class="card card--alt reveal" id="b2">
-          <p class="card__eyebrow">Reporting</p>
-          <h3 class="title-card card__title">Reporting and reconciliation.</h3>
-          <p class="card__body">Close packages, variance commentary and management reports assembled from the ledger and source systems, with every figure traceable to its origin.</p>
-          <p class="card__stat"><strong>Measured by</strong> days to close, hours per report, corrections after release.</p>
-                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#reporting">Learn more</a></div>
-        </article>
-        <article class="card card--alt reveal" id="b3">
-          <p class="card__eyebrow">Integration</p>
-          <h3 class="title-card card__title">Connecting disconnected systems.</h3>
-          <p class="card__body">The handoffs that live in email and spreadsheets between CRM, ERP, HR and ticketing systems replaced with governed write-back. One record, no rekeying.</p>
-          <p class="card__stat"><strong>Measured by</strong> cycle time, rekeying errors, touches per case.</p>
-                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#integration">Learn more</a></div>
-        </article>
-        <article class="card card--alt reveal" id="b4">
-          <p class="card__eyebrow">Support</p>
-          <h3 class="title-card card__title">Customer and internal support.</h3>
-          <p class="card__body">Assistants that resolve tier-1 requests from your knowledge base and your systems of record, and escalate the rest with the full history attached.</p>
-          <p class="card__stat"><strong>Measured by</strong> cost per contact, resolution rate, time to resolve.</p>
-                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#support">Learn more</a></div>
-        </article>
-        <article class="card card--alt reveal" id="b5">
-          <p class="card__eyebrow">Agents</p>
-          <h3 class="title-card card__title">Agents inside systems of record.</h3>
-          <p class="card__body">Agents with their own identity, least-privilege access and an approval gate on every high-impact action. They do the work. Your people keep the authority.</p>
-          <p class="card__stat"><strong>Measured by</strong> cost per completed case, authorized-action rate, review time.</p>
-                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#agents">Learn more</a></div>
-        </article>
-        <article class="card card--alt reveal" id="b6">
-          <p class="card__eyebrow">Governance</p>
-          <h3 class="title-card card__title">An approved-use program.</h3>
-          <p class="card__body">A usage inventory, approved tools, data rules and training on real tasks by role, so the sanctioned path is also the easiest one.</p>
-          <p class="card__stat"><strong>Measured by</strong> unauthorized-use incidents, sensitive-data events, adoption by role.</p>
-                  <div class="card__foot" style="padding-top: var(--space-4)"><a class="link small" href="problems.html#governance">Learn more</a></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-<section class="section section--dark" aria-labelledby="thread-title">
-    <div class="container">
-      <div class="statement reveal">
-        <h2 id="thread-title" class="title-section">Not a license. Not a prompt. <span class="muted">A working process.</span></h2>
-        <p class="statement__body">AI earns its place when a named owner can show a repeatable result, a defined risk boundary and a cost the business can defend. Everything on this site is in service of that.</p>
-      </div>
-    </div>
-  </section>
-
-<section class="section" id="prove" aria-labelledby="prove-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="prove-title" class="title-section"><span class="kw">Proof</span> you can evaluate.</h2>
-          <p class="section-head__lede">Documented implementations, each with the starting problem, what changed, the systems involved, what was measured and the result. Linked to the original source.</p>
-        </div>
-        <a class="btn btn--secondary section-head__action" href="solutions.html">Solutions in action</a>
-      </div>
-
-      <div class="grid grid--2 reveal" id="proof-grid">
-        <article class="card card--dark">
-          <p class="card__eyebrow">Providence Health + IBM · Internal hiring</p>
-          <h3 class="title-card card__title">Orchestrating existing HR systems.</h3>
-          <dl class="spec">
-            <dt>Problem</dt><dd>Hiring managers spent most of an internal transfer on administrative steps spread across HR systems. Transfers were slow and costly to process.</dd>
-            <dt>Changed</dt><dd>An AI-driven workflow now coordinates the steps across the existing systems. No system was replaced.</dd>
-            <dt>Systems</dt><dd>Oracle HR systems, orchestrated by IBM.</dd>
-            <dt>Measured</dt><dd>Hiring-manager admin time, days to start, cost per transfer, process accuracy.</dd>
-            <dt>Result</dt><dd><strong>90% less admin work; starts 12 days sooner; 60% lower transfer cost; up to 70% more accurate.</strong> Company-reported, October 2026.</dd>
-          </dl>
-          <div class="card__foot"><a class="link link--external small" data-umami-event="source-click" href="https://newsroom.ibm.com/2026-10-07-providence-health-collaborates-with-ibm-using-ai-to-reduce-hiring-admin-time-without-replacing-a-single-system" target="_blank" rel="noopener noreferrer">Original source</a></div>
-        </article>
-        <article class="card card--alt">
-          <p class="card__eyebrow">Hiscox + Google Cloud · Underwriting intake</p>
-          <h3 class="title-card card__title">Reading broker submissions in minutes, not days.</h3>
-          <dl class="spec">
-            <dt>Problem</dt><dd>Broker submissions for sabotage-and-terrorism renewals took about three days to turn around.</dd>
-            <dt>Changed</dt><dd>A model reads the submission and drafts a priced quote email. An underwriter reviews every quote before it is sent.</dd>
-            <dt>Systems</dt><dd>Google Cloud Gemini; Hiscox AI Labs; broker email.</dd>
-            <dt>Measured</dt><dd>Quote turnaround time; share of the book on the process; UK productivity on submissions.</dd>
-            <dt>Result</dt><dd><strong>Turnaround about 3 days to about 3 minutes;</strong> roughly two-thirds of the book on the process; CFO cited a 40% UK productivity gain on submissions. Company-reported, 2024 to 2025.<sup class="fn"><a href="research.html#src-21">21</a></sup></dd>
-          </dl>
-          <div class="card__foot"><a class="link link--external small" data-umami-event="source-click" href="https://hiscoxgroup.com/node/50821" target="_blank" rel="noopener noreferrer">Original source</a></div>
-        </article>
-      </div>
-
-      <p class="small muted reveal" style="max-width: 44rem; margin-top: var(--space-7);">Other organizations' documented implementations, not xGold engagements. <a class="link" href="solutions.html">All implementations and a sample pilot report</a></p>
-    </div>
-  </section>
-
-<section class="section section--alt" id="plan" aria-labelledby="plan-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="plan-title" class="title-section"><span class="kw">Plan</span> for the time, money and effort.</h2>
-          <p class="section-head__lede">Three phases. Each is priced before it starts and ends in a decision you make with evidence in hand. Scope, responsibilities, costs and controls are on the <a href="how-we-work.html">How we work</a> page.</p>
-        </div>
-        <a class="btn btn--secondary section-head__action" href="how-we-work.html">How we work</a>
-      </div>
-
-      <!-- TODO: confirm durations and pricing approach -->
-      <div class="grid grid--3 reveal">
-        <article class="card">
-          <p class="phase__when">Phase 1 · Weeks 1 to 3</p>
-          <h3 class="title-card card__title">Scoping assessment.</h3>
-          <p class="card__body">Fixed fee, quoted before we start and credited toward the build. We inventory current AI use, map one to three workflows, baseline cost and quality, and compare non-AI alternatives.</p>
-          <ul class="phase__list">
-            <li>Current-state process map and baseline</li>
-            <li>Future-state workflow, permission model and test cases</li>
-            <li>Implementation estimate and stop/go recommendation</li>
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="index.html" aria-label="xGold Tech home">
+          <svg class="monogram" aria-hidden="true" focusable="false"><use href="#xg-monogram"/></svg>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+          <span></span><span></span>
+        </button>
+        <nav class="nav-menu" id="nav-menu" aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="problems.html">Problems</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="how-we-work.html">How we work</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a class="btn btn--small" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a></li>
           </ul>
-          <dl class="phase__you"><dt>What we need from you</dt><dd>A process owner for about two hours a week, read access to the systems involved, one finance contact.</dd></dl>
-        </article>
-        <article class="card card--dark">
-          <p class="phase__when">Phase 2 · Weeks 4 to 12</p>
-          <h3 class="title-card card__title">Build and pilot.</h3>
-          <p class="card__body">Scoped and priced from the assessment. We build the smallest production-relevant version, connect it, instrument every step and run it on real work with the people who own it.</p>
-          <ul class="phase__list">
-            <li>Working pilot in the live workflow, with review queue and logging</li>
-            <li>Approved-use rules and role-based training</li>
-            <li>Acceptance scorecard against the baseline</li>
-          </ul>
-          <dl class="phase__you"><dt>What we need from you</dt><dd>A sponsor who can approve go-live, five to ten people to run the pilot, IT for access provisioning.</dd></dl>
-        </article>
-        <article class="card">
-          <p class="phase__when">Phase 3 · Monthly</p>
-          <h3 class="title-card card__title">Operate and decide.</h3>
-          <p class="card__body">A monthly retainer sized to run cost and review load. We track outcomes, exceptions, human review and spend against the baseline, then expand, improve or stop.</p>
-          <ul class="phase__list">
-            <li>Operating dashboard and finance-validated benefits</li>
-            <li>Monthly decision review</li>
-            <li>Expansion plan for the next workflow</li>
-          </ul>
-          <dl class="phase__you"><dt>What we need from you</dt><dd>The owner at one review a month. Nothing else.</dd></dl>
-        </article>
+        </nav>
       </div>
-    </div>
-  </section>
+    </header>
 
-<section class="section section--dark" id="start" aria-labelledby="start-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="start-title" class="title-section">Your next step is a 30-minute call.</h2>
-          <p class="section-head__lede">You leave it with a one-page map of the workflow you picked, what it costs you today and whether it is worth an assessment. No deck, no proposal, no obligation.</p>
-        </div>
-      </div>
+    <main id="main">
+      <section class="section section--hero hero" aria-labelledby="hero-title">
+        <div class="container--wide">
+          <p class="lockup">
+            <svg class="monogram" aria-hidden="true" focusable="false"><use href="#xg-monogram"/></svg>
+            <span class="lockup-word">xGold</span>
+          </p>
+          <h1 class="t-page-title hero-title" id="hero-title">Work that runs itself.</h1>
 
-      <div class="grid grid--2 reveal">
-        <article class="card card--on-dark">
-          <label class="picker__label" for="constraint">Your immediate constraint</label>
-          <select class="select" id="constraint">
-            <option value="value">We cannot establish ROI</option>
-            <option value="pilot">Our pilots have not scaled</option>
-            <option value="risk">We lack safe AI controls</option>
-            <option value="people">Employees need better workflows</option>
-            <option value="cost">Agent costs or reliability are unclear</option>
-          </select>
-          <div class="picker__rec" aria-live="polite">
-            <p class="picker__label">Your first deliverable</p>
-            <h3 id="rec-title" class="title-card card__title">Baseline-backed value hypothesis</h3>
-            <p id="rec-detail" class="card__body">Map one current process, define its cost and quality baseline, identify a decision owner and agree what financial outcome would justify investment.</p>
+          <!-- Offerings. Each opens its tab on problems.html. Swap label, href, and <svg> as offerings change. -->
+          <ul class="offerings" aria-label="What we build">
+            <li>
+              <a class="offering" href="problems.html#agents">
+                <span class="offering-tile offering-tile--gold">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 4c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.6.3-2.3 1-2.5 2.5-.3-1.6-1-2.3-2.5-2.5 1.6-.3 2.3-1 2.5-2.5z"/></svg>
+                </span>
+                <span class="offering-label">Agents</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#documents">
+                <span class="offering-tile">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+                </span>
+                <span class="offering-label">Documents</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#reporting">
+                <span class="offering-tile surface-dark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h16M7 16v-4M12 16V8M17 16V4"/></svg>
+                </span>
+                <span class="offering-label">Reporting</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#integration">
+                <span class="offering-tile">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3v4M15 3v4M6.5 7h11v4a5.5 5.5 0 0 1-11 0V7zM12 16.5V21"/></svg>
+                </span>
+                <span class="offering-label">Integration</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#support">
+                <span class="offering-tile surface-dark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-4.4a8.5 8.5 0 1 1 15.6-4.6z"/></svg>
+                </span>
+                <span class="offering-label">Support</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#governance">
+                <span class="offering-tile">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+                </span>
+                <span class="offering-label">Governance</span>
+              </a>
+            </li>
+          </ul>
+
+          <p class="t-lead hero-lead">We break workflows into parts <span class="t-muted">and automate each one permanently.</span></p>
+          <div class="actions">
+            <a class="btn" href="book.html" data-umami-event="cta" data-umami-event-placement="hero">Get started</a>
           </div>
-        </article>
+        </div>
+      </section>
 
-        <article class="card card--on-dark">
-          <p class="picker__label">What we ask on the call</p>
-          <ol class="questions">
-            <li>What is today's measured cost, delay, error or lost-opportunity rate?</li>
-            <li>Which systems, permissions and human approvals define a valid outcome?</li>
-            <li>Could a simpler non-AI automation solve part of it?</li>
-            <li>Which failure is unacceptable, and what must be auditable?</li>
-            <li>What result would justify expansion, and what would stop spend?</li>
-          </ol>
-        </article>
-      </div>
+      <section class="section section--alt demos" id="demos" aria-labelledby="demos-title">
+        <div class="container--wide">
+          <div class="section-head">
+            <h2 class="t-section" id="demos-title"><span class="t-accent">Deploy</span> agents and automate <br class="br-wide">with ease.</h2>
+            <a class="btn" href="book.html" data-umami-event="cta" data-umami-event-placement="demos">Book an appointment</a>
+          </div>
 
-      <div class="statement reveal" style="margin-top: var(--section-pad-y);">
-        <h2 class="title-section">Hire xGold Tech for one workflow.</h2>
-        <p class="statement__body">If the call shows a case, the next step is the fixed-fee assessment. If it does not, we tell you, and you keep the map.</p>
-        <div class="actions" style="margin-top: var(--space-7);">
-          <a class="btn btn--on-dark" href="book.html" data-umami-event="cta" data-umami-event-placement="closing">Start an assessment</a>
+          <!--
+            Demo reel. Slides play in order and loop. A video advances when it ends.
+            To add a demo, copy the <figure> below, set its data-title, data-desc, and video src.
+            A slide without a video shows the monogram for data-duration seconds.
+          -->
+          <div class="reel" data-reel aria-roledescription="carousel" aria-label="Demo videos">
+            <div class="reel-stage surface-dark">
+              <figure class="reel-slide" data-title="Server management" data-desc="An agent investigates new alerts and asks before sensitive actions." data-duration="6">
+                <video src="assets/server-management.mp4" poster="assets/server-management.jpg" muted playsinline preload="metadata" aria-label="Server management demonstration, 22 seconds. Illustrative dashboard data, no narration."></video>
+                <div class="reel-placeholder" aria-hidden="true">
+                  <svg class="monogram"><use href="#xg-monogram"/></svg>
+                  <p class="t-lead">Server management</p>
+                </div>
+              </figure>
+            </div>
+
+            <div class="reel-bar">
+              <div class="reel-caption" aria-live="polite">
+                <p class="reel-title">Server management</p>
+                <p class="reel-desc">An agent investigates new alerts and asks before sensitive actions.</p>
+              </div>
+              <div class="reel-controls">
+                <div class="reel-dots" role="group" aria-label="Choose a demo"></div>
+                <button class="reel-toggle" type="button" aria-label="Pause demos">
+                  <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5h2.5v14H8zM13.5 5H16v14h-2.5z"/></svg>
+                  <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container--wide">
+        <nav class="footer-cols" aria-label="Footer">
+          <div class="footer-col">
+            <h2 class="footer-head">Explore</h2>
+            <ul>
+              <li><a href="problems.html">Problems we solve</a></li>
+              <li><a href="solutions.html">Solutions in action</a></li>
+              <li><a href="how-we-work.html">How we work</a></li>
+              <li><a href="about.html">About xGold</a></li>
+              <li><a href="research.html">Research and insights</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-head">Start</h2>
+            <ul>
+              <li><a href="book.html">Start an assessment</a></li>
+              <li><a href="book.html">Contact xGold Tech</a></li>
+              <li><a href="https://crm.xgold.tech" rel="nofollow">Team sign in</a></li>
+            </ul>
+          </div>
+          <div class="footer-col footer-col--wide">
+            <h2 class="footer-head">Evidence</h2>
+            <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements. Visits are counted with Umami, an open-source tool that sets no cookies and stores no personal data.</p>
+          </div>
+        </nav>
+        <div class="footer-legal">
+          <span>Copyright © 2026 xGold Tech/AI. All rights reserved.</span>
+          <a href="#top">Back to top</a>
         </div>
       </div>
-    </div>
-  </section>
+    </footer>
 
-</main>
-
-<footer class="footer">
-  <div class="container-wide">
-    <div class="footer__dir">
-      <div>
-        <h3>Explore</h3>
-        <ul>
-          <li><a href="problems.html">Problems we solve</a></li>
-          <li><a href="solutions.html">Solutions in action</a></li>
-          <li><a href="how-we-work.html">How we work</a></li>
-          <li><a href="about.html">About xGold</a></li>
-          <li><a href="research.html">Research and insights</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Start</h3>
-        <ul>
-          <li><a href="book.html">Start an assessment</a></li>
-          <li><a href="book.html">Contact xGold Tech</a></li>
-          <li><a href="https://crm.xgold.tech" rel="nofollow">Team sign in</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Evidence</h3>
-        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements. Visits are counted with Umami, an open-source tool that sets no cookies and stores no personal data.</p>
-      </div>
-    </div>
-    <div class="footer__legal">
-      <span>Copyright © 2026 xGold Tech. All rights reserved.</span>
-      <a href="#top">Back to top</a>
-    </div>
-  </div>
-</footer>
-
-<script src="script.js" defer></script>
-</body>
+    <script src="js/nav.js"></script>
+    <script src="js/reel.js"></script>
+  </body>
 </html>

@@ -86,7 +86,7 @@ and every footnote marker on other pages links to `research.html#src-NN`.
 
 | Page | Job | What it holds |
 |---|---|---|
-| `index.html` | Value, relevance, one next step | Hero · four cost benchmarks · six Build cards (each links to its Problems tab) · statement · two documented implementations (Providence, Hiscox) · three-phase plan · start block |
+| `index.html` | Value, one next step | Monogram lockup · title · six offering tiles (each opens its Problems tab) · two-tone line · Get started → book.html · "Deploy agents and automate with ease." + Book an appointment → book.html · demo reel (server management video) |
 | `problems.html` | Pick a challenge, understand the fix | Six hash-linked tabs (documents, reporting, integration, support, agents, governance). Each: benchmark card, tinted "what has to change", "what we build" with Measured by, "seen in practice" case |
 | `solutions.html` | Evidence you can evaluate | Ten documented implementations in the five-field spec (Problem / Changed / Systems / Measured / Result) + an illustrative pilot acceptance scorecard and the expand/improve/stop decision |
 | `how-we-work.html` | Scope, process, responsibilities, costs, controls, deliverables | In/out of scope · three phases · who does what · costs (fixed fee, scoped build, monthly operate) · fit · safeguards · scorecard |
@@ -154,3 +154,16 @@ Form backend (2026-10-20): Supabase project ekmukamjcmlizopalhmq, table `assessm
 - `index.html` + `tokens.css` + `styles/` (`nav.css`, `hero.css`, `shelf.css`, `card.css`,
   `button.css`, `footer.css`). Plain HTML/CSS, IntersectionObserver for fade-up reveals.
 - Breakpoints to verify: 375 / 768 / 1440. Dark mode and reduced motion verified.
+
+## Home page on BRAND.md (2026-11-02)
+`index.html` follows `BRAND.md`, the xGold brand standard, through `css/tokens.css` and the
+components in `css/` and `js/`. Gold is the only accent there: fills use `--accent` with
+`--on-accent` text, and gold text uses `--accent-text`. The monogram is an inline SVG symbol
+traced from the logo PNG (`assets/xgold-monogram.svg` is the standalone file); its X takes
+`--logo-x`, so it reads ink on light and white on dark.
+The other pages still use `/tokens.css` and `styles/` with the blue accent. Moving them to
+`BRAND.md` is open. Nav links, footer content and the Umami tag on the home page match the
+other pages; keep them in sync when editing.
+Demo reel: add a `<figure class="reel-slide">` with a `<video>` per demo in `index.html`.
+Videos play in order and loop. Dots appear once there are two or more slides.
+
