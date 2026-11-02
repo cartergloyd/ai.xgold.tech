@@ -1,0 +1,37 @@
+{
+  "draft": true,
+  "slug": "example-invoice-intake",
+  "title": "Invoice intake for a regional distributor.",
+  "summary": "Illustrative example of a work entry. Set draft to false, or delete this file, once real entries exist.",
+  "type": "Implementation",
+  "area": "documents",
+  "date": "2026-10-19",
+  "status": "Pilot",
+  "client": "Regional distributor (name withheld)",
+  "duration": "8 weeks",
+  "hero_stat": { "figure": "9.8 → 2.6", "label": "Days to post an invoice", "note": "Measured over six weeks of live volume against a three-month baseline." },
+  "spec": {
+    "problem": "About 4,000 supplier invoices a month arrived as PDFs by email. Clerks keyed them into the ERP; 24% needed a correction.",
+    "changed": "Invoices are read, matched to purchase orders and vendor records, and posted automatically. Exceptions go to a clerk with the mismatch highlighted.",
+    "systems": "Microsoft 365 mail, the client's ERP (name withheld), Claude for extraction and matching.",
+    "measured": "Cost per invoice, days to post, exception rate, field accuracy, review minutes per exception, run cost.",
+    "result": "**Cost per invoice $11.20 to $4.10; days to post 9.8 to 2.6.** Exception rate missed its target (11% against 10%). Measured by the client's finance team."
+  },
+  "body": [
+    { "lead": "Replace this body with the story: what the work looked like day to day, what surprised you, and what you would do differently." },
+    { "h2": "What we found in the first week" },
+    "Plain strings become paragraphs. Use **bold** for the number that matters and [links](https://example.com) for sources.",
+    { "ul": ["One finding per bullet.", "Keep them short."] },
+    { "callout": "Hours saved are capacity, not savings. Say where the capacity went." },
+    { "stats": [ { "figure": "$4.10", "label": "Cost per invoice after" }, { "figure": "11%", "label": "Exception rate, target 10%" }, { "figure": "$0.31", "label": "Run cost per invoice" } ] }
+  ],
+  "scorecard": [
+    { "measure": "Cost per invoice", "baseline": "$11.20", "after": "$4.10", "target": "≤ $5.00", "status": "Met" },
+    { "measure": "Days to post", "baseline": "9.8", "after": "2.6", "target": "≤ 3.0", "status": "Met" },
+    { "measure": "Exception rate", "baseline": "24%", "after": "11%", "target": "≤ 10%", "status": "Not met" }
+  ],
+  "scorecard_note": "Six weeks of live volume against a three-month baseline, validated by the client's controller.",
+  "decision": { "title": "Expand, with one fix first.", "body": "One vendor's statements arrive as scanned images; the fix is scoped at two weeks and runs before the remaining entities go live.", "signed": "the process owner, the finance contact and xGold." },
+  "sources": [ { "label": "Client acceptance scorecard", "url": "#", "note": "internal, available on request" } ],
+  "evidence": "Figures measured by the client's finance team; not independently audited."
+}
