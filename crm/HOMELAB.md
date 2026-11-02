@@ -60,8 +60,11 @@ MFA and invite-only/single-workspace settings in Twenty.
 
 ## Analytics (Umami at crm.xgold.tech/stats)
 
-The public site counts visits with Umami: open source, cookieless, no personal data, no
-consent banner. It is read at `https://crm.xgold.tech/stats`, behind the same Cloudflare
+The public site counts visits with Umami (open source, self-hosted). Since 2026-11-02 a
+first-party `xg_vid` cookie identifies returning browsers, and an assessment request attaches
+the person's name, email, company and request id to that browser's Umami session. See
+[VISITOR-TRACKING.md](VISITOR-TRACKING.md) for how it works, where to view it and the Twenty
+hookup. It is read at `https://crm.xgold.tech/stats`, behind the same Cloudflare
 Access wall as Twenty, so the team has one hostname and one sign-in for the CRM and the
 numbers. Umami's sub-path is a build-time option, so the image is prebuilt by the site
 repo's `build-umami` workflow and published to `ghcr.io/cartergloyd/umami-stats` (make the
@@ -87,7 +90,8 @@ Tunnel and Access: add a Public Hostname rule `crm.xgold.tech` with **path `stat
 First login `admin` / `umami`; change the password; Settings → Websites → Add
 `www.xgold.tech`; copy the Website ID and replace `__UMAMI_WEBSITE_ID__` across the site
 (command in README.md). Events the site sends: `cta`, `problem-tab`, `work-open`,
-`source-click`, `assessment-started`, `assessment-submitted`. None carry contact details.
+`source-click`, `assessment-started`, `assessment-submitted`. None carry contact details;
+the only personal data is the `identify` call after a stored assessment request.
 Add the `umami` database to the OneDrive backup discovery.
 
 ## Backups and operations

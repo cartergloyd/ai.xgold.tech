@@ -93,7 +93,8 @@ function head(base, title, desc) {
 <link rel="stylesheet" href="${base}styles/shelf.css">
 <link rel="stylesheet" href="${base}styles/footer.css">
 <link rel="stylesheet" href="${base}styles/work.css">
-<script defer src="https://crm.xgold.tech/stats/script.js" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
+<script defer src="${base}visitor.js"></script>
+<script defer src="https://crm.xgold.tech/stats/script.js" data-before-send="xgBeforeSend" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
 </head>
 <body id="top">
 ${GENERATED}
@@ -140,7 +141,7 @@ function foot(base) {
       </div>
       <div>
         <h3>Evidence</h3>
-        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="${base}research.html#sources">Research page</a>. Our own work is reported in the same five fields, including the measures that did not move. Visits are counted with Umami, an open-source tool that sets no cookies and stores no personal data.</p>
+        <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="${base}research.html#sources">Research page</a>. Our own work is reported in the same five fields, including the measures that did not move. Visits are counted with Umami, which we host ourselves. A first-party cookie recognizes this browser when it returns, and sending an assessment request links its visits to you. <button class="footer__toggle" type="button" data-xg-tracking hidden>Stop tracking this browser</button></p>
       </div>
     </div>
     <div class="footer__legal">
