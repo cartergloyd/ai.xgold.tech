@@ -1,7 +1,8 @@
-/* Hero. Lockup, title, offerings, tagline, one action. BRAND.md §6. */
+/* Intro section. Lockup, title, offerings, tagline, one action. BRAND.md §6. */
 
-.hero {
-  padding-top: calc(var(--hero-pad-top) + var(--space-7));
+/* Intro: the second section, centered. */
+.intro {
+  text-align: center;
 }
 
 /* Lockup: monogram, then wordmark. Gap equals clear space (25% of monogram width).
@@ -36,7 +37,7 @@
   text-wrap: balance;
 }
 
-.hero .actions {
+.intro .actions {
   margin-top: var(--hero-gap-actions);
 }
 

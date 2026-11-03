@@ -1,4 +1,10 @@
-/* Demo section: headline row, then a rotating reel of demo videos. BRAND.md §6, §8, §9. */
+/* Sliding hero: demo videos side by side. The active video sits on the headline's edge and
+   the next one peeks in from the right. When a video ends, the track slides to the next one.
+   BRAND.md §6 (hero, carousel control), §8 (motion), §9 (video). */
+
+.slider-hero {
+  text-align: left;
+}
 
 .section-head {
   display: flex;
@@ -8,6 +14,7 @@
   margin-bottom: var(--title-gap);
 }
 
+.section-head h1,
 .section-head h2 {
   margin: 0;
 }
@@ -20,8 +27,41 @@
   display: none;
 }
 
-/* ---- Stage ------------------------------------------------------------- */
-.reel-stage {
+/* ---- Track ------------------------------------------------------------- */
+.slider-viewport {
+  container-type: inline-size;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.slider-track {
+  /* The active slide starts on the headline's left edge. Its width is the wide column,
+     capped so the whole 16:9 video fits under the nav and headline; the next slide peeks
+     in from the right. */
+  --col-w: min(var(--content-wide), 100cqw - 2 * var(--gutter));
+  --slide-w: min(var(--col-w), (100svh - 20rem) * 16 / 9);
+  --slide-gap: var(--space-4);
+  display: flex;
+  gap: var(--slide-gap);
+  padding-inline: calc((100cqw - var(--col-w)) / 2);
+  transform: translateX(calc(var(--index, 0) * -1 * (var(--slide-w) + var(--slide-gap))));
+  transition: transform var(--duration-slow) var(--ease);
+}
+
+.slide {
+  flex: 0 0 var(--slide-w);
+  margin: 0;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity var(--duration-slow) var(--ease);
+}
+
+.slide.is-active {
+  opacity: 1;
+  cursor: auto;
+}
+
+.slide-media {
   position: relative;
   aspect-ratio: var(--ratio-hero);
   overflow: hidden;
@@ -29,23 +69,7 @@
   isolation: isolate;
 }
 
-.reel-slide {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--duration) var(--ease), visibility 0s linear var(--duration);
-}
-
-.reel-slide.is-active,
-.reel:not(.is-ready) .reel-slide:first-child {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity var(--duration) var(--ease);
-}
-
-.reel-slide video {
+.slide-media video {
   position: absolute;
   inset: 0;
   display: block;
@@ -54,34 +78,24 @@
   object-fit: cover;
 }
 
-/* Placeholder until a slide has a video: monogram and one line on black. */
-.reel-placeholder {
+/* Shown until a slide's video loads, or if it fails: the monogram on black. */
+.slide-placeholder {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-5);
-  padding: var(--space-5);
-  text-align: center;
-  color: var(--text);
+  display: grid;
+  place-items: center;
 }
 
-.reel-slide:has(video) .reel-placeholder {
+.slide-media:has(video) .slide-placeholder {
   display: none;
 }
 
-.reel-placeholder .monogram {
+.slide-placeholder .monogram {
   height: clamp(var(--space-7), 8vw, var(--space-9));
 }
 
-.reel-placeholder p {
-  margin: 0;
-}
-
 /* ---- Caption and controls ---------------------------------------------- */
-.reel-bar {
+.slider-bar {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -89,30 +103,30 @@
   margin-top: var(--space-5);
 }
 
-.reel-caption p {
+.slider-caption p {
   margin: 0;
 }
 
-.reel-title {
+.slider-title {
   font-weight: var(--weight-semibold);
 }
 
-.reel-desc {
+.slider-desc {
   color: var(--text-secondary);
 }
 
-.reel-controls {
+.slider-controls {
   display: flex;
   flex-shrink: 0;
   align-items: center;
   gap: var(--space-3);
 }
 
-.reel:not(.is-ready) .reel-controls {
+.slider:not(.is-ready) .slider-controls {
   display: none;
 }
 
-.reel-dots {
+.slider-dots {
   display: flex;
   align-items: center;
   height: var(--tap-target);
@@ -121,11 +135,11 @@
   background: color-mix(in srgb, var(--text) 8%, transparent);
 }
 
-.reel-dots[hidden] {
+.slider-dots[hidden] {
   display: none;
 }
 
-.reel-dot {
+.slider-dot {
   display: grid;
   place-items: center;
   height: var(--tap-target);
@@ -135,7 +149,7 @@
   cursor: pointer;
 }
 
-.reel-dot-track {
+.slider-dot-track {
   position: relative;
   display: block;
   width: var(--space-2);
@@ -146,16 +160,16 @@
   transition: width var(--duration) var(--ease), background-color var(--duration-fast) var(--ease);
 }
 
-.reel-dot:hover .reel-dot-track {
+.slider-dot:hover .slider-dot-track {
   background: color-mix(in srgb, var(--text) 56%, transparent);
 }
 
-.reel-dot[aria-current="true"] .reel-dot-track {
+.slider-dot[aria-current="true"] .slider-dot-track {
   width: var(--space-7);
   background: color-mix(in srgb, var(--text) 24%, transparent);
 }
 
-.reel-dot-fill {
+.slider-dot-fill {
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -164,11 +178,11 @@
   transform-origin: left center;
 }
 
-.reel-dot[aria-current="true"] .reel-dot-fill {
+.slider-dot[aria-current="true"] .slider-dot-fill {
   transform: scaleX(var(--progress, 0));
 }
 
-.reel-toggle {
+.slider-toggle {
   display: grid;
   place-items: center;
   width: var(--tap-target);
@@ -182,22 +196,22 @@
   transition: background-color var(--duration-fast) var(--ease);
 }
 
-.reel-toggle:hover {
+.slider-toggle:hover {
   background: color-mix(in srgb, var(--text) 14%, transparent);
 }
 
-.reel-toggle svg {
+.slider-toggle svg {
   width: 45%;
   height: 45%;
   fill: currentColor;
 }
 
-.reel-toggle .icon-play,
-.reel.is-paused .reel-toggle .icon-pause {
+.slider-toggle .icon-play,
+.slider.is-paused .slider-toggle .icon-pause {
   display: none;
 }
 
-.reel.is-paused .reel-toggle .icon-play {
+.slider.is-paused .slider-toggle .icon-play {
   display: block;
 }
 
@@ -213,11 +227,11 @@
     align-items: flex-start;
   }
 
-  .reel-stage {
+  .slide-media {
     border-radius: var(--radius-card-sm);
   }
 
-  .reel-bar {
+  .slider-bar {
     flex-direction: column;
   }
 }

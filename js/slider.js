@@ -1,17 +1,20 @@
-// Demo reel: rotates through slides. A slide with a <video> advances when the video ends.
-// A slide without one (or whose video fails to load) shows its placeholder for data-duration seconds.
+// Sliding hero. The active slide's video plays; when it ends, the track slides to the next
+// slide and loops after the last. A slide whose video is missing or fails shows the monogram
+// for data-duration seconds instead. Swipe, the dots, or a click on a neighbour moves it by hand.
 // Pauses when off screen or in a background tab. Starts paused under prefers-reduced-motion.
 (() => {
-  const reel = document.querySelector("[data-reel]");
-  if (!reel) return;
+  const slider = document.querySelector("[data-slider]");
+  if (!slider) return;
 
-  const slides = Array.from(reel.querySelectorAll(".reel-slide"));
-  const dotsWrap = reel.querySelector(".reel-dots");
-  const toggle = reel.querySelector(".reel-toggle");
-  const caption = reel.querySelector(".reel-caption");
-  const title = reel.querySelector(".reel-title");
-  const desc = reel.querySelector(".reel-desc");
-  if (!slides.length || !dotsWrap || !toggle) return;
+  const track = slider.querySelector(".slider-track");
+  const viewport = slider.querySelector(".slider-viewport");
+  const slides = Array.from(slider.querySelectorAll(".slide"));
+  const dotsWrap = slider.querySelector(".slider-dots");
+  const toggle = slider.querySelector(".slider-toggle");
+  const caption = slider.querySelector(".slider-caption");
+  const title = slider.querySelector(".slider-title");
+  const desc = slider.querySelector(".slider-desc");
+  if (!track || !slides.length || !dotsWrap || !toggle) return;
 
   const DEFAULT_SECONDS = 6;
   let index = 0;
@@ -20,20 +23,20 @@
   let elapsed = 0;
   let last = 0;
   let frame = 0;
+  let swiped = false;
 
   const videoOf = (slide) => slide.querySelector("video");
   const durationOf = (slide) => (parseFloat(slide.dataset.duration) || DEFAULT_SECONDS) * 1000;
   const isPlaying = () => !userPaused && inView && !document.hidden;
 
-  // One slide: no picker. The video loops and the pause control stays.
   if (slides.length < 2) dotsWrap.hidden = true;
 
   const dots = slides.map((slide, i) => {
     const dot = document.createElement("button");
     dot.type = "button";
-    dot.className = "reel-dot";
+    dot.className = "slider-dot";
     dot.setAttribute("aria-label", `Show ${slide.dataset.title || `demo ${i + 1}`}`);
-    dot.innerHTML = '<span class="reel-dot-track"><span class="reel-dot-fill"></span></span>';
+    dot.innerHTML = '<span class="slider-dot-track"><span class="slider-dot-fill"></span></span>';
     dot.addEventListener("click", () => go(i));
     dotsWrap.append(dot);
     return dot;
@@ -42,6 +45,13 @@
   slides.forEach((slide, i) => {
     slide.setAttribute("aria-roledescription", "slide");
     slide.setAttribute("aria-label", `${i + 1} of ${slides.length}`);
+    slide.addEventListener("click", () => {
+      if (swiped) {
+        swiped = false;
+        return;
+      }
+      if (i !== index) go(i);
+    });
 
     const video = videoOf(slide);
     if (!video) return;
@@ -51,7 +61,7 @@
       if (slides[index] === slide) go(index + 1);
     });
 
-    // Missing or unplayable file: drop the video so the placeholder shows.
+    // Missing or unplayable file: drop the video so the placeholder shows and the timer runs.
     const fallback = () => {
       video.remove();
       if (slides[index] === slide) {
@@ -65,6 +75,7 @@
   });
 
   function render() {
+    track.style.setProperty("--index", index);
     slides.forEach((slide, i) => {
       const active = i === index;
       slide.classList.toggle("is-active", active);
@@ -100,7 +111,7 @@
 
   function sync() {
     const playing = isPlaying();
-    reel.classList.toggle("is-paused", userPaused);
+    slider.classList.toggle("is-paused", userPaused);
     toggle.setAttribute("aria-label", userPaused ? "Play demos" : "Pause demos");
     // Announce caption changes only when the viewer is driving, not on every auto-advance.
     if (caption) caption.setAttribute("aria-live", userPaused ? "polite" : "off");
@@ -144,15 +155,37 @@
     sync();
   });
 
+  // Swipe left or right to move one slide.
+  let startX = null;
+  viewport.addEventListener("pointerdown", (event) => {
+    startX = event.clientX;
+  });
+  viewport.addEventListener("pointerup", (event) => {
+    if (startX === null) return;
+    const dx = event.clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 48) {
+      // The click that follows a swipe must not move the slider back.
+      swiped = true;
+      setTimeout(() => {
+        swiped = false;
+      }, 0);
+      go(index + (dx < 0 ? 1 : -1));
+    }
+  });
+  viewport.addEventListener("pointercancel", () => {
+    startX = null;
+  });
+
   document.addEventListener("visibilitychange", sync);
 
   if ("IntersectionObserver" in window) {
     new IntersectionObserver((entries) => {
       inView = entries[0].isIntersecting;
       sync();
-    }, { threshold: 0.25 }).observe(reel);
+    }, { threshold: 0.25 }).observe(viewport);
   }
 
-  reel.classList.add("is-ready");
+  slider.classList.add("is-ready");
   go(0);
 })();

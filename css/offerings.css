@@ -41,6 +41,11 @@
   transition: transform var(--duration) var(--ease);
 }
 
+/* On a gray section the light tiles turn white so they stay visible. */
+.section--alt .offering-tile:not(.surface-dark):not(.offering-tile--gold) {
+  background: var(--bg);
+}
+
 /* .surface-dark re-scopes tokens: --bg-alt is charcoal and --accent-text is gold. */
 .offering-tile.surface-dark {
   background: var(--bg-alt);

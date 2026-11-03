@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/offerings.css">
-    <link rel="stylesheet" href="css/reel.css">
+    <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/footer.css">
     <script defer src="visitor.js"></script>
     <script defer src="https://crm.xgold.tech/stats/script.js" data-before-send="xgBeforeSend" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
@@ -49,13 +49,73 @@
     </header>
 
     <main id="main">
-      <section class="section section--hero hero" aria-labelledby="hero-title">
+      <section class="section section--hero slider-hero" aria-labelledby="hero-title">
+        <div class="container--wide">
+          <div class="section-head">
+            <h1 class="t-section" id="hero-title"><span class="t-accent">Deploy</span> agents and automate <br class="br-wide">with ease.</h1>
+            <a class="btn" href="book.html" data-umami-event="cta" data-umami-event-placement="hero">Book an assessment</a>
+          </div>
+        </div>
+
+        <!--
+          Sliding hero. One <figure class="slide"> per demo video, in play order. Each video plays
+          to the end, then the track slides to the next and loops after the last. Set data-title
+          and data-desc for the caption under the video. A slide whose file is missing shows the
+          monogram for data-duration seconds.
+        -->
+        <div class="slider" data-slider aria-roledescription="carousel" aria-label="Demo videos">
+          <div class="slider-viewport">
+            <div class="slider-track">
+            <figure class="slide" data-title="Demo 1" data-desc="" data-duration="6">
+              <div class="slide-media surface-dark">
+                <video src="assets/demos/demo-1.mp4" muted playsinline preload="metadata"></video>
+                <div class="slide-placeholder" aria-hidden="true">
+                  <svg class="monogram"><use href="#xg-monogram"/></svg>
+                </div>
+              </div>
+            </figure>
+            <figure class="slide" data-title="Demo 2" data-desc="" data-duration="6">
+              <div class="slide-media surface-dark">
+                <video src="assets/demos/demo-2.mp4" muted playsinline preload="metadata"></video>
+                <div class="slide-placeholder" aria-hidden="true">
+                  <svg class="monogram"><use href="#xg-monogram"/></svg>
+                </div>
+              </div>
+            </figure>
+            <figure class="slide" data-title="Demo 3" data-desc="" data-duration="6">
+              <div class="slide-media surface-dark">
+                <video src="assets/demos/demo-3.mp4" muted playsinline preload="metadata"></video>
+                <div class="slide-placeholder" aria-hidden="true">
+                  <svg class="monogram"><use href="#xg-monogram"/></svg>
+                </div>
+              </div>
+            </figure>
+            </div>
+          </div>
+
+          <div class="container--wide slider-bar">
+            <div class="slider-caption" aria-live="off">
+              <p class="slider-title">Demo 1</p>
+              <p class="slider-desc"></p>
+            </div>
+            <div class="slider-controls">
+              <div class="slider-dots" role="group" aria-label="Choose a demo"></div>
+              <button class="slider-toggle" type="button" aria-label="Pause demos">
+                <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5h2.5v14H8zM13.5 5H16v14h-2.5z"/></svg>
+                <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt intro" aria-labelledby="intro-title">
         <div class="container--wide">
           <p class="lockup">
             <svg class="monogram" aria-hidden="true" focusable="false"><use href="#xg-monogram"/></svg>
             <span class="lockup-word">xGold</span>
           </p>
-          <h1 class="t-page-title hero-title" id="hero-title">Work that runs itself.</h1>
+          <h2 class="t-page-title hero-title" id="intro-title">Work that runs itself.</h2>
 
           <!-- Offerings. Each opens its tab on problems.html. Swap label, href, and <svg> as offerings change. -->
           <ul class="offerings" aria-label="What we build">
@@ -115,46 +175,6 @@
           </div>
         </div>
       </section>
-
-      <section class="section section--alt demos" id="demos" aria-labelledby="demos-title">
-        <div class="container--wide">
-          <div class="section-head">
-            <h2 class="t-section" id="demos-title"><span class="t-accent">Deploy</span> agents and automate <br class="br-wide">with ease.</h2>
-            <a class="btn" href="book.html" data-umami-event="cta" data-umami-event-placement="demos">Book an appointment</a>
-          </div>
-
-          <!--
-            Demo reel. Slides play in order and loop. A video advances when it ends.
-            To add a demo, copy the <figure> below, set its data-title, data-desc, and video src.
-            A slide without a video shows the monogram for data-duration seconds.
-          -->
-          <div class="reel" data-reel aria-roledescription="carousel" aria-label="Demo videos">
-            <div class="reel-stage surface-dark">
-              <figure class="reel-slide" data-title="Server management" data-desc="An agent investigates new alerts and asks before sensitive actions." data-duration="6">
-                <video src="assets/server-management.mp4" poster="assets/server-management.jpg" muted playsinline preload="metadata" aria-label="Server management demonstration, 22 seconds. Illustrative dashboard data, no narration."></video>
-                <div class="reel-placeholder" aria-hidden="true">
-                  <svg class="monogram"><use href="#xg-monogram"/></svg>
-                  <p class="t-lead">Server management</p>
-                </div>
-              </figure>
-            </div>
-
-            <div class="reel-bar">
-              <div class="reel-caption" aria-live="polite">
-                <p class="reel-title">Server management</p>
-                <p class="reel-desc">An agent investigates new alerts and asks before sensitive actions.</p>
-              </div>
-              <div class="reel-controls">
-                <div class="reel-dots" role="group" aria-label="Choose a demo"></div>
-                <button class="reel-toggle" type="button" aria-label="Pause demos">
-                  <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5h2.5v14H8zM13.5 5H16v14h-2.5z"/></svg>
-                  <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l10.5-6.5z"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="footer">
@@ -191,6 +211,6 @@
     </footer>
 
     <script src="js/nav.js"></script>
-    <script src="js/reel.js"></script>
+    <script src="js/slider.js"></script>
   </body>
 </html>

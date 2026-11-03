@@ -88,7 +88,7 @@ and every footnote marker on other pages links to `research.html#src-NN`.
 
 | Page | Job | What it holds |
 |---|---|---|
-| `index.html` | Value, one next step | Monogram lockup · title · six offering tiles (each opens its Problems tab) · two-tone line · Get started → book.html · "Deploy agents and automate with ease." + Book an appointment → book.html · demo reel (server management video) |
+| `index.html` | Value, one next step | Sliding hero: "Deploy agents and automate with ease." + Book an assessment → book.html, three demo videos that slide to the next when one ends · intro: monogram lockup, "Work that runs itself.", six offering tiles (each opens its Problems tab), two-tone line, Get started → book.html |
 | `problems.html` | Pick a challenge, understand the fix | Six hash-linked tabs (documents, reporting, integration, support, agents, governance). Each: benchmark card, tinted "what has to change", "what we build" with Measured by, "seen in practice" case |
 | `solutions.html` | Evidence you can evaluate | Ten documented implementations in the five-field spec (Problem / Changed / Systems / Measured / Result) + an illustrative pilot acceptance scorecard and the expand/improve/stop decision |
 | `how-we-work.html` | Scope, process, responsibilities, costs, controls, deliverables | In/out of scope · three phases · who does what · costs (fixed fee, scoped build, monthly operate) · fit · safeguards · scorecard |
@@ -165,8 +165,8 @@ Form backend (2026-10-20): Supabase project ekmukamjcmlizopalhmq, table `assessm
 
 ## Brand standard on every page (2026-11-02)
 All pages follow `BRAND.md` through one `tokens.css` (brand tokens plus the "Site components"
-mapping). The home page's own components are in `css/` (button, hero, offerings, reel, footer)
-and `js/reel.js`; the other pages use `styles/`. Every page shares one nav: `css/nav.css` and
+mapping). The home page's own components are in `css/` (button, hero, offerings, slider, footer)
+and `js/slider.js`; the other pages use `styles/`. Every page shares one nav: `css/nav.css` and
 `js/nav.js`, with the monogram (`assets/xgold-monogram.svg`), About and Research (`aria-current` on the
 current page), a small outline "Log in" pill and one gold "Start an assessment" pill. The nav is duplicated per page and in the
 work-page generator; edit them together. The favicon (`assets/favicon.svg`) switches the X to
@@ -178,6 +178,10 @@ dark mode (`color-scheme: only light` in `tokens.css`, plus a color-scheme meta 
 head and in the generator).
 Copy: page titles use " | " instead of em dashes. The nav label and page name "Solutions" use a
 word BRAND.md bans; renaming it is open.
-Demo reel: add a `<figure class="reel-slide">` with a `<video>` per demo in `index.html`.
-Videos play in order and loop. Dots appear once there are two or more slides.
+Sliding hero (`css/slider.css`, `js/slider.js`): one `<figure class="slide">` per demo in
+`index.html`, files in `assets/demos/`. The active video starts on the headline's left edge and is
+capped so the whole 16:9 frame fits under the nav and headline; the next slide peeks in from the
+right. Each video plays to the end, then the track slides to the next and loops after the last.
+Dots, swipe and a click on the peeking slide move it by hand; the pause control stops it. It
+starts paused under reduced motion and pauses off screen. A missing file shows the monogram.
 
