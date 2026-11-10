@@ -1,0 +1,34 @@
+{
+  "section": "solutions",
+  "slug": "server-management-demo",
+  "title": "One dashboard. Faster response.",
+  "summary": "Server visibility, remote management through ChatGPT, and an agent ready to investigate new alerts.",
+  "type": "Demo",
+  "area": "Server operations",
+  "date": "2026-10-30",
+  "cover": "server-management.jpg",
+  "body": [
+    {
+      "lead": "Server visibility, remote management through ChatGPT, and an agent ready to investigate new alerts."
+    },
+    {
+      "video": "server-management.mp4",
+      "poster": "server-management.jpg",
+      "caption": "Server management demonstration, 22 seconds. Music: Sascha Ende, ende.app ([CC BY 4.0](https://ende.app/en/standard-license))."
+    },
+    "Bring services, storage, network health and scheduled tasks into one view. Use ChatGPT MCP connectors to inspect and manage operations remotely through conversation.",
+    "An integrated agent investigates new alerts using logs and service health. Sensitive actions require approval, with activity and findings available for review.",
+    {
+      "h2": "From alert to investigation."
+    },
+    {
+      "ol": [
+        "Detect a new operational alert.",
+        "Investigate logs and service status.",
+        "Request approval for sensitive actions.",
+        "Record activity and findings for review."
+      ]
+    },
+    "A functional demonstration for personal and professional server operations. No measured response-time or savings claim is made."
+  ]
+}

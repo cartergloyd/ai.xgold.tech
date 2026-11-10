@@ -35,3 +35,20 @@
 @media (min-width: 480px) { .work-stats { grid-template-columns: repeat(3, 1fr); } }
 .work-stats .card__figure { margin-bottom: var(--space-1); }
 .work-sources { margin: var(--space-4) 0 0; padding-left: 1.25rem; display: grid; gap: var(--space-2); font-size: var(--fs-small); }
+
+/* ---- feed (js/feed.js) ---- */
+.feed-skeleton { min-height: 220px; }
+.feed-card__media {
+  display: block;
+  width: calc(100% + 2 * var(--space-6));
+  max-width: none;
+  margin: var(--space-6) calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--bg-alt);
+}
+@media (min-width: 834px) {
+  .feed-card__media { width: calc(100% + 2 * var(--space-7)); margin: var(--space-7) calc(-1 * var(--space-7)) calc(-1 * var(--space-7)); }
+}
+.work-prose video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: var(--radius-card); background: var(--bg-dark); }
+.work-prose figure + figure, .work-prose video + figcaption { margin-top: var(--space-3); }

@@ -1,0 +1,72 @@
+{
+  "section": "solutions",
+  "slug": "pilot-report-example",
+  "title": "What a pilot report looks like.",
+  "summary": "The acceptance scorecard a process owner receives at the end of a build-and-pilot phase. Illustrative, not client data.",
+  "type": "Illustrative example",
+  "area": "Invoice intake",
+  "date": "2026-10-19",
+  "duration": "8 weeks",
+  "body": [
+    {
+      "callout": "The figures below are illustrative, not client data. When we publish our own implementations they appear in the same five-field format, including the measures that did not move."
+    }
+  ],
+  "scorecard": [
+    {
+      "measure": "Cost per invoice",
+      "baseline": "$11.20",
+      "after": "$4.10",
+      "target": "≤ $5.00",
+      "status": "Met"
+    },
+    {
+      "measure": "Days to post",
+      "baseline": "9.8",
+      "after": "2.6",
+      "target": "≤ 3.0",
+      "status": "Met"
+    },
+    {
+      "measure": "Exception rate",
+      "baseline": "24%",
+      "after": "11%",
+      "target": "≤ 10%",
+      "status": "Not met"
+    },
+    {
+      "measure": "Field accuracy",
+      "baseline": "97.1%",
+      "after": "99.4%",
+      "target": "≥ 99.0%",
+      "status": "Met"
+    },
+    {
+      "measure": "Review minutes per exception",
+      "baseline": "—",
+      "after": "4.2",
+      "target": "≤ 5.0",
+      "status": "Met"
+    },
+    {
+      "measure": "Unauthorized actions",
+      "baseline": "—",
+      "after": "0",
+      "target": "0",
+      "status": "Met"
+    },
+    {
+      "measure": "Run cost per invoice",
+      "baseline": "—",
+      "after": "$0.31",
+      "target": "≤ $0.50",
+      "status": "Met"
+    }
+  ],
+  "scorecard_note": "Illustrative scorecard · Invoice intake pilot · 8 weeks",
+  "decision": {
+    "title": "Expand, improve or stop.",
+    "body": "Six of seven measures met. The exception rate missed because one vendor's statements arrive as scanned images; the fix is scoped at two weeks. Recommendation: expand to the remaining entities, with the scan fix in the first sprint.",
+    "signed": "the process owner, the finance contact and xGold."
+  }
+}

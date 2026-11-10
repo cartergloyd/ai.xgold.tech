@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "uk-government-digital-service-12-departments",
+  "title": "Twenty thousand licences, honestly measured.",
+  "summary": "26 minutes a day on average; 17% saw no saving; adoption peaked at 83%.",
+  "type": "Documented case",
+  "area": "12 departments",
+  "date": "2025-06-01",
+  "client": "UK Government Digital Service",
+  "spec": {
+    "problem": "Drafting, summarizing and record updates across 12 organizations. No baseline beyond self-report.",
+    "changed": "20,000 Microsoft 365 Copilot licences for three months with change management and training.",
+    "systems": "Microsoft 365 Copilot in Teams, Word, Outlook and PowerPoint.",
+    "measured": "Self-reported daily time saved from 7,115 responses, adoption rate, satisfaction. No control group.",
+    "result": "**26 minutes a day on average; 17% saw no saving; adoption peaked at 83%.** The report says it could not identify how the saved time was used. Government-authored, June 2025.[^27]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://www.gov.uk/government/news/landmark-government-trial-shows-ai-could-save-civil-servants-nearly-2-weeks-a-year"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

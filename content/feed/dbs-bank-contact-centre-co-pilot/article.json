@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "dbs-bank-contact-centre-co-pilot",
+  "title": "Giving agents the answer and the notes.",
+  "summary": "About 20% less time per service request.",
+  "type": "Documented case",
+  "area": "Contact-centre co-pilot",
+  "date": "2024-01-01",
+  "client": "DBS Bank",
+  "spec": {
+    "problem": "About 500 customer service officers searched knowledge bases and wrote post-call notes by hand during and after every call.",
+    "changed": "A co-pilot transcribes the call live, searches the knowledge base for suggested answers, writes the summary and pre-fills the service request.",
+    "systems": "DBS knowledge base and service-request system; governed under the bank's AI protocol.",
+    "measured": "Transcription accuracy, time per service request, officer sentiment, query volume.",
+    "result": "**About 20% less time per service request** across 500 staff handling 250,000+ queries a month. \"Up to\" wording; no published baseline. Company-reported, 2024.[^29]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://www.dbs.com/newsroom/DBS_empowers_its_Customer_Service_Officers_with_Gen_AI_powered_virtual_assistant_to_reduce_toil_and_enhance_customer_experience"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

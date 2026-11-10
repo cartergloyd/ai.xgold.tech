@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="styles/card.css">
 <link rel="stylesheet" href="styles/shelf.css">
 <link rel="stylesheet" href="styles/footer.css">
+<link rel="stylesheet" href="styles/work.css">
 <script defer src="visitor.js"></script>
 <script defer src="https://crm.xgold.tech/stats/script.js" data-before-send="xgBeforeSend" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
 </head>
@@ -54,130 +55,19 @@
     </div>
   </section>
 
-  <section class="section section--alt" id="findings" aria-labelledby="findings-title">
+  <section class="section" id="feed" aria-labelledby="feed-title">
     <div class="container-wide">
-      <div class="section-head reveal">
+      <div class="section-head">
         <div class="section-head__text">
-          <h2 id="findings-title" class="title-section">Six findings that repeat across studies.</h2>
-          <p class="section-head__lede">Analyst research, surveys and recent enterprise reporting keep landing on the same obstacles. Repetition across sources signals a persistent problem, not a single verified prevalence rate.</p>
+          <h2 id="feed-title" class="title-section">Latest research.</h2>
+          <p class="section-head__lede">Findings, benchmarks and methods. Each figure keeps its original scope and links to its source below.</p>
         </div>
       </div>
-      <div class="prose reveal">
-        <h3>1. Productivity gains are not showing up as financial return.</h3>
-        <p>80% of McKinsey's 1,719 respondents report personal productivity improvement; 37% report any positive enterprise EBIT contribution; 6% meet the high-performer definition of at least 5% EBIT impact.<sup class="fn"><a href="#src-02">2</a></sup> IBM's survey of 1,500 CFOs finds only 6% consider their finance function transformation-ready.<sup class="fn"><a href="#src-03">3</a></sup> Gartner frames the gap as an operating-cost and measurement discipline problem rather than an adoption problem.<sup class="fn"><a href="#src-15">15</a></sup></p>
-        <p class="lead">What it implies: an economic owner, a baseline, and a hard separation between time released and spending eliminated, capacity redeployed or margin created.</p>
-
-        <h3>2. Pilots work. End-to-end workflows do not get built.</h3>
-        <p>Nearly 75% of AI high performers say they fundamentally redesigned workflows, against about 25% of other respondents. This is association, not causation.<sup class="fn"><a href="#src-02">2</a></sup> SAP's own account of enterprise deployments describes pilots disconnected from systems and handoffs that stay manual after the demo.<sup class="fn"><a href="#src-08">8</a></sup></p>
-        <p class="lead">What it implies: design one process from trigger to completed outcome, including approvals, exceptions and write-back into systems of record.</p>
-
-        <h3>3. AI is disconnected from the data and systems that run the business.</h3>
-        <p>Gartner reports that organizations with successful AI initiatives invest up to four times more in data, governance and people foundations as a share of revenue, in a survey of 353 leaders. It is a correlation, not a prescribed spend.<sup class="fn"><a href="#src-07">7</a></sup> Providence's internal-hiring case combined existing Oracle systems rather than replacing them.<sup class="fn"><a href="#src-09">9</a></sup></p>
-        <p class="lead">What it implies: map sources of truth, permissions and context; validate key records; build controlled retrieval and integrations before scaling agents.</p>
-
-        <h3>4. Unofficial AI use is ahead of governance.</h3>
-        <p>In PagerDuty's survey of 1,250 office professionals, 66% reported using AI at work despite believing it was prohibited and 34% reported entering customer data into public AI tools.<sup class="fn"><a href="#src-05">5</a></sup> Akamai's traffic analysis flags unmanaged personal identities in enterprise AI use.<sup class="fn"><a href="#src-06">6</a></sup> Practitioner legal guidance recommends governing existing use rather than assuming it can be blocked.<sup class="fn"><a href="#src-04">4</a></sup> NIST's Generative AI Profile provides the voluntary control framework most organizations map to.<sup class="fn"><a href="#src-13">13</a></sup></p>
-        <p class="lead">What it implies: inventory actual usage, approve usable tools, classify sensitive data and use cases, and monitor access, outputs and high-impact decisions.</p>
-
-        <h3>5. Training rarely changes the job.</h3>
-        <p>Gartner cites 81% of CIOs expecting GenAI skills gaps to obstruct their 2025 objectives.<sup class="fn"><a href="#src-14">14</a></sup> Reuters reports Ropes &amp; Gray letting more than 1,000 lawyers count up to 100 hours of AI training toward billable targets, with over 35,000 associate hours logged in 2026, a change to incentives rather than to curriculum.<sup class="fn"><a href="#src-10">10</a></sup></p>
-        <p class="lead">What it implies: train on real tasks with approved data and realistic failure cases, assign approvers with authority, and fix the incentives that penalize learning.</p>
-
-        <h3>6. Agents add cost and operating risk that pilots do not surface.</h3>
-        <p>About one in five McKinsey respondents say AI operating costs constrain use.<sup class="fn"><a href="#src-02">2</a></sup> Google's cross-application agent announcement is notable for what it ships with: dedicated agent identities, connectors, permissions and cost controls.<sup class="fn"><a href="#src-11">11</a></sup> IBM and Ponemon find one in four malicious breaches studied were AI-enabled, in a sample of 602 breached organizations.<sup class="fn"><a href="#src-12">12</a></sup></p>
-        <p class="lead">What it implies: budgets, least-privilege identities, approval boundaries, tests, audit logs and rollback paths, and a tracked cost per successfully completed case.</p>
+      <div class="grid grid--2 feed" data-feed="research" aria-busy="true" aria-live="polite">
+        <div class="card card--alt feed-skeleton"></div>
+        <div class="card card--alt feed-skeleton"></div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="operations" aria-labelledby="ops-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="ops-title" class="title-section">What manual work costs.</h2>
-          <p class="section-head__lede">Operational benchmarks we use to size a workflow before an assessment. Each is a median or an average from a named study, with the comparison group stated.</p>
-        </div>
-      </div>
-      <div class="grid grid--2 reveal">
-        <article class="card">
-          <p class="card__eyebrow">Invoices and intake</p>
-          <div class="bench__compare"><p class="card__figure">$10.89</p><p class="muted">vs $2.78</p></div>
-          <p class="bench__label">Cost to process one invoice: average organization vs top performers. Top performers also post in 3.1 days instead of 10.9 and see 9% exceptions instead of 22%.<sup class="fn"><a href="#src-17">17</a></sup></p>
-          <p class="card__body">At 50,000 invoices a year, the gap is about $400,000 and seven calendar days of float on every payable.</p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">Reporting and close</p>
-          <div class="bench__compare"><p class="card__figure">50%</p><p class="muted">take 6+ business days</p></div>
-          <p class="bench__label">Share of finance teams whose month-end close runs six or more business days. 27% regularly take more than seven.<sup class="fn"><a href="#src-18">18</a></sup></p>
-          <p class="card__body">Every extra close day is a day leadership decides on last month's numbers, and a week of senior finance time spent assembling rather than analyzing.</p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">Rekeying between systems</p>
-          <div class="bench__compare"><p class="card__figure">1 to 3%</p><p class="muted">of fields</p></div>
-          <p class="bench__label">Error rate for trained staff entering data by hand, measured per field in a controlled study.<sup class="fn"><a href="#src-19">19</a></sup></p>
-          <p class="card__body">On a 40-field record, that is an error in roughly half of all records. Each one is found downstream, by a customer, an auditor or a colleague who has to chase it.</p>
-        </article>
-        <article class="card">
-          <p class="card__eyebrow">Support and service desks</p>
-          <div class="bench__compare"><p class="card__figure">$13.50</p><p class="muted">vs $1.84</p></div>
-          <p class="bench__label">Median cost per contact on assisted channels (phone, chat, email) vs self-service.<sup class="fn"><a href="#src-20">20</a></sup></p>
-          <p class="card__body">Most tier-1 requests are lookups against systems you already own. Each one that reaches an agent costs seven times what it needs to.</p>
-        </article>
-      </div>
-    
-    </div>
-  </section>
-
-<section class="section section--alt" id="numbers" aria-labelledby="numbers-title">
-    <div class="container-wide">
-      <div class="section-head section-head--center reveal">
-        <div class="section-head__text">
-          <h2 id="numbers-title" class="title-section">Useful numbers. <span class="muted">Actual denominators.</span></h2>
-          <p class="section-head__lede">Every figure keeps its original scope and links to its source.</p>
-        </div>
-      </div>
-
-      <div style="text-align: center;" class="reveal">
-        <div class="segmented" role="group" aria-label="Filter statistics">
-          <button type="button" data-filter="All" aria-pressed="true">All</button>
-          <button type="button" data-filter="Value" aria-pressed="false">Value</button>
-          <button type="button" data-filter="Execution" aria-pressed="false">Execution</button>
-          <button type="button" data-filter="Risk" aria-pressed="false">Risk</button>
-        </div>
-      </div>
-
-      <div class="grid grid--3 reveal" aria-live="polite">
-        <article class="card" data-category="Value"><p class="card__figure">80% <span class="muted">/ 37%</span></p><p class="card__body small">Personal productivity gains / any positive enterprise EBIT impact. McKinsey, 1,719 respondents.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
-        <article class="card" data-category="Value"><p class="card__figure">6%</p><p class="card__body small">Met McKinsey's AI high-performer definition, including at least 5% EBIT impact.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
-        <article class="card" data-category="Execution"><p class="card__figure">~75% <span class="muted">/ ~25%</span></p><p class="card__body small">AI high performers / other respondents who fundamentally redesigned workflows.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
-        <article class="card" data-category="Execution"><p class="card__figure">40% <span class="muted">/ 27%</span></p><p class="card__body small">Large enterprises scaling AI agents in at least one function, 2026 / 2025.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
-        <article class="card" data-category="Value"><p class="card__figure">32%</p><p class="card__body small">Skipped a software purchase because agentic coding could build it instead.<sup class="fn"><a href="#src-02">2</a></sup></p></article>
-        <article class="card" data-category="Execution"><p class="card__figure">62% <span class="muted">/ 6%</span></p><p class="card__body small">CFOs with expanded AI responsibility / finance judged transformation-ready. IBM, 1,500 CFOs.<sup class="fn"><a href="#src-03">3</a></sup></p></article>
-        <article class="card" data-category="Risk"><p class="card__figure">66% <span class="muted">/ 34%</span></p><p class="card__body small">Policy-defying AI use / customer data entered into public AI tools. PagerDuty, 1,250 respondents.<sup class="fn"><a href="#src-05">5</a></sup></p></article>
-        <article class="card" data-category="Execution"><p class="card__figure">Up to 4×</p><p class="card__body small">Foundation spending among successful AI initiatives, as a share of revenue. Gartner, 353 leaders.<sup class="fn"><a href="#src-07">7</a></sup></p></article>
-        <article class="card" data-category="Risk"><p class="card__figure">1 in 4</p><p class="card__body small">Malicious breaches that were AI-enabled, among 602 breached organizations. IBM/Ponemon.<sup class="fn"><a href="#src-12">12</a></sup></p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="measurement" aria-labelledby="meas-title">
-    <div class="container-wide">
-      <div class="section-head reveal">
-        <div class="section-head__text">
-          <h2 id="meas-title" class="title-section">How to measure an AI implementation.</h2>
-          <p class="section-head__lede">One primary business metric the process owner will defend, then five supporting measures. Definitions we use, in plain terms.</p>
-        </div>
-      </div>
-      <div class="grid grid--3 reveal">
-        <article class="card card--alt"><p class="card__eyebrow">Hours recovered</p><p class="card__body">Staff time no longer spent on the workflow, counted from time studies or system timestamps, and what that time was redeployed to. Capacity until finance books it.</p></article>
-        <article class="card card--alt"><p class="card__eyebrow">Cost per transaction</p><p class="card__body">Fully loaded cost per invoice, case, report or contact: labor, review, exceptions, licenses, inference and monitoring, divided by acceptable completions.</p></article>
-        <article class="card card--alt"><p class="card__eyebrow">Error and rework rate</p><p class="card__body">Exceptions, corrections and escalations per hundred items, measured at the same point in the process before and after.</p></article>
-        <article class="card card--alt"><p class="card__eyebrow">Processing time</p><p class="card__body">Elapsed time from the triggering event to a completed, valid outcome. Not the time to produce a draft.</p></article>
-        <article class="card card--alt"><p class="card__eyebrow">Revenue impact</p><p class="card__body">Margin attributable to the change through faster quotes, fewer lost cases or higher conversion, against a credible counterfactual.</p></article>
-        <article class="card card--alt"><p class="card__eyebrow">Run cost and risk</p><p class="card__body">Inference, licenses, integration and monitoring per period, plus unauthorized actions, sensitive-data events and audit completeness.</p></article>
-      </div>
-      <p class="body muted reveal" style="max-width: 44rem; margin-top: var(--space-7);">Two outside anchors for this. Deloitte's guidance for CFOs calls for locked pre-deployment baselines and names missing baselines as the largest source of indefensible ROI claims.<sup class="fn"><a href="#src-30">30</a></sup> Gartner's survey of 724 respondents finds only about a third of teams report high productivity gains, and tells CFOs to challenge assumed headcount savings until workflows are redesigned.<sup class="fn"><a href="#src-31">31</a></sup> The UK government experiment is a usable template for measuring hours recovered: an active user is one interaction or more, adoption is active users over licences, and time saved is a survey-band midpoint capped at an hour a day, with the self-report caveat stated.<sup class="fn"><a href="#src-27">27</a></sup></p>
-      <p class="body muted reveal" style="max-width: 44rem; margin-top: var(--space-4);">The value rule: hours saved are capacity, not savings. A defensible case records spending avoided, capacity demonstrably redeployed and attributable margin, then subtracts build, license, model, review and operating costs.<sup class="fn"><a href="#src-15">15</a></sup><sup class="fn"><a href="#src-02">2</a></sup></p>
+      <noscript><p class="muted">The feed needs JavaScript to load.</p></noscript>
     </div>
   </section>
 
@@ -266,6 +156,7 @@
 </footer>
 
 <script src="js/nav.js" defer></script>
+<script src="js/feed.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>

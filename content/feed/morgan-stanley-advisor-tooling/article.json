@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "morgan-stanley-advisor-tooling",
+  "title": "An assistant that writes into the system of record.",
+  "summary": "98% of advisor teams using the assistant.",
+  "type": "Documented case",
+  "area": "Advisor tooling",
+  "date": "2024-06-01",
+  "client": "Morgan Stanley + OpenAI",
+  "spec": {
+    "problem": "Advisors could not efficiently search about 100,000 internal research documents, and meeting notes were written by hand.",
+    "changed": "An assistant over internal research, then a meeting tool that, with client consent, drafts notes, surfaces actions, emails a summary and saves the note to the CRM.",
+    "systems": "OpenAI models; Salesforce.",
+    "measured": "Adoption by advisor team. No time or cost figures published.",
+    "result": "**98% of advisor teams using the assistant.** Adoption only; no savings figure. Company statements via InvestmentNews, June 2024.[^28]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://investmentnews.com/industry-news/news/morgan-stanleys-open-ai-powered-solution-for-advisors-has-expanded-254880"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

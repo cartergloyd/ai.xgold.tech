@@ -1,0 +1,79 @@
+{
+  "section": "research",
+  "slug": "what-manual-work-costs",
+  "title": "What manual work costs.",
+  "summary": "Operational benchmarks we use to size a workflow before an assessment. Each is a median or an average from a named study, with the comparison group stated.",
+  "type": "Benchmarks",
+  "area": "Operations",
+  "date": "2026-10-12",
+  "body": [
+    {
+      "h3": "Invoices and intake"
+    },
+    {
+      "stats": [
+        {
+          "figure": "$10.89",
+          "label": "vs $2.78"
+        }
+      ]
+    },
+    {
+      "p": "Cost to process one invoice: average organization vs top performers. Top performers also post in 3.1 days instead of 10.9 and see 9% exceptions instead of 22%.[^17]"
+    },
+    {
+      "p": "At 50,000 invoices a year, the gap is about $400,000 and seven calendar days of float on every payable."
+    },
+    {
+      "h3": "Reporting and close"
+    },
+    {
+      "stats": [
+        {
+          "figure": "50%",
+          "label": "take 6+ business days"
+        }
+      ]
+    },
+    {
+      "p": "Share of finance teams whose month-end close runs six or more business days. 27% regularly take more than seven.[^18]"
+    },
+    {
+      "p": "Every extra close day is a day leadership decides on last month's numbers, and a week of senior finance time spent assembling rather than analyzing."
+    },
+    {
+      "h3": "Rekeying between systems"
+    },
+    {
+      "stats": [
+        {
+          "figure": "1 to 3%",
+          "label": "of fields"
+        }
+      ]
+    },
+    {
+      "p": "Error rate for trained staff entering data by hand, measured per field in a controlled study.[^19]"
+    },
+    {
+      "p": "On a 40-field record, that is an error in roughly half of all records. Each one is found downstream, by a customer, an auditor or a colleague who has to chase it."
+    },
+    {
+      "h3": "Support and service desks"
+    },
+    {
+      "stats": [
+        {
+          "figure": "$13.50",
+          "label": "vs $1.84"
+        }
+      ]
+    },
+    {
+      "p": "Median cost per contact on assisted channels (phone, chat, email) vs self-service.[^20]"
+    },
+    {
+      "p": "Most tier-1 requests are lookups against systems you already own. Each one that reaches an agent costs seven times what it needs to."
+    }
+  ]
+}

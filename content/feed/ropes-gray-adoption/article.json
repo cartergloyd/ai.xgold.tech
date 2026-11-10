@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "ropes-gray-adoption",
+  "title": "Paying for the learning curve.",
+  "summary": "More than 35,000 associate hours on AI in 2026.",
+  "type": "Documented case",
+  "area": "Adoption",
+  "date": "2026-10-01",
+  "client": "Ropes & Gray",
+  "spec": {
+    "problem": "Billable-hour targets penalized the time lawyers needed to learn and test AI tools.",
+    "changed": "Up to 100 hours of AI training and experimentation per lawyer now count toward annual billable targets.",
+    "systems": "Firm AI tools; not itemized in the reporting.",
+    "measured": "Hours logged on AI work.",
+    "result": "**More than 35,000 associate hours on AI in 2026** across 1,000+ eligible lawyers. Reuters, October 2026."
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://www.reuters.com/legal/legalindustry/law-firms-give-lawyers-time-off-billing-grind-test-drive-ai-2026-10-08/"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}
