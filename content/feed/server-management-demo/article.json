@@ -9,9 +9,6 @@
   "cover": "server-management.jpg",
   "body": [
     {
-      "lead": "Server visibility, remote management through ChatGPT, and an agent ready to investigate new alerts."
-    },
-    {
       "video": "server-management.mp4",
       "poster": "server-management.jpg",
       "caption": "22-second overview. Illustrative dashboard data. No narration. Music: Sascha Ende, ende.app ([CC BY 4.0](https://ende.app/en/standard-license))."
