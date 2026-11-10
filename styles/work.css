@@ -52,3 +52,8 @@
 }
 .work-prose video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: var(--radius-card); background: var(--bg-dark); }
 .work-prose figure + figure, .work-prose video + figcaption { margin-top: var(--space-3); }
+.feed-filter { margin-bottom: var(--space-6); }
+.feed-card[hidden] { display: none; }
+.feed-filter { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.feed-filter::-webkit-scrollbar { display: none; }
+.feed-filter button { white-space: nowrap; }

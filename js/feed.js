@@ -81,7 +81,7 @@
   /* ---------- feed list ---------- */
   function card(r, i) {
     var c = r.card || {}, href = 'item.html?s=' + encodeURIComponent(r.section) + '&i=' + encodeURIComponent(r.slug);
-    return '<article class="card card--link feed-card ' + (i === 0 ? 'card--dark' : 'card--alt') + '">' +
+    return '<article class="card card--link feed-card ' + (i === 0 ? 'card--dark' : 'card--alt') + '" data-type="' + esc(c.type || '') + '">' +
       '<p class="card__eyebrow">' + esc(label(c) || r.section) + '</p>' +
       '<h3 class="title-card card__title"><a class="card__cover" href="' + href + '" data-umami-event="feed-open" data-umami-event-slug="' + esc(r.slug) + '">' + inline(r.title) + '</a></h3>' +
       '<p class="card__body">' + inline(r.summary) + '</p>' +
@@ -89,12 +89,29 @@
       '<div class="card__foot"><span class="fine">' + esc(fmtDate(r.date)) + '</span><span class="link small">Read</span></div>' +
       (c.cover ? '<img class="feed-card__media" src="' + esc(media(c.cover)) + '" alt="" loading="lazy">' : '') + '</article>';
   }
+  /* One filter button per distinct type, only when there is more than one. */
+  function filters(root, rows) {
+    var types = rows.map(function (r) { return (r.card || {}).type; }).filter(function (t, i, a) { return t && a.indexOf(t) === i; });
+    if (types.length < 2) return;
+    var bar = document.createElement('div');
+    bar.className = 'segmented feed-filter';
+    bar.setAttribute('role', 'group');
+    bar.setAttribute('aria-label', 'Filter by type');
+    bar.innerHTML = ['All'].concat(types).map(function (t, i) { return '<button type="button" data-type="' + esc(t) + '" aria-pressed="' + (i === 0) + '">' + esc(t) + '</button>'; }).join('');
+    bar.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('button'); if (!btn) return;
+      bar.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      root.querySelectorAll('.feed-card').forEach(function (c) { c.hidden = btn.dataset.type !== 'All' && c.dataset.type !== btn.dataset.type; });
+    });
+    root.parentNode.insertBefore(bar, root);
+  }
   function loadList(root) {
     var section = root.getAttribute('data-feed');
     get('/items/feed_items?filter[section][_eq]=' + section + '&fields=slug,section,title,summary,date,card&sort=-date,-updated_at&limit=100')
       .then(function (rows) {
         root.setAttribute('aria-busy', 'false');
         root.innerHTML = rows.length ? rows.map(card).join('') : '<p class="muted">Nothing published yet.</p>';
+        filters(root, rows);
       }).catch(function () {
         root.setAttribute('aria-busy', 'false');
         root.innerHTML = '<p class="muted">The feed could not load. Reload the page, or try again shortly.</p>';
