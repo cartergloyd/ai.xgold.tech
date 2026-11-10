@@ -14,7 +14,7 @@
     {
       "video": "server-management.mp4",
       "poster": "server-management.jpg",
-      "caption": "Server management demonstration, 22 seconds. Music: Sascha Ende, ende.app ([CC BY 4.0](https://ende.app/en/standard-license))."
+      "caption": "22-second overview. Illustrative dashboard data. No narration. Music: Sascha Ende, ende.app ([CC BY 4.0](https://ende.app/en/standard-license))."
     },
     "Bring services, storage, network health and scheduled tasks into one view. Use ChatGPT MCP connectors to inspect and manage operations remotely through conversation.",
     "An integrated agent investigates new alerts using logs and service health. Sensitive actions require approval, with activity and findings available for review.",
