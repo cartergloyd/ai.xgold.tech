@@ -78,6 +78,11 @@
 .provider-form .btn { justify-self: start; }
 .provider-msg { margin-top: var(--space-3); min-height: 1.4em; }
 .provider-msg[data-error] { color: var(--field-error); }
+.key-new { margin-top: var(--space-5); }
+.key-new .code { margin-bottom: var(--space-4); background: var(--bg-alt); user-select: all; }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+.cell-action { display: inline-flex; align-items: center; gap: var(--space-3); }
+.status { color: var(--accent-text); font-size: var(--fs-small); }
 
 /* Print only the invoice that was opened */
 @media print {

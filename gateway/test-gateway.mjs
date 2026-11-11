@@ -1,6 +1,7 @@
 // Run: node gateway/test-gateway.mjs   (no database or network needed)
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import { randomUUID } from 'node:crypto';
 import { createApp, hashPassword, sha256 } from './gateway.mjs';
 import { cost, summarize, usageRow, loadRates } from './meter.mjs';
 
@@ -57,7 +58,7 @@ const anthropic = http.createServer(async (req, res) => {
 const upstream = await listen(anthropic);
 
 // ---- gateway over a memory store ----
-const keys = new Map(), users = new Map(), sessions = new Map(), settings = new Map(), usage = [], invoices = [];
+const keys = new Map(), users = new Map(), sessions = new Map(), settings = new Map(), customers = new Map(), usage = [], invoices = [];
 const store = {
   keyByHash: async h => keys.get(h) ?? null,
   recordUsage: async r => { usage.push({ ...r, ts: new Date().toISOString() }); },
@@ -67,6 +68,17 @@ const store = {
     sessions.set(h, { customer_id: customerId, name: customerId === 'c1' ? 'Acme' : 'Birch', is_admin: Boolean(user?.is_admin) });
   },
   sessionByHash: async h => sessions.get(h) ?? null,
+  customerNames: async () => [...customers.values()].map(c => ({ name: c.name })),
+  customerByName: async n => customers.get(n) ?? null,
+  createCustomer: async n => { const c = { id: 'c-' + (customers.size + 10), name: n, twenty_company_id: null }; customers.set(n, c); return c; },
+  insertKey: async k => {
+    const id = randomUUID();
+    keys.set(k.key_hash, { id, customer_id: k.customer_id, label: k.label, prefix: k.prefix, created_at: new Date().toISOString(), revoked_at: null,
+      customer: [...customers.values()].find(c => c.id === k.customer_id)?.name });
+    return { id };
+  },
+  revokeKey: async id => { for (const [h, k] of keys) if (k.id === id) { keys.delete(h); return { id }; } return null; },
+  adminKeys: async () => [...keys.values()].filter(k => k.prefix).map(k => ({ ...k, in_crm: false })),
   getSetting: async n => settings.get(n) ?? null,
   setSetting: async (n, value) => { settings.set(n, { value, updated_at: '2026-11-10T12:00:00.000Z' }); },
   monthUsage: async (cid, from, to) => {
@@ -200,6 +212,43 @@ assert.equal((await fromBlank({})).status, 503);                                
 const restarted = await listen(http.createServer(createApp({ store, rates, upstream, origins: [] }))); // a restart with no key in gateway.env
 await fetch(restarted + '/v1/messages', { method: 'POST', headers: { authorization: 'Bearer xgold-ai-acme', 'content-type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-5-5' }) }).then(x => x.text());
 assert.equal(seen.at(-1).headers['x-api-key'], fresh);                                   // the saved key survives a restart
+
+// ---- admin: staff make and revoke customer keys ----
+const adminAt = base => (method, token, path, body) => fetch(base + '/portal/admin/' + path, { method, headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: body && JSON.stringify(body) });
+const adminKeys = adminAt(gw);
+assert.equal((await adminKeys('GET', acme, 'keys')).status, 403);                       // customers cannot list or make keys
+assert.equal((await adminKeys('POST', acme, 'keys', { customer: 'Hijack Inc' })).status, 403);
+assert.equal(customers.size, 0);
+assert.equal((await adminKeys('POST', staff, 'keys', { customer: '  ' })).status, 400);
+r = await adminKeys('POST', staff, 'keys', { customer: 'Gamma Ltd', label: 'Laptop' });
+const made = await r.json();
+assert.equal(r.status, 201); assert.match(made.key, /^xgold-ai-/); assert.equal(made.prefix, made.key.slice(0, 14));
+assert.equal(made.new_customer, true); assert.equal(made.label, 'Laptop'); assert.equal(made.crm, 'off');
+assert.equal((await post({ model: 'claude-sonnet-5-5' }, { key: made.key })).status, 200);   // the new key works at once
+await until(() => usage.some(u => u.customer_id === customers.get('Gamma Ltd').id));
+const second = await (await adminKeys('POST', staff, 'keys', { customer: 'Gamma Ltd' })).json();
+assert.equal(second.new_customer, false); assert.notEqual(second.key, made.key); assert.equal(second.label, 'Key');
+const listed = await (await adminKeys('GET', staff, 'keys')).json();
+assert.ok(listed.customers.includes('Gamma Ltd'));
+const gamma = listed.keys.filter(k => k.customer === 'Gamma Ltd');
+assert.equal(gamma.length, 2);
+assert.ok(!JSON.stringify(listed).includes(made.key) && !JSON.stringify(listed).includes(second.key)); // a list never shows a full key
+const victim = gamma.find(k => k.prefix === made.prefix);
+assert.equal((await adminKeys('POST', staff, 'keys/revoke', { id: 'not-an-id' })).status, 400);
+assert.equal((await adminKeys('POST', staff, 'keys/revoke', { id: victim.id })).status, 200);
+assert.equal((await post({}, { key: made.key })).status, 401);                          // cut off at once
+assert.equal((await adminKeys('POST', staff, 'keys/revoke', { id: victim.id })).status, 404);
+assert.equal((await post({ model: 'claude-sonnet-5-5' }, { key: second.key })).status, 200); // other keys are untouched
+
+const mirrored = [];
+const mirroring = adminAt(await listen(http.createServer(createApp({ store, rates, upstream, anthropicKey: 'sk-real', origins: [], mirror: async k => { mirrored.push(k); } }))));
+const copied = await (await mirroring('POST', staff, 'keys', { customer: 'Gamma Ltd', label: 'Server' })).json();
+assert.equal(copied.crm, 'added');                                                       // also written to the CRM record
+assert.equal(mirrored.length, 1); assert.equal(mirrored[0].key, copied.key); assert.equal(mirrored[0].customer, 'Gamma Ltd'); assert.ok(mirrored[0].key_id);
+const brokenCrm = adminAt(await listen(http.createServer(createApp({ store, rates, upstream, anthropicKey: 'sk-real', origins: [], mirror: async () => { throw new Error('crm down'); } }))));
+const uncopied = await (await brokenCrm('POST', staff, 'keys', { customer: 'Gamma Ltd' })).json();
+assert.equal(uncopied.crm, 'failed');                                                    // the staff member is told, and the key still works
+assert.equal((await post({ model: 'claude-sonnet-5-5' }, { key: uncopied.key })).status, 200);
 
 // guessing passwords gets blocked, even for the right password afterwards
 for (let i = 0; i < 8; i++) assert.equal((await login('owner@acme.test', 'guess' + i, '9.9.9.9')).status, 401);

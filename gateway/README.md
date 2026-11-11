@@ -48,7 +48,7 @@ After pushing to main, run `ssh gold-server 'bash -s' < gateway/setup-server.sh`
 
 With no Anthropic key anywhere the service still starts: the portal works and `/v1` answers 503.
 
-## Staff: the Anthropic key
+## Staff login
 
 Make a staff login once, on the server:
 
@@ -57,11 +57,15 @@ set -a; . /home/gold/server-platform/gateway/gateway.env; set +a
 node gateway/keys.mjs add-admin you@xgold.tech     # prints a password once
 ```
 
-Sign in at `portal.html` with it. A staff login sees an extra "Anthropic key" section at the bottom. Paste a key and save: the gateway checks it with Anthropic's free models call first, and saves it only if Anthropic accepts it. The page only ever shows the last four characters. The key is stored as plain text in the gateway database (`ai_settings`), next to the usage data; encrypt it with a key from `gateway.env` if that table ever holds more secrets.
+Sign in at `portal.html` with it. A staff login sees two extra sections at the bottom: **Customer keys** and **Anthropic key**.
 
-## Customer keys (in the CRM)
+## Customer keys
 
-One-time, after the first deploy:
+A key is `xgold-ai-` plus 32 random characters. The gateway stores only a hash, so a key can be shown once at the moment it is made. Keys can be made two ways, and both end up on the customer's Company in Twenty.
+
+**In the portal (staff login).** Type the customer's name (pick an existing one or type a new one), add a label such as "Laptop", and press Generate key. The key appears once; copy it to the customer. The list below shows every key (first characters, label, status) with a Revoke button. A new customer name makes the customer, and the key is copied onto their Company in Twenty (an existing Company with the exact same name is reused, otherwise one is made). If the copy to the CRM fails the page says so; the key still works.
+
+**In the CRM.** One-time, after the first deploy:
 
 ```sh
 set -a; . /home/gold/server-platform/gateway/gateway.env; set +a
@@ -74,7 +78,7 @@ Then, for every key:
 2. Within about 15 seconds the record fills in: **Status** becomes Active, **Key starts with** shows the first characters, and **API key** shows the full key. Copy it to the customer.
 3. To cut a key off, set **Status** to Revoked, or delete the record. The key stops working on the customer's next request.
 
-Behind this, the gateway reads the AI key records every 15 seconds (`crm-keys.mjs`). The first key for a Company makes the customer in the gateway (named after the Company; a customer made earlier with `keys.mjs` and the same name is reused). A record with no Company stays Pending. A record whose key is revoked is set back to Revoked if someone flips it, and its key text is removed. If more than three keys vanish from the CRM at once, nothing is revoked and the journal says so.
+Behind this, the gateway reads the AI key records every 15 seconds (`crm-keys.mjs`). The first key for a Company makes the customer in the gateway (named after the Company; a customer made earlier with the same name is reused). A record with no Company stays Pending. Revoking in the portal updates the CRM record within 15 seconds (Status Revoked, key text removed), and flipping a revoked record back to Active in the CRM does nothing. If more than three keys vanish from the CRM at once, nothing is revoked and the journal says so.
 
 Customers who should see usage and invoices need a portal login too:
 
@@ -83,7 +87,7 @@ node gateway/keys.mjs add-user "Acme Co" owner@acme.com       # prints a portal 
 node gateway/keys.mjs reset-password owner@acme.com
 ```
 
-Emergency tools, which bypass the CRM (keys made here do not show up in Twenty):
+Emergency tools on the server, which bypass the CRM (keys made here do not show up in Twenty):
 
 ```sh
 node gateway/keys.mjs add-customer "Acme Co" owner@acme.com   # customer, login and first key
@@ -92,7 +96,9 @@ node gateway/keys.mjs revoke xgold-ai-AbCdE                   # first 14 charact
 node gateway/keys.mjs list
 ```
 
-Only a hash of each key and password is stored by the gateway. The CRM record holds the full key (see shortcuts).
+## Staff: the Anthropic key
+
+In the portal, the **Anthropic key** section replaces editing `gateway.env`. Paste a key and save: the gateway checks it with Anthropic's free models call first, and saves it only if Anthropic accepts it. The page only ever shows the last four characters. The key is stored as plain text in the gateway database (`ai_settings`), next to the usage data; encrypt it with a key from `gateway.env` if that table ever holds more secrets.
 
 ## Shortcuts
 

@@ -130,7 +130,40 @@ export ANTHROPIC_AUTH_TOKEN=&lt;your xGold AI key&gt;</code></pre>
       </div>
     </section>
 
-    <section class="section" id="admin" aria-labelledby="admin-title" hidden>
+    <div id="admin" hidden>
+    <section class="section" aria-labelledby="keys-title">
+      <div class="container-wide">
+        <h2 id="keys-title" class="title-section">Customer keys.</h2>
+        <p class="muted portal-empty">Generate a key, then send it to the customer.</p>
+        <form class="provider-form" id="keys-form" novalidate>
+          <div class="field">
+            <input class="field__input" id="key-customer" name="customer" list="customer-names" type="text" placeholder=" " autocomplete="off" maxlength="120" required>
+            <label class="field__label" for="key-customer">Customer</label>
+            <datalist id="customer-names"></datalist>
+          </div>
+          <div class="field">
+            <input class="field__input" id="key-label" name="label" type="text" placeholder=" " autocomplete="off" maxlength="80">
+            <label class="field__label" for="key-label">Label, such as Laptop</label>
+          </div>
+          <button class="btn btn--primary" id="key-submit" type="submit">Generate key</button>
+        </form>
+        <p class="fine provider-msg" id="key-msg" role="status"></p>
+        <div class="key-new" id="key-new" hidden>
+          <p class="fine" id="key-new-note"></p>
+          <pre class="code"><code id="key-new-value"></code></pre>
+          <button class="btn btn--secondary" id="key-copy" type="button">Copy key</button>
+        </div>
+        <p class="muted portal-empty" id="keys-empty" hidden>No keys yet.</p>
+        <div class="table-wrap portal-table" id="keys-wrap" hidden>
+          <table class="table">
+            <thead><tr><th scope="col">Customer</th><th scope="col" class="hide-sm">Label</th><th scope="col">Key starts with</th><th scope="col">Status</th></tr></thead>
+            <tbody id="keys-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="admin-title">
       <div class="container-wide">
         <h2 id="admin-title" class="title-section">Anthropic key.</h2>
         <p class="muted portal-empty" id="provider-status" aria-live="polite"></p>
@@ -142,9 +175,9 @@ export ANTHROPIC_AUTH_TOKEN=&lt;your xGold AI key&gt;</code></pre>
           <button class="btn btn--primary" id="provider-submit" type="submit">Save key</button>
         </form>
         <p class="fine provider-msg" id="provider-msg" role="status"></p>
-        <p class="fine">Customer keys are made in the CRM, on the customer's company.</p>
       </div>
     </section>
+    </div>
   </div>
 </main>
 <footer class="footer">

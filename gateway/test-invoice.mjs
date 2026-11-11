@@ -42,7 +42,10 @@ const records = new Map(), posts = [];
 let failNotes = true, existingCompany = null;
 const fetchImpl = async (url, o) => {
   const u = new URL(url), p = u.pathname.slice('/rest/'.length);
-  if (o.method === 'GET' && p === 'companies') return { ok: true, status: 200, json: async () => ({ data: { companies: existingCompany ? [{ id: existingCompany }] : [] } }) };
+  if (o.method === 'GET' && p === 'companies') { // Twenty's name filter: only 'Acme Co' already exists, as existingCompany
+    const wanted = /"(.*)"/.exec(decodeURIComponent(u.searchParams.get('filter') ?? ''))?.[1];
+    return { ok: true, status: 200, json: async () => ({ data: { companies: existingCompany && wanted === 'Acme Co' ? [{ id: existingCompany, name: 'Acme Co' }] : [] } }) };
+  }
   if (o.method === 'GET') return { ok: records.has(p), status: records.has(p) ? 200 : 404, json: async () => ({ data: records.get(p) }) };
   if (p === 'notes' && failNotes) return { ok: false, status: 500, json: async () => ({}) };
   const d = JSON.parse(o.body); posts.push({ p, d }); records.set(p + '/' + d.id, { id: d.id });
@@ -59,7 +62,7 @@ assert.deepEqual(t, { synced: 2, failed: 0 });
 assert.ok(invoices.every(i => i.synced));
 const target = posts.find(x => x.p === 'noteTargets');
 assert.equal(target.d.targetCompanyId, 'existing-company-id'); // reused the Company that already had that name
-assert.ok(!posts.some(x => x.p === 'companies'));
+assert.ok(!posts.some(x => x.p === 'companies' && x.d.name === 'Acme Co'));
 const note = posts.find(x => x.p === 'notes');
 assert.match(note.d.title, /^Invoice 2026-10 · \$33\.80$/);
 assert.match(note.d.bodyV2.markdown, /claude-opus-5-5/);

@@ -33,6 +33,17 @@ export function pgStore(pool) {
     setSetting: (name, value) => pool.query(
       `insert into ai_settings (name,value) values ($1,$2)
        on conflict (name) do update set value=excluded.value, updated_at=now()`, [name, value]),
+    // ---- Staff key admin in the portal ----
+    customerNames: () => many('select name from ai_customers order by name'),
+    customerByName: name => one('select id, name, twenty_company_id from ai_customers where name=$1', [name]),
+    createCustomer: name => one('insert into ai_customers (name) values ($1) returning id, name, twenty_company_id', [name]),
+    insertKey: k => one('insert into ai_keys (customer_id,label,prefix,key_hash) values ($1,$2,$3,$4) returning id', [k.customer_id, k.label, k.prefix, k.key_hash]),
+    revokeKey: id => one('update ai_keys set revoked_at=now() where id=$1 and revoked_at is null returning id', [id]),
+    adminKeys: () => many(
+      `select k.id, c.name as customer, k.label, k.prefix, k.created_at, k.revoked_at, k.twenty_key_id is not null as in_crm
+       from ai_keys k join ai_customers c on c.id=k.customer_id order by k.created_at desc limit 200`),
+    setCompany: (customerId, companyId) => pool.query('update ai_customers set twenty_company_id=$2 where id=$1 and twenty_company_id is null', [customerId, companyId]),
+    linkKey: (keyId, twentyKeyId) => pool.query('update ai_keys set twenty_key_id=$2 where id=$1', [keyId, twentyKeyId]),
     // ---- CRM keys: Twenty "AI key" records become gateway keys (crm-keys.mjs) ----
     async customerForCompany(companyId, name) {
       // take over a customer that keys.mjs made with the same name, so usage stays on one customer

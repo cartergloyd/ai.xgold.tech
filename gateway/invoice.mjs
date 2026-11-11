@@ -5,7 +5,7 @@
 import { loadRates, summarize, monthRange, lastMonth } from './meter.mjs';
 import { connect, pgStore } from './pgstore.mjs';
 import { recordId } from '../crm/lead-sync.mjs';
-import { twentyFromEnv } from './crm-keys.mjs';
+import { twentyFromEnv, companyFor } from './crm-keys.mjs';
 
 const usd = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
@@ -37,17 +37,6 @@ export async function syncInvoices(store, twenty) {
     } catch { failed++; console.error('Twenty sync failed for an invoice; it will be retried on the next run'); }
   }
   return { synced, failed };
-}
-
-// A customer made from the CRM already knows its Company. Otherwise reuse one with the exact same name, or make one.
-async function companyFor(twenty, i) {
-  if (i.twenty_company_id) return i.twenty_company_id;
-  try {
-    const found = await twenty.request('GET', 'companies?limit=1&filter=' + encodeURIComponent(`name[eq]:"${i.customer.replaceAll('"', '')}"`));
-    const id = found?.data?.companies?.[0]?.id;
-    if (id) return id;
-  } catch { /* fall through and create it */ }
-  return twenty.ensure('companies', recordId('ai-customer', i.customer_id), { name: i.customer });
 }
 
 async function main() {

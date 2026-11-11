@@ -53,7 +53,8 @@ async function readBody(req, max) {
   return Buffer.concat(chunks);
 }
 
-export function createApp({ store, rates, upstream = 'https://api.anthropic.com', anthropicKey, origins = [], fetchImpl = fetch }) {
+// mirror(key info) copies a key made in the portal onto the customer's record in the CRM; leave it out when there is no CRM.
+export function createApp({ store, rates, upstream = 'https://api.anthropic.com', anthropicKey, origins = [], fetchImpl = fetch, mirror = null }) {
   const keyFails = limiter(20, 60e3), loginFails = limiter(8, 600e3);
   const dummyHash = hashPassword('not-a-real-password'); // so an unknown email costs the same time as a wrong password
 
@@ -85,6 +86,34 @@ export function createApp({ store, rates, upstream = 'https://api.anthropic.com'
     await store.setSetting('anthropic_key', key);
     cached = { value: key, at: Date.now() };
     return sendJson(res, 200, await providerStatus());
+  }
+
+  const bodyOf = async req => { try { return JSON.parse((await readBody(req, 4096)).toString('utf8')) ?? {}; } catch { return {}; } };
+
+  // Staff make a customer key: shown once here, stored as a hash, and copied onto the customer's CRM record when there is one.
+  async function createCustomerKey(req, res) {
+    const body = await bodyOf(req);
+    const name = typeof body.customer === 'string' ? body.customer.trim() : '';
+    const label = (typeof body.label === 'string' ? body.label.trim().slice(0, 80) : '') || 'Key';
+    if (!name || name.length > 120) return sendJson(res, 400, { error: 'Enter the customer name.' });
+    let customer = await store.customerByName(name);
+    const isNew = !customer;
+    customer ??= await store.createCustomer(name);
+    const { key, prefix, hash } = makeKey();
+    const { id: key_id } = await store.insertKey({ customer_id: customer.id, label, prefix, key_hash: hash });
+    let crm = 'off';
+    if (mirror) {
+      try { await mirror({ customer_id: customer.id, customer: customer.name, twenty_company_id: customer.twenty_company_id, key_id, label, key, prefix }); crm = 'added'; }
+      catch { crm = 'failed'; console.error('A customer key was made but not copied to the CRM'); } // the key works either way
+    }
+    return sendJson(res, 201, { key, prefix, customer: customer.name, label, new_customer: isNew, crm });
+  }
+
+  async function revokeCustomerKey(req, res) {
+    const { id } = await bodyOf(req);
+    if (typeof id !== 'string' || !/^[0-9a-f-]{36}$/i.test(id)) return sendJson(res, 400, { error: 'Pick a key to revoke.' });
+    // The CRM record follows within 15 seconds (crm-keys.mjs shows it as Revoked and removes the key text).
+    return await store.revokeKey(id) ? sendJson(res, 200, { revoked: true }) : sendJson(res, 404, { error: 'That key is already revoked or does not exist.' });
   }
 
   async function proxy(req, res, url, ip) {
@@ -157,9 +186,14 @@ export function createApp({ store, rates, upstream = 'https://api.anthropic.com'
     const session = bearer ? await store.sessionByHash(sha256(bearer)) : null;
     if (!session) return sendJson(res, 401, { error: 'Sign in to continue.' });
 
-    if (url.pathname === '/portal/admin/provider-key' && ['GET', 'POST'].includes(req.method)) {
-      if (!session.is_admin) return sendJson(res, 403, { error: 'Only xGold staff can change this.' });
-      return req.method === 'GET' ? sendJson(res, 200, await providerStatus()) : saveProviderKey(req, res);
+    if (url.pathname.startsWith('/portal/admin/')) {
+      if (!session.is_admin) return sendJson(res, 403, { error: 'Only xGold staff can do that.' });
+      const route = req.method + ' ' + url.pathname.slice('/portal/admin/'.length);
+      if (route === 'GET provider-key') return sendJson(res, 200, await providerStatus());
+      if (route === 'POST provider-key') return saveProviderKey(req, res);
+      if (route === 'GET keys') return sendJson(res, 200, { customers: (await store.customerNames()).map(c => c.name), keys: await store.adminKeys() });
+      if (route === 'POST keys') return createCustomerKey(req, res);
+      if (route === 'POST keys/revoke') return revokeCustomerKey(req, res);
     }
     if (url.pathname === '/portal/usage' && req.method === 'GET') {
       const month = url.searchParams.get('month') ?? currentMonth();
@@ -196,8 +230,12 @@ async function main() {
   const pool = connect(process.env.GATEWAY_DATABASE_URL);
   await migrate(pool);
   const store = pgStore(pool);
+  // Customer keys are made in the CRM (and mirrored there from the portal). Without a Twenty key file the gateway runs without that.
+  const { twentyFromEnv, startKeySync, mirrorKey } = await import('./crm-keys.mjs');
+  const twenty = await twentyFromEnv().catch(e => { console.error('CRM keys are off:', e.message); return null; });
   const app = createApp({
     store,
+    mirror: twenty ? k => mirrorKey(store, twenty, k) : null,
     rates: loadRates(new URL('./rates.json', import.meta.url)),
     anthropicKey: process.env.ANTHROPIC_API_KEY,
     upstream: process.env.UPSTREAM_URL, // unset in production; lets a staging run point at a stub
@@ -206,10 +244,6 @@ async function main() {
   const server = http.createServer(app);
   server.keepAliveTimeout = 65e3; // longer than the tunnel's idle timeout, or reused connections race the close
   server.listen(Number(process.env.PORT ?? 3030), '127.0.0.1');
-
-  // Customer keys made in the CRM become gateway keys within seconds. Without a Twenty key file the gateway runs without that.
-  const { twentyFromEnv, startKeySync } = await import('./crm-keys.mjs');
-  const twenty = await twentyFromEnv().catch(e => { console.error('CRM keys are off:', e.message); return null; });
-  if (twenty) startKeySync(store, twenty);
+  if (twenty) startKeySync(store, twenty); // records added in Twenty become gateway keys within seconds
 }
 if (process.argv[1] && new URL(import.meta.url).pathname === process.argv[1]) main().catch(() => { console.error('Gateway stopped; check GATEWAY_DATABASE_URL, the database and gateway/schema.sql'); process.exitCode = 1; });

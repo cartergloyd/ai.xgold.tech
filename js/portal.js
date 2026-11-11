@@ -24,11 +24,13 @@
     return body;
   }
 
+  // Status line under a form: plain text, or the error colour when it went wrong.
+  function say(id, text, error = false) { const m = $(id); m.textContent = text; if (error) m.dataset.error = ''; else delete m.dataset.error; }
   function showError(message) { const e = $('signin-error'); e.textContent = message; e.hidden = !message; }
   function signOut(message = '') {
     token = null; session.set(null);
     $('dash').hidden = true; $('signin').hidden = false;
-    $('password').value = ''; $('provider-key').value = ''; showError(message);
+    $('password').value = ''; $('provider-key').value = ''; $('key-new-value').textContent = ''; $('key-new').hidden = true; showError(message);
   }
 
   function months() { // this month and the 11 before it, newest first
@@ -93,6 +95,29 @@
   async function loadUsage(month) { renderUsage(await api('/portal/usage?month=' + month)); }
 
   // Staff only: the Anthropic key the gateway spends. The key is never sent back, only its last four characters.
+  // Staff only: make customer keys and list them. A full key is shown once, right after it is made.
+  async function loadKeys() {
+    const { customers, keys } = await api('/portal/admin/keys');
+    $('customer-names').replaceChildren(...customers.map(n => el('option', { value: n })));
+    $('keys-empty').hidden = keys.length > 0; $('keys-wrap').hidden = keys.length === 0;
+    $('keys-body').replaceChildren(...keys.map(k => {
+      const revoke = el('button', { className: 'btn btn--secondary btn--sm', type: 'button', textContent: 'Revoke' });
+      revoke.setAttribute('aria-label', `Revoke key ${k.prefix} for ${k.customer}`);
+      revoke.addEventListener('click', async () => {
+        if (!confirm(`Revoke ${k.prefix} for ${k.customer}? It stops working right away and cannot be turned back on.`)) return;
+        revoke.disabled = true;
+        try { await api('/portal/admin/keys/revoke', { method: 'POST', body: JSON.stringify({ id: k.id }) }); say('key-msg', 'Revoked.'); await loadKeys(); }
+        catch (err) { say('key-msg', err.message, true); revoke.disabled = false; }
+      });
+      return el('tr', {},
+        el('td', { textContent: k.customer }),
+        el('td', { className: 'hide-sm', textContent: k.label }),
+        el('td', { className: 'mono', textContent: k.prefix }),
+        el('td', {}, k.revoked_at ? el('span', { className: 'muted', textContent: 'Revoked' })
+          : el('span', { className: 'cell-action' }, el('span', { className: 'status', textContent: 'Active' }), revoke)));
+    }));
+  }
+
   async function loadProvider() {
     const p = await api('/portal/admin/provider-key');
     const saved = p.updated_at ? ` Saved ${new Date(p.updated_at).toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'UTC' })}.` : '';
@@ -110,22 +135,44 @@
     } catch (e) { if (token) showError(e.message); return; }
     $('signin').hidden = true; $('dash').hidden = false;
     $('admin').hidden = !isAdmin;
-    if (isAdmin) loadProvider().catch(() => { $('provider-status').textContent = 'Could not check the key. Reload to try again.'; });
+    if (isAdmin) {
+      loadProvider().catch(() => { $('provider-status').textContent = 'Could not check the key. Reload to try again.'; });
+      loadKeys().catch(() => say('key-msg', 'Could not load the keys. Reload to try again.', true));
+    }
   }
 
   $('month').addEventListener('change', e => loadUsage(e.target.value).catch(err => showError(err.message)));
   $('signout').addEventListener('click', () => signOut());
   $('provider-form').addEventListener('submit', async e => {
     e.preventDefault();
-    const button = $('provider-submit'), msg = $('provider-msg');
-    button.disabled = true; msg.textContent = ''; delete msg.dataset.error;
+    const button = $('provider-submit');
+    button.disabled = true; say('provider-msg', '');
     try {
       await api('/portal/admin/provider-key', { method: 'POST', body: JSON.stringify({ key: $('provider-key').value }) });
       $('provider-key').value = ''; // the key never stays on the page
-      msg.textContent = 'Saved. The gateway uses it now.';
+      say('provider-msg', 'Saved. The gateway uses it now.');
       await loadProvider();
-    } catch (err) { msg.dataset.error = ''; msg.textContent = err instanceof TypeError ? 'Could not reach xGold. Try again.' : err.message; }
+    } catch (err) { say('provider-msg', err instanceof TypeError ? 'Could not reach xGold. Try again.' : err.message, true); }
     finally { button.disabled = false; }
+  });
+  $('keys-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const button = $('key-submit');
+    button.disabled = true; say('key-msg', ''); $('key-new').hidden = true;
+    try {
+      const r = await api('/portal/admin/keys', { method: 'POST', body: JSON.stringify({ customer: $('key-customer').value, label: $('key-label').value }) });
+      $('key-new-value').textContent = r.key;
+      $('key-new-note').textContent = `${r.new_customer ? 'New customer added. ' : ''}Key for ${r.customer}. ` + (r.crm === 'added'
+        ? "It is also saved on the customer's record in the CRM."
+        : r.crm === 'failed' ? 'It could not be saved to the CRM. Copy it now; it is not shown again.' : 'Copy it now; it is not shown again.');
+      $('key-new').hidden = false; $('key-label').value = '';
+      await loadKeys();
+    } catch (err) { say('key-msg', err instanceof TypeError ? 'Could not reach xGold. Try again.' : err.message, true); }
+    finally { button.disabled = false; }
+  });
+  $('key-copy').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText($('key-new-value').textContent); say('key-msg', 'Copied.'); }
+    catch { say('key-msg', 'Could not copy. Select the key and copy it by hand.', true); }
   });
   $('signin-form').addEventListener('submit', async e => {
     e.preventDefault();

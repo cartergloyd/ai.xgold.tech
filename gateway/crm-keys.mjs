@@ -2,7 +2,7 @@
 // working gateway key and writes the key back onto the record. Status "Revoked" (or deleting the record) cuts the key off.
 // One-time CRM setup: node gateway/crm-setup.mjs
 import fs from 'node:fs/promises';
-import { Twenty } from '../crm/lead-sync.mjs';
+import { Twenty, recordId } from '../crm/lead-sync.mjs';
 import { makeKey } from './gateway.mjs';
 
 export async function twentyFromEnv(env = process.env) {
@@ -10,6 +10,27 @@ export async function twentyFromEnv(env = process.env) {
   if (!path) return null;
   if (((await fs.stat(path)).mode & 0o777) !== 0o600) throw new Error('Twenty API key file must be mode 600');
   return new Twenty(env.TWENTY_BASE_URL ?? 'http://127.0.0.1:3020', (await fs.readFile(path, 'utf8')).trim());
+}
+
+// A customer made from the CRM already knows its Company. Otherwise reuse the Company with the exact same name, or make one.
+export async function companyFor(twenty, c) {
+  if (c.twenty_company_id) return c.twenty_company_id;
+  try {
+    const found = await twenty.request('GET', 'companies?limit=1&filter=' + encodeURIComponent(`name[eq]:"${c.customer.replaceAll('"', '')}"`));
+    const hit = found?.data?.companies?.[0];
+    if (hit?.id && hit.name === c.customer) return hit.id; // only an exact match: never trust the filter alone
+  } catch { /* fall through and create it */ }
+  return twenty.ensure('companies', recordId('ai-customer', c.customer_id), { name: c.customer });
+}
+
+// A key made in the portal is also written onto the customer's Company in Twenty, so the CRM shows every key.
+// Order matters: the record is linked to the key only after it exists, or the sync would read a missing record as a deleted one.
+export async function mirrorKey(store, twenty, k) {
+  const companyId = await companyFor(twenty, k);
+  await store.setCompany(k.customer_id, companyId).catch(() => {}); // another customer may already own that Company: leave it
+  const id = recordId('ai-key', k.key_id);
+  await twenty.ensure('aiKeys', id, { name: k.label, companyId, keyPrefix: k.prefix, apiKey: k.key, status: 'ACTIVE' });
+  await store.linkKey(k.key_id, id);
 }
 
 const rowsOf = res => Object.values(res?.data ?? {}).find(Array.isArray) ?? [];
