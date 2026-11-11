@@ -1,0 +1,20 @@
+{
+  "_note": "USD per million tokens, from Anthropic's published prices as cached 2026-11-03 (recheck before the first real invoice). Where the docs list no cache price, cache read/write use 0.1x / 1.25x / 2x of input. Mythos models are not listed on purpose: unlisted models are held back from invoices until a rate is added. markup is the xGold margin on provider cost; 0.30 is a placeholder.",
+  "markup": 0.30,
+  "models": {
+    "claude-fable-5-2":  { "in": 8,   "out": 40, "read": 0.2,  "w5": 10,    "w1h": 16 },
+    "claude-fable-5-1":  { "in": 10,  "out": 50, "read": 0.25, "w5": 12.5,  "w1h": 20 },
+    "claude-fable-5":    { "in": 10,  "out": 50, "read": 1,    "w5": 12.5,  "w1h": 20 },
+    "claude-opus-5-5":   { "in": 4,   "out": 20, "read": 0.2,  "w5": 5,     "w1h": 8 },
+    "claude-opus-5":     { "in": 5,   "out": 25, "read": 0.5,  "w5": 6.25,  "w1h": 10 },
+    "claude-opus-4-8":   { "in": 5,   "out": 25, "read": 0.5,  "w5": 6.25,  "w1h": 10 },
+    "claude-opus-4-7":   { "in": 5,   "out": 25, "read": 0.5,  "w5": 6.25,  "w1h": 10 },
+    "claude-opus-4-6":   { "in": 5,   "out": 25, "read": 0.5,  "w5": 6.25,  "w1h": 10 },
+    "claude-sonnet-5-5": { "in": 2,   "out": 10, "read": 0.1,  "w5": 2.5,   "w1h": 4 },
+    "claude-sonnet-5":   { "in": 2,   "out": 10, "read": 0.2,  "w5": 2.5,   "w1h": 4 },
+    "claude-sonnet-4-6": { "in": 3,   "out": 15, "read": 0.3,  "w5": 3.75,  "w1h": 6 },
+    "claude-haiku-5-5":  { "in": 0.1, "out": 0.5, "read": 0.01, "w5": 0.125, "w1h": 0.2,
+                           "long": { "in": 0.5, "out": 2.5, "read": 0.05, "w5": 0.625, "w1h": 1 } },
+    "claude-haiku-4-5":  { "in": 1,   "out": 5,  "read": 0.1,  "w5": 1.25,  "w1h": 2 }
+  }
+}
