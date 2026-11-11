@@ -74,3 +74,4 @@
   cursor: pointer;
 }
 .footer__toggle:hover { color: var(--text); }
+.footer__legal-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); }

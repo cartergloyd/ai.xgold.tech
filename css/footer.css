@@ -82,3 +82,4 @@
   padding-top: var(--space-4);
   border-top: 1px solid var(--hairline);
 }
+.footer-legal-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); }
