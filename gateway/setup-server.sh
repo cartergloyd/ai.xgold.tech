@@ -19,7 +19,8 @@ git -C ai-site-src log --oneline -1
 if [ ! -e gateway/gateway.env ]; then
   install -d -m 700 gateway
   H=/var/lib/postgresql/data/pg_hba.conf
-  PSQL="docker exec -i gold-platform-postgres psql -U gold_admin -d gold_platform -v ON_ERROR_STOP=1 -q"
+  # No -i here: docker would swallow the rest of this script from stdin when it is piped through ssh.
+  PSQL="docker exec gold-platform-postgres psql -U gold_admin -d gold_platform -v ON_ERROR_STOP=1 -q"
   pw=$(openssl rand -hex 24)
 
   $PSQL -c "create role gateway login password '$pw'" -c "create database gateway owner gateway"
@@ -40,6 +41,7 @@ else
   echo "gateway.env exists; database left as it is"
 fi
 
+echo "installing systemd units"
 install -d ~/.config/systemd/user
 cp ai-site-src/gateway/xgold-ai-gateway.service ai-site-src/gateway/xgold-ai-invoice.service ai-site-src/gateway/xgold-ai-invoice.timer ~/.config/systemd/user/
 systemctl --user daemon-reload
