@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "providence-health-internal-hiring",
+  "title": "Orchestrating existing HR systems.",
+  "summary": "90% less admin work; starts 12 days sooner; 60% lower transfer cost; up to 70% more accurate.",
+  "type": "Documented case",
+  "area": "Internal hiring",
+  "date": "2026-10-01",
+  "client": "Providence Health + IBM",
+  "spec": {
+    "problem": "Hiring managers spent most of an internal transfer on administrative steps spread across HR systems. Transfers were slow and costly to process.",
+    "changed": "An AI-driven workflow now coordinates the steps across the existing systems. No system was replaced.",
+    "systems": "Oracle HR systems, orchestrated by IBM.",
+    "measured": "Hiring-manager admin time, days to start, cost per transfer, process accuracy.",
+    "result": "**90% less admin work; starts 12 days sooner; 60% lower transfer cost; up to 70% more accurate.** Company-reported, October 2026."
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://newsroom.ibm.com/2026-10-07-providence-health-collaborates-with-ibm-using-ai-to-reduce-hiring-admin-time-without-replacing-a-single-system"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

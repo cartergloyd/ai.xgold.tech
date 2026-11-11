@@ -1,0 +1,53 @@
+{
+  "section": "research",
+  "slug": "how-to-measure-an-ai-implementation",
+  "title": "How to measure an AI implementation.",
+  "summary": "One primary business metric the process owner will defend, then five supporting measures. Definitions we use, in plain terms.",
+  "type": "Method",
+  "area": "Measurement",
+  "date": "2026-10-10",
+  "body": [
+    {
+      "h3": "Hours recovered"
+    },
+    {
+      "p": "Staff time no longer spent on the workflow, counted from time studies or system timestamps, and what that time was redeployed to. Capacity until finance books it."
+    },
+    {
+      "h3": "Cost per transaction"
+    },
+    {
+      "p": "Fully loaded cost per invoice, case, report or contact: labor, review, exceptions, licenses, inference and monitoring, divided by acceptable completions."
+    },
+    {
+      "h3": "Error and rework rate"
+    },
+    {
+      "p": "Exceptions, corrections and escalations per hundred items, measured at the same point in the process before and after."
+    },
+    {
+      "h3": "Processing time"
+    },
+    {
+      "p": "Elapsed time from the triggering event to a completed, valid outcome. Not the time to produce a draft."
+    },
+    {
+      "h3": "Revenue impact"
+    },
+    {
+      "p": "Margin attributable to the change through faster quotes, fewer lost cases or higher conversion, against a credible counterfactual."
+    },
+    {
+      "h3": "Run cost and risk"
+    },
+    {
+      "p": "Inference, licenses, integration and monitoring per period, plus unauthorized actions, sensitive-data events and audit completeness."
+    },
+    {
+      "p": "Two outside anchors for this. Deloitte's guidance for CFOs calls for locked pre-deployment baselines and names missing baselines as the largest source of indefensible ROI claims.[^30] Gartner's survey of 724 respondents finds only about a third of teams report high productivity gains, and tells CFOs to challenge assumed headcount savings until workflows are redesigned.[^31] The UK government experiment is a usable template for measuring hours recovered: an active user is one interaction or more, adoption is active users over licences, and time saved is a survey-band midpoint capped at an hour a day, with the self-report caveat stated.[^27]"
+    },
+    {
+      "p": "The value rule: hours saved are capacity, not savings. A defensible case records spending avoided, capacity demonstrably redeployed and attributable margin, then subtracts build, license, model, review and operating costs.[^15][^2]"
+    }
+  ]
+}

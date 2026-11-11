@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>Customer portal | xGold Tech</title>
+<meta name="description" content="Your xGold AI usage this month and your invoices.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="styles/button.css">
+<link rel="stylesheet" href="styles/form.css">
+<link rel="stylesheet" href="styles/footer.css">
+<link rel="stylesheet" href="styles/portal.css">
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="container--wide nav-inner">
+    <a class="nav-logo" href="index.html" aria-label="xGold Tech home">
+      <img class="monogram" src="assets/xgold-monogram.svg" alt="" width="34" height="24">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+    <nav class="nav-menu" id="nav-menu" aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li class="nav-buttons">
+          <a class="nav-login" href="https://crm.xgold.tech" rel="nofollow">Log in</a>
+          <a class="nav-cta" href="book.html">Start an assessment</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section" id="signin" aria-labelledby="signin-title">
+    <div class="portal-signin">
+      <div class="form-card">
+        <form id="signin-form" novalidate>
+          <div class="form-card__body">
+            <h1 class="form-card__title" id="signin-title">Sign in</h1>
+            <p class="form-card__lede">See this month's AI usage and your invoices.</p>
+            <div class="form-stack">
+              <div class="field">
+                <input class="field__input" id="email" name="email" type="email" placeholder=" " autocomplete="username" required>
+                <label class="field__label" for="email">Email</label>
+              </div>
+              <div class="field">
+                <input class="field__input" id="password" name="password" type="password" placeholder=" " autocomplete="current-password" required>
+                <label class="field__label" for="password">Password</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-card__foot">
+            <button class="btn btn--primary btn--block" id="signin-submit" type="submit">Sign in</button>
+          </div>
+        </form>
+        <p class="field__error form-card__error" id="signin-error" role="alert" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <div id="dash" hidden>
+    <section class="page-head" aria-labelledby="dash-title">
+      <div class="container-wide">
+        <p class="page-head__eyebrow" id="who"></p>
+        <h1 id="dash-title" class="title-page">AI usage.</h1>
+        <p class="page-head__lede">Counted on every request. Invoiced on the 1st.</p>
+        <div class="portal-tools">
+          <label class="fine" for="month">Month</label>
+          <select class="select" id="month"></select>
+          <button class="link" id="signout" type="button">Sign out</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--flush-top" aria-labelledby="meter-label">
+      <div class="container-wide">
+        <div class="meter">
+          <p class="meter__label" id="meter-label">Usage this month</p>
+          <p class="meter__amount" id="amount" aria-live="polite"></p>
+          <p class="fine" id="amount-note" hidden></p>
+          <dl class="meter__stats">
+            <div><dt class="fine">Requests</dt><dd id="s-calls"></dd></div>
+            <div><dt class="fine">Input tokens</dt><dd id="s-input"></dd></div>
+            <div><dt class="fine">Output tokens</dt><dd id="s-output"></dd></div>
+            <div><dt class="fine">Cached tokens</dt><dd id="s-cached"></dd></div>
+          </dl>
+          <div class="bars" id="bars" role="img" aria-label="Tokens per day"></div>
+          <p class="fine bars__caption" id="bars-caption">Tokens per day</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="models" aria-labelledby="models-title">
+      <div class="container-wide">
+        <h2 id="models-title" class="title-section">By model.</h2>
+        <p class="muted portal-empty" id="models-empty" hidden>No usage this month.</p>
+        <div class="table-wrap portal-table" id="models-wrap">
+          <table class="table">
+            <thead><tr><th scope="col">Model</th><th scope="col" class="num">Requests</th><th scope="col" class="num hide-sm">Input</th><th scope="col" class="num hide-sm">Output</th><th scope="col" class="num hide-sm">Cached</th><th scope="col" class="num">Amount</th></tr></thead>
+            <tbody id="models-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="invoices" aria-labelledby="invoices-title">
+      <div class="container-wide">
+        <h2 id="invoices-title" class="title-section">Invoices.</h2>
+        <p class="muted portal-empty" id="invoices-empty" hidden>No invoices yet. The first arrives on the 1st.</p>
+        <div class="invoice-list" id="invoice-list"></div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="connect-title">
+      <div class="container-wide">
+        <h2 id="connect-title" class="title-section">Connect Claude Code.</h2>
+        <p class="muted portal-empty">Set two variables, then run claude as usual.</p>
+        <pre class="code"><code>export ANTHROPIC_BASE_URL=https://ai-gateway.xgold.tech
+export ANTHROPIC_AUTH_TOKEN=&lt;your xGold AI key&gt;</code></pre>
+        <p class="fine">Keys come from xGold. Ask us for a new one any time.</p>
+      </div>
+    </section>
+
+    <div id="admin" hidden>
+    <section class="section" aria-labelledby="keys-title">
+      <div class="container-wide">
+        <h2 id="keys-title" class="title-section">Customer keys.</h2>
+        <p class="muted portal-empty">Generate a key, then send it to the customer.</p>
+        <form class="provider-form" id="keys-form" novalidate>
+          <div class="field">
+            <input class="field__input" id="key-customer" name="customer" list="customer-names" type="text" placeholder=" " autocomplete="off" maxlength="120" required>
+            <label class="field__label" for="key-customer">Customer</label>
+            <datalist id="customer-names"></datalist>
+          </div>
+          <div class="field">
+            <input class="field__input" id="key-label" name="label" type="text" placeholder=" " autocomplete="off" maxlength="80">
+            <label class="field__label" for="key-label">Label, such as Laptop</label>
+          </div>
+          <button class="btn btn--primary" id="key-submit" type="submit">Generate key</button>
+        </form>
+        <p class="fine provider-msg" id="key-msg" role="status"></p>
+        <div class="key-new" id="key-new" hidden>
+          <p class="fine" id="key-new-note"></p>
+          <pre class="code"><code id="key-new-value"></code></pre>
+          <button class="btn btn--secondary" id="key-copy" type="button">Copy key</button>
+        </div>
+        <p class="muted portal-empty" id="keys-empty" hidden>No keys yet.</p>
+        <div class="table-wrap portal-table" id="keys-wrap" hidden>
+          <table class="table">
+            <thead><tr><th scope="col">Customer</th><th scope="col" class="hide-sm">Label</th><th scope="col">Key starts with</th><th scope="col">Status</th></tr></thead>
+            <tbody id="keys-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="admin-title">
+      <div class="container-wide">
+        <h2 id="admin-title" class="title-section">Anthropic key.</h2>
+        <p class="muted portal-empty" id="provider-status" aria-live="polite"></p>
+        <form class="provider-form" id="provider-form" novalidate>
+          <div class="field">
+            <input class="field__input" id="provider-key" name="provider-key" type="password" placeholder=" " autocomplete="new-password" spellcheck="false" required>
+            <label class="field__label" for="provider-key">New Anthropic API key</label>
+          </div>
+          <button class="btn btn--primary" id="provider-submit" type="submit">Save key</button>
+        </form>
+        <p class="fine provider-msg" id="provider-msg" role="status"></p>
+      </div>
+    </section>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer__dir">
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="problems.html">Problems we solve</a></li>
+          <li><a href="solutions.html">Solutions in action</a></li>
+          <li><a href="how-we-work.html">How we work</a></li>
+          <li><a href="about.html">About xGold</a></li>
+          <li><a href="research.html">Research and insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Start</h3>
+        <ul>
+          <li><a href="book.html">Start an assessment</a></li>
+          <li><a href="book.html">Contact xGold Tech</a></li>
+          <li><a href="portal.html" aria-current="page">Customer portal</a></li>
+          <li><a href="https://crm.xgold.tech" rel="nofollow">Team sign in</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>Copyright © 2026 xGold Tech. All rights reserved.</span>
+      <span class="footer__legal-links"><a href="privacy.html">Privacy policy</a> <a href="terms.html">Terms of service</a> <a href="#top">Back to top</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js" defer></script>
+<script src="js/portal.js" defer></script>
+</body>
+</html>

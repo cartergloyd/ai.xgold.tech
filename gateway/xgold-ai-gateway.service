@@ -1,0 +1,19 @@
+[Unit]
+Description=xGold AI gateway and customer portal API
+After=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/home/gold/server-platform/gateway/gateway.env
+ExecStart=/home/gold/.local/node/bin/node --max-old-space-size=128 /home/gold/server-platform/ai-site-src/gateway/gateway.mjs
+WorkingDirectory=/home/gold/server-platform/ai-site-src
+Restart=on-failure
+RestartSec=10
+MemoryMax=256M
+MemorySwapMax=0
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+
+[Install]
+WantedBy=default.target

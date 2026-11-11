@@ -1,150 +1,121 @@
-const menuButton = document.querySelector(".menu-button");
-const siteMenu = document.querySelector("#site-menu");
-const axiosFeed = document.querySelector("#axios-feed");
-const AXIOS_AI_URL = "https://www.axios.com/technology/automation-and-ai";
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-const FALLBACK_IMAGES = [
-  "assets/axios-ai-cost-human-workers.jpeg",
-  "assets/axios-israel-ai-influence.jpeg",
-  "assets/axios-colorado-ai-law.jpg",
-  "assets/axios-google-anthropic.gif",
-  "assets/axios-ai-productivity-inflation.gif"
-];
-const CACHED_AXIOS_IMAGES = {
-  "https://www.axios.com/2026/04/26/ai-cost-human-workers": "assets/axios-ai-cost-human-workers.jpeg",
-  "https://www.axios.com/2026/04/25/israel-ai-influence-parscale": "assets/axios-israel-ai-influence.jpeg",
-  "https://www.axios.com/2026/04/24/justice-department-joins-xai-challenge-colorado-ai-law": "assets/axios-colorado-ai-law.jpg",
-  "https://www.axios.com/2026/04/24/google-amazon-anthropic-investment": "assets/axios-google-anthropic.gif",
-  "https://www.axios.com/2026/04/23/ai-inflation-productivity-companies": "assets/axios-ai-productivity-inflation.gif"
-};
+/* script.js — progressive enhancement only. The page is complete without it. */
+(function () {
+  document.documentElement.classList.add('js');
 
-menuButton.addEventListener("click", () => {
-  const isOpen = siteMenu.classList.toggle("is-open");
-  menuButton.setAttribute("aria-expanded", String(isOpen));
-});
-
-siteMenu.addEventListener("click", (event) => {
-  if (event.target.matches("a")) {
-    siteMenu.classList.remove("is-open");
-    menuButton.setAttribute("aria-expanded", "false");
-  }
-});
-
-async function fetchHtml(url) {
-  const response = await fetch(`${CORS_PROXY}${encodeURIComponent(url)}`);
-
-  if (!response.ok) {
-    throw new Error(`Unable to load ${url}`);
+  /* Nav: mobile menu */
+  var nav = document.querySelector('.nav');
+  var toggle = document.querySelector('.nav__toggle');
+  if (nav && toggle) {
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('nav--open');
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    nav.querySelectorAll('.nav__links a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('nav--open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
   }
 
-  const html = await response.text();
-  return new DOMParser().parseFromString(html, "text/html");
-}
-
-function cleanHeadline(text) {
-  return text.replace(/\s*Go deeper\s*\([^)]*\)\s*/i, "").replace(/\s+/g, " ").trim();
-}
-
-function absoluteAxiosUrl(href) {
-  return new URL(href, AXIOS_AI_URL).href;
-}
-
-function findAxiosStories(document) {
-  const seen = new Set();
-
-  return Array.from(document.querySelectorAll("a[href]"))
-    .map((link) => ({
-      headline: cleanHeadline(link.textContent),
-      url: absoluteAxiosUrl(link.getAttribute("href"))
-    }))
-    .filter((story) => {
-      const isArticle = /^https:\/\/www\.axios\.com\/\d{4}\/\d{2}\/\d{2}\//.test(story.url);
-      const isNew = !seen.has(story.url);
-      const hasHeadline = story.headline.length > 16;
-      seen.add(story.url);
-      return isArticle && isNew && hasHeadline;
-    })
-    .slice(0, 5);
-}
-
-async function enrichStory(story, index) {
-  if (CACHED_AXIOS_IMAGES[story.url]) {
-    return {
-      ...story,
-      image: CACHED_AXIOS_IMAGES[story.url]
-    };
+  /* Scroll-in reveal */
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('is-visible'); });
   }
 
-  try {
-    const document = await fetchHtml(story.url);
-    const image = document.querySelector('meta[property="og:image"]')?.content;
-    const title = document.querySelector('meta[property="og:title"]')?.content;
-
-    return {
-      ...story,
-      headline: title ? cleanHeadline(title) : story.headline,
-      image: image || FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]
-    };
-  } catch {
-    return {
-      ...story,
-      image: FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]
-    };
-  }
-}
-
-function renderAxiosFeed(stories) {
-  axiosFeed.replaceChildren(
-    ...stories.map((story) => {
-      const card = document.createElement("a");
-      card.className = "latest-card";
-      card.href = story.url;
-      card.target = "_blank";
-      card.rel = "noopener";
-
-      const image = document.createElement("img");
-      image.className = "card-image";
-      image.src = story.image;
-      image.alt = "";
-      image.loading = "lazy";
-      image.addEventListener("error", () => {
-        image.src = FALLBACK_IMAGES[0];
-      }, { once: true });
-
-      const body = document.createElement("div");
-      body.className = "card-body";
-      const source = document.createElement("img");
-      source.className = "source-logo";
-      source.src = "assets/axios-logo.svg";
-      source.alt = "Axios";
-      const headline = document.createElement("h3");
-      headline.textContent = story.headline;
-
-      body.append(source, headline);
-      card.append(image, body);
-      return card;
-    })
-  );
-}
-
-async function loadAxiosFeed() {
-  if (!axiosFeed) {
-    return;
-  }
-
-  try {
-    const document = await fetchHtml(AXIOS_AI_URL);
-    const stories = findAxiosStories(document);
-
-    if (stories.length === 0) {
-      return;
+  /* Shelf: chevron controls */
+  document.querySelectorAll('.shelf').forEach(function (shelf) {
+    var track = shelf.querySelector('.shelf__track');
+    var prev = shelf.querySelector('[data-shelf="prev"]');
+    var next = shelf.querySelector('[data-shelf="next"]');
+    if (!track || !prev || !next) return;
+    function step() {
+      var item = track.querySelector('li');
+      return item ? item.getBoundingClientRect().width + 16 : track.clientWidth * 0.8;
     }
+    function update() {
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
 
-    const enrichedStories = await Promise.all(stories.map(enrichStory));
-    renderAxiosFeed(enrichedStories);
-  } catch {
-    axiosFeed.dataset.status = "fallback";
+  /* Numbers: segmented filter */
+  var filters = document.querySelectorAll('[data-filter]');
+  var entries = document.querySelectorAll('[data-category]');
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var value = btn.dataset.filter;
+      filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      entries.forEach(function (el) { el.hidden = value !== 'All' && el.dataset.category !== value; });
+    });
+  });
+
+  /* Start: workflow picker */
+  var select = document.getElementById('constraint');
+  var recTitle = document.getElementById('rec-title');
+  var recDetail = document.getElementById('rec-detail');
+  var recs = {
+    value: ['Baseline-backed value hypothesis', 'Map one current process, define its cost and quality baseline, identify a decision owner and agree what financial outcome would justify investment.'],
+    pilot: ['End-to-end workflow blueprint', 'Map the full journey from trigger to completed transaction, including records, handoffs, exceptions, approvals and evaluation tests.'],
+    risk: ['AI use and permissions register', 'Identify active tools and sensitive data paths, then set approved usage, least-privilege access, review points and an audit record.'],
+    people: ['Role-specific operating playbook', 'Identify the job tasks where AI can help, train with approved cases and document when staff must escalate or override.'],
+    cost: ['Cost-per-completion acceptance test', 'Measure actual inference, integration, review, rework and support costs, alongside quality and authorized-action rates.']
+  };
+  if (select && recTitle && recDetail) {
+    select.addEventListener('change', function () {
+      var r = recs[select.value];
+      if (!r) return;
+      recTitle.textContent = r[0];
+      recDetail.textContent = r[1];
+    });
   }
-}
+})();
 
-loadAxiosFeed();
+/* Tabs (problems.html): hash-linked segmented control */
+(function () {
+  var lists = document.querySelectorAll('[role="tablist"]');
+  lists.forEach(function (list) {
+    var tabs = list.querySelectorAll('[role="tab"]');
+    var panels = [].map.call(tabs, function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    function select(tab, push) {
+      tabs.forEach(function (t, i) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (panels[i]) panels[i].hidden = !on;
+      });
+      if (push && tab.dataset.hash) history.replaceState(null, '', '#' + tab.dataset.hash);
+      if (tab.scrollIntoView) tab.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { select(t, true); });
+      t.addEventListener('keydown', function (e) {
+        var i = [].indexOf.call(tabs, t);
+        if (e.key === 'ArrowRight') { select(tabs[(i + 1) % tabs.length], true); tabs[(i + 1) % tabs.length].focus(); }
+        if (e.key === 'ArrowLeft') { select(tabs[(i - 1 + tabs.length) % tabs.length], true); tabs[(i - 1 + tabs.length) % tabs.length].focus(); }
+      });
+    });
+    function fromHash() {
+      var h = location.hash.replace('#', '');
+      var match = [].filter.call(tabs, function (t) { return t.dataset.hash === h; })[0];
+      select(match || tabs[0], false);
+    }
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+  });
+})();

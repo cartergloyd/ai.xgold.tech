@@ -1,0 +1,258 @@
+// Run: node gateway/test-gateway.mjs   (no database or network needed)
+import assert from 'node:assert/strict';
+import http from 'node:http';
+import { randomUUID } from 'node:crypto';
+import { createApp, hashPassword, sha256 } from './gateway.mjs';
+import { cost, summarize, usageRow, loadRates } from './meter.mjs';
+
+const rates = loadRates(new URL('./rates.json', import.meta.url));
+const close = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} should be ${b}`);
+const until = async (fn, ms = 2000) => { const end = Date.now() + ms; while (!fn()) { assert.ok(Date.now() < end, 'timed out waiting'); await new Promise(r => setTimeout(r, 10)); } };
+const listen = server => new Promise(r => server.listen(0, '127.0.0.1', () => r(`http://127.0.0.1:${server.address().port}`)));
+
+// ---- pricing ----
+const row = o => ({ model: 'claude-opus-5-5', input: 0, output: 0, cache_read: 0, cache_write_5m: 0, cache_write_1h: 0, long_ctx: false, fast: false, calls: 1, day: '2026-11-03', ...o });
+close(cost(rates, row({ input: 1e6, output: 1e6 })), 24);
+close(cost(rates, row({ cache_read: 1e6, cache_write_5m: 1e6, cache_write_1h: 1e6 })), 0.2 + 5 + 8);
+close(cost(rates, row({ input: 1e6, fast: true })), 8);
+close(cost(rates, row({ model: 'claude-haiku-5-5', input: 1e6 })), 0.1);
+close(cost(rates, row({ model: 'claude-haiku-5-5', input: 1e6, long_ctx: true })), 0.5);
+close(cost(rates, row({ model: 'claude-haiku-4-5-20251001', output: 1e6 })), 5); // dated snapshot prices like its base
+assert.equal(cost(rates, row({ model: 'claude-mystery-1', input: 5 })), null);
+const s = summarize([row({ input: 1e6, output: 1e6 }), row({ model: 'claude-mystery-1', input: 7 })], rates);
+assert.equal(s.amount, 31.2); // 24 x 1.30
+assert.equal(s.unpriced, 7);
+assert.equal(s.by_model.find(m => m.model === 'claude-mystery-1').amount, null);
+assert.deepEqual(usageRow('m', { input_tokens: 5, output_tokens: 6, cache_read_input_tokens: 7, cache_creation_input_tokens: 8 }),
+  { model: 'm', input: 5, output: 6, cache_read: 7, cache_write_5m: 8, cache_write_1h: 0, long_ctx: false, fast: false });
+const split = usageRow('m', { input_tokens: 1, cache_creation_input_tokens: 10, cache_creation: { ephemeral_5m_input_tokens: 4, ephemeral_1h_input_tokens: 6 }, speed: 'fast' });
+assert.equal(split.cache_write_5m, 4); assert.equal(split.cache_write_1h, 6); assert.equal(split.fast, true);
+assert.equal(usageRow('m', { input_tokens: 100001 }).long_ctx, true);
+
+// ---- fake Anthropic ----
+const sse = (ev, data) => `event: ${ev}\ndata: ${JSON.stringify(data)}\n\n`;
+const start = (model = 'claude-opus-5-5') => sse('message_start', { type: 'message_start', message: { id: 'msg_1', model,
+  usage: { input_tokens: 100, cache_creation_input_tokens: 20, cache_read_input_tokens: 50, cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 20 }, output_tokens: 1 } } });
+const delta = n => sse('message_delta', { type: 'message_delta', delta: { stop_reason: 'end_turn' }, usage: { output_tokens: n } });
+const streamBody = start() + sse('content_block_delta', { type: 'content_block_delta', delta: { text: 'hi' } }) + delta(42) + sse('message_stop', { type: 'message_stop' });
+const seen = []; let upstreamClosed = false;
+const anthropic = http.createServer(async (req, res) => {
+  const chunks = []; for await (const c of req) chunks.push(c);
+  const body = chunks.length ? JSON.parse(Buffer.concat(chunks)) : {};
+  seen.push({ method: req.method, url: req.url, headers: req.headers });
+  if (req.method === 'GET') {
+    if (String(req.headers['x-api-key']).includes('rejected')) { res.writeHead(401, { 'content-type': 'application/json' }); return res.end('{}'); }
+    res.writeHead(200, { 'content-type': 'application/json' }); return res.end('{"data":[]}');
+  }
+  if (body.hang) {
+    res.writeHead(200, { 'content-type': 'text/event-stream' }); res.on('close', () => { upstreamClosed = true; });
+    return res.write(start() + delta(7));
+  }
+  if (body.stream) { // split mid-line to prove buffering across chunks
+    res.writeHead(200, { 'content-type': 'text/event-stream', 'request-id': 'req_1' });
+    res.write(streamBody.slice(0, 95)); await new Promise(r => setTimeout(r, 20)); return res.end(streamBody.slice(95));
+  }
+  res.writeHead(200, { 'content-type': 'application/json' });
+  res.end(JSON.stringify({ id: 'msg_2', model: body.model ?? 'claude-sonnet-5-5', usage: { input_tokens: 10, output_tokens: 20, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 } }));
+});
+const upstream = await listen(anthropic);
+
+// ---- gateway over a memory store ----
+const keys = new Map(), users = new Map(), sessions = new Map(), settings = new Map(), customers = new Map(), usage = [], invoices = [];
+const store = {
+  keyByHash: async h => keys.get(h) ?? null,
+  recordUsage: async r => { usage.push({ ...r, ts: new Date().toISOString() }); },
+  userByEmail: async e => users.get(e.toLowerCase()) ?? null,
+  createSession: async (h, userId, customerId) => {
+    const user = [...users.values()].find(u => u.id === userId);
+    sessions.set(h, { customer_id: customerId, name: customerId === 'c1' ? 'Acme' : 'Birch', is_admin: Boolean(user?.is_admin) });
+  },
+  sessionByHash: async h => sessions.get(h) ?? null,
+  customerNames: async () => [...customers.values()].map(c => ({ name: c.name })),
+  customerByName: async n => customers.get(n) ?? null,
+  createCustomer: async n => { const c = { id: 'c-' + (customers.size + 10), name: n, twenty_company_id: null }; customers.set(n, c); return c; },
+  insertKey: async k => {
+    const id = randomUUID();
+    keys.set(k.key_hash, { id, customer_id: k.customer_id, label: k.label, prefix: k.prefix, created_at: new Date().toISOString(), revoked_at: null,
+      customer: [...customers.values()].find(c => c.id === k.customer_id)?.name });
+    return { id };
+  },
+  revokeKey: async id => { for (const [h, k] of keys) if (k.id === id) { keys.delete(h); return { id }; } return null; },
+  adminKeys: async () => [...keys.values()].filter(k => k.prefix).map(k => ({ ...k, in_crm: false })),
+  getSetting: async n => settings.get(n) ?? null,
+  setSetting: async (n, value) => { settings.set(n, { value, updated_at: '2026-11-10T12:00:00.000Z' }); },
+  monthUsage: async (cid, from, to) => {
+    const g = new Map();
+    for (const r of usage.filter(r => r.customer_id === cid && r.ts >= from && r.ts < to)) {
+      const day = r.ts.slice(0, 10), k = [day, r.model, r.long_ctx, r.fast].join('|');
+      const x = g.get(k) ?? { day, model: r.model, long_ctx: r.long_ctx, fast: r.fast, calls: 0, input: 0, output: 0, cache_read: 0, cache_write_5m: 0, cache_write_1h: 0 };
+      x.calls++; for (const f of ['input', 'output', 'cache_read', 'cache_write_5m', 'cache_write_1h']) x[f] += r[f]; g.set(k, x);
+    }
+    return [...g.values()];
+  },
+  invoices: async cid => invoices.filter(i => i.customer_id === cid),
+};
+const addKey = (key, customer_id) => keys.set(sha256(key), { id: 'k-' + key, customer_id });
+addKey('xgold-ai-acme', 'c1'); addKey('xgold-ai-birch', 'c2');
+users.set('owner@acme.test', { id: 'u1', customer_id: 'c1', password_hash: await hashPassword('acme-pass') });
+users.set('owner@birch.test', { id: 'u2', customer_id: 'c2', password_hash: await hashPassword('birch-pass') });
+invoices.push({ customer_id: 'c1', period: '2026-10', status: 'sent', total: 12.5, lines: [] });
+
+const gw = await listen(http.createServer(createApp({ store, rates, upstream, anthropicKey: 'sk-real', origins: ['https://www.xgold.tech'] })));
+const call = (path, { key = 'xgold-ai-acme', headers = {}, ...init } = {}) =>
+  fetch(gw + path, { headers: { authorization: 'Bearer ' + key, 'content-type': 'application/json', 'anthropic-version': '2023-06-01', ...headers }, ...init });
+const post = (body, opts) => call('/v1/messages', { method: 'POST', body: JSON.stringify(body), ...opts });
+
+assert.equal((await fetch(gw + '/healthz')).status, 200);
+
+// keys: missing and wrong keys never reach Anthropic
+let r = await fetch(gw + '/v1/messages', { method: 'POST', body: '{}' });
+assert.equal(r.status, 401); assert.equal((await r.json()).error.type, 'authentication_error');
+assert.equal((await post({}, { key: 'sk-ant-real-looking' })).status, 401);
+assert.equal((await post({}, { key: 'xgold-ai-nope' })).status, 401);
+assert.equal(seen.length, 0);
+
+// streaming: reply arrives untouched, our key replaces theirs, usage is saved
+r = await post({ stream: true, model: 'claude-opus-5-5' });
+assert.equal(r.status, 200); assert.equal(r.headers.get('request-id'), 'req_1');
+assert.equal(await r.text(), streamBody);
+assert.equal(seen[0].headers['x-api-key'], 'sk-real'); assert.equal(seen[0].headers.authorization, undefined);
+assert.equal(seen[0].headers['anthropic-version'], '2023-06-01');
+await until(() => usage.length === 1);
+assert.deepEqual({ ...usage[0], ts: undefined }, { customer_id: 'c1', key_id: 'k-xgold-ai-acme', status: 200, model: 'claude-opus-5-5', input: 100, output: 42,
+  cache_read: 50, cache_write_5m: 0, cache_write_1h: 20, long_ctx: false, fast: false, ts: undefined });
+
+// plain JSON reply, key sent the x-api-key way
+r = await post({ model: 'claude-sonnet-5-5' }, { key: 'x', headers: { 'x-api-key': 'xgold-ai-acme', authorization: '' } });
+assert.equal(r.status, 200);
+await until(() => usage.length === 2);
+assert.equal(usage[1].output, 20);
+
+// only the metered endpoints exist
+assert.equal((await call('/v1/files')).status, 404);
+assert.equal((await call('/v1/messages/batches', { method: 'POST', body: '{}' })).status, 404);
+assert.equal((await call('/v1/models')).status, 200);
+assert.equal(usage.length, 2);
+
+// client hangs up mid-reply: upstream is cancelled and what was generated is billed
+const ac = new AbortController();
+r = await post({ stream: true, hang: true }, { signal: ac.signal });
+await r.body.getReader().read();
+ac.abort();
+await until(() => usage.length === 3 && upstreamClosed);
+assert.equal(usage[2].output, 7);
+
+// a model with no rate is saved but flagged, never billed at zero silently
+await post({ model: 'claude-mystery-1' }).then(x => x.text());
+await until(() => usage.length === 4);
+assert.equal(summarize(await store.monthUsage('c1', '2000-01-01', '2100-01-01'), rates).unpriced, 30);
+
+// second customer
+await post({ model: 'claude-sonnet-5-5' }, { key: 'xgold-ai-birch' }).then(x => x.text());
+await until(() => usage.length === 5);
+
+// a revoked key stops working at once
+keys.delete(sha256('xgold-ai-birch'));
+assert.equal((await post({}, { key: 'xgold-ai-birch' })).status, 401);
+
+// ---- portal ----
+const login = (email, password, ip) => fetch(gw + '/portal/login', { method: 'POST', body: JSON.stringify({ email, password }), headers: ip ? { 'cf-connecting-ip': ip } : {} });
+assert.equal((await login('owner@acme.test', 'wrong')).status, 401);
+assert.equal((await login('nobody@acme.test', 'x')).status, 401);
+const { token: acme } = await (await login('Owner@Acme.test', 'acme-pass')).json();
+const { token: birch } = await (await login('owner@birch.test', 'birch-pass')).json();
+assert.ok(acme && birch && acme !== birch);
+
+const portal = (path, token) => fetch(gw + path, { headers: token ? { authorization: 'Bearer ' + token, origin: 'https://www.xgold.tech' } : {} });
+assert.equal((await portal('/portal/usage')).status, 401);
+assert.equal((await portal('/portal/usage', 'garbage')).status, 401);
+usage.push({ ...row({ input: 1e6 }), customer_id: 'c1', key_id: 'k', status: 200, ts: new Date().toISOString() }); // one realistic 1M-token call
+const mine = await (await portal('/portal/usage', acme)).json();
+assert.equal(mine.customer, 'Acme'); assert.equal(mine.calls, 5); assert.equal(mine.unpriced, 30);
+assert.equal(mine.by_model.find(m => m.model === 'claude-opus-5-5').amount, 5.2); // ~$4.00 provider x 1.30
+assert.equal(mine.cost, undefined); assert.ok(mine.by_model.every(m => m.cost === undefined));
+const theirs = await (await portal('/portal/usage', birch)).json();
+assert.equal(theirs.customer, 'Birch'); assert.equal(theirs.calls, 1); // sees only its own rows
+assert.equal((await (await portal('/portal/usage?month=2020-01', acme)).json()).calls, 0);
+assert.equal((await portal('/portal/usage?month=bad', acme)).status, 400);
+assert.deepEqual((await (await portal('/portal/invoices', acme)).json()).invoices.map(i => i.period), ['2026-10']);
+assert.deepEqual((await (await portal('/portal/invoices', birch)).json()).invoices, []);
+
+// browsers: the site may call, other sites may not
+assert.equal((await portal('/portal/usage', acme)).headers.get('access-control-allow-origin'), 'https://www.xgold.tech');
+assert.equal((await fetch(gw + '/portal/usage', { headers: { authorization: 'Bearer ' + acme, origin: 'https://evil.test' } })).headers.get('access-control-allow-origin'), null);
+assert.equal((await fetch(gw + '/portal/login', { method: 'OPTIONS', headers: { origin: 'https://www.xgold.tech' } })).status, 204);
+
+// ---- admin: the Anthropic key is set in the portal ----
+users.set('staff@xgold.test', { id: 'u3', customer_id: 'c1', is_admin: true, password_hash: await hashPassword('staff-pass') });
+const { token: staff } = await (await login('staff@xgold.test', 'staff-pass')).json();
+const providerKey = (method, token, body) => fetch(gw + '/portal/admin/provider-key', { method, headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: body && JSON.stringify(body) });
+assert.equal((await (await portal('/portal/usage', staff)).json()).admin, true);
+assert.equal((await (await portal('/portal/usage', acme)).json()).admin, false);
+assert.equal((await providerKey('GET', acme)).status, 403);                              // a customer can neither read nor set it
+assert.equal((await providerKey('POST', acme, { key: 'sk-ant-hijack-attempt-000000000' })).status, 403);
+assert.equal(settings.size, 0);
+assert.deepEqual(await (await providerKey('GET', staff)).json(), { configured: true, last4: 'real', source: 'server', updated_at: null });
+assert.equal((await providerKey('POST', staff, { key: 'not-a-key' })).status, 400);
+assert.equal((await providerKey('POST', staff, {})).status, 400);
+r = await providerKey('POST', staff, { key: 'sk-ant-rejected-by-anthropic-0000' });
+assert.equal(r.status, 400); assert.match((await r.json()).error, /did not accept/);
+assert.equal(settings.size, 0);                                                          // a key that fails the check is never saved
+const fresh = 'sk-ant-api03-FreshKeyFromThePortal0000';
+r = await providerKey('POST', staff, { key: fresh });
+const saved = await r.json();
+assert.equal(r.status, 200); assert.equal(saved.last4, '0000'); assert.equal(saved.source, 'portal');
+assert.ok(!JSON.stringify(saved).includes(fresh));                                       // the key is never sent back
+assert.equal(seen.at(-1).url, '/v1/models?limit=1'); assert.equal(seen.at(-1).headers['x-api-key'], fresh); // checked with the free models call
+await post({ model: 'claude-sonnet-5-5' }).then(x => x.text());
+assert.equal(seen.at(-1).headers['x-api-key'], fresh);                                   // the next customer request uses it at once
+const fromBlank = body => fetch(blank + '/v1/messages', { method: 'POST', headers: { authorization: 'Bearer xgold-ai-acme', 'content-type': 'application/json' }, body: JSON.stringify(body) });
+const blank = await listen(http.createServer(createApp({ store: { ...store, getSetting: async () => null }, rates, upstream, origins: [] })));
+assert.equal((await fromBlank({})).status, 503);                                         // no key anywhere: a clear error, nothing sent to Anthropic
+const restarted = await listen(http.createServer(createApp({ store, rates, upstream, origins: [] }))); // a restart with no key in gateway.env
+await fetch(restarted + '/v1/messages', { method: 'POST', headers: { authorization: 'Bearer xgold-ai-acme', 'content-type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-5-5' }) }).then(x => x.text());
+assert.equal(seen.at(-1).headers['x-api-key'], fresh);                                   // the saved key survives a restart
+
+// ---- admin: staff make and revoke customer keys ----
+const adminAt = base => (method, token, path, body) => fetch(base + '/portal/admin/' + path, { method, headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: body && JSON.stringify(body) });
+const adminKeys = adminAt(gw);
+assert.equal((await adminKeys('GET', acme, 'keys')).status, 403);                       // customers cannot list or make keys
+assert.equal((await adminKeys('POST', acme, 'keys', { customer: 'Hijack Inc' })).status, 403);
+assert.equal(customers.size, 0);
+assert.equal((await adminKeys('POST', staff, 'keys', { customer: '  ' })).status, 400);
+r = await adminKeys('POST', staff, 'keys', { customer: 'Gamma Ltd', label: 'Laptop' });
+const made = await r.json();
+assert.equal(r.status, 201); assert.match(made.key, /^xgold-ai-/); assert.equal(made.prefix, made.key.slice(0, 14));
+assert.equal(made.new_customer, true); assert.equal(made.label, 'Laptop'); assert.equal(made.crm, 'off');
+assert.equal((await post({ model: 'claude-sonnet-5-5' }, { key: made.key })).status, 200);   // the new key works at once
+await until(() => usage.some(u => u.customer_id === customers.get('Gamma Ltd').id));
+const second = await (await adminKeys('POST', staff, 'keys', { customer: 'Gamma Ltd' })).json();
+assert.equal(second.new_customer, false); assert.notEqual(second.key, made.key); assert.equal(second.label, 'Key');
+const listed = await (await adminKeys('GET', staff, 'keys')).json();
+assert.ok(listed.customers.includes('Gamma Ltd'));
+const gamma = listed.keys.filter(k => k.customer === 'Gamma Ltd');
+assert.equal(gamma.length, 2);
+assert.ok(!JSON.stringify(listed).includes(made.key) && !JSON.stringify(listed).includes(second.key)); // a list never shows a full key
+const victim = gamma.find(k => k.prefix === made.prefix);
+assert.equal((await adminKeys('POST', staff, 'keys/revoke', { id: 'not-an-id' })).status, 400);
+assert.equal((await adminKeys('POST', staff, 'keys/revoke', { id: victim.id })).status, 200);
+assert.equal((await post({}, { key: made.key })).status, 401);                          // cut off at once
+assert.equal((await adminKeys('POST', staff, 'keys/revoke', { id: victim.id })).status, 404);
+assert.equal((await post({ model: 'claude-sonnet-5-5' }, { key: second.key })).status, 200); // other keys are untouched
+
+const mirrored = [];
+const mirroring = adminAt(await listen(http.createServer(createApp({ store, rates, upstream, anthropicKey: 'sk-real', origins: [], mirror: async k => { mirrored.push(k); } }))));
+const copied = await (await mirroring('POST', staff, 'keys', { customer: 'Gamma Ltd', label: 'Server' })).json();
+assert.equal(copied.crm, 'added');                                                       // also written to the CRM record
+assert.equal(mirrored.length, 1); assert.equal(mirrored[0].key, copied.key); assert.equal(mirrored[0].customer, 'Gamma Ltd'); assert.ok(mirrored[0].key_id);
+const brokenCrm = adminAt(await listen(http.createServer(createApp({ store, rates, upstream, anthropicKey: 'sk-real', origins: [], mirror: async () => { throw new Error('crm down'); } }))));
+const uncopied = await (await brokenCrm('POST', staff, 'keys', { customer: 'Gamma Ltd' })).json();
+assert.equal(uncopied.crm, 'failed');                                                    // the staff member is told, and the key still works
+assert.equal((await post({ model: 'claude-sonnet-5-5' }, { key: uncopied.key })).status, 200);
+
+// guessing passwords gets blocked, even for the right password afterwards
+for (let i = 0; i < 8; i++) assert.equal((await login('owner@acme.test', 'guess' + i, '9.9.9.9')).status, 401);
+assert.equal((await login('owner@acme.test', 'acme-pass', '9.9.9.9')).status, 429);
+
+console.log('gateway tests passed');
+process.exit(0);

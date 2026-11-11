@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "klarna-customer-service",
+  "title": "The case that shows why you keep measuring.",
+  "summary": "2.3 million conversations in the first month; resolution 11 minutes to under 2; repeat inquiries down 25%.",
+  "type": "Documented case",
+  "area": "Customer service",
+  "date": "2025-05-01",
+  "client": "Klarna + OpenAI",
+  "spec": {
+    "problem": "Chat resolution averaged 11 minutes. Non-engineering hiring was frozen.",
+    "changed": "An assistant handling refunds, returns, payments and disputes launched in the app across 23 markets in January 2024.",
+    "systems": "Klarna app; OpenAI models.",
+    "measured": "Conversation volume, resolution time, repeat inquiries, satisfaction, headcount equivalent.",
+    "result": "**2.3 million conversations in the first month; resolution 11 minutes to under 2; repeat inquiries down 25%.** In May 2025 the CEO said quality had fallen and Klarna began rehiring human agents. Company-reported; use both halves.[^23]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

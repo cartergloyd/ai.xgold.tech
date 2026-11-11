@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "octopus-energy-customer-email",
+  "title": "A scoped trial with the hard cases routed to people.",
+  "summary": "About 8,000 emails a week, 4% of all UK customer email; satisfaction 76% against 72% for human advisors.",
+  "type": "Documented case",
+  "area": "Customer email",
+  "date": "2026-07-01",
+  "client": "Octopus Energy",
+  "spec": {
+    "problem": "Routine customer emails to the UK supplier consumed advisor time. No baseline count was published.",
+    "changed": "A three-month trial of an assistant answering routine emails end to end. Vulnerable customers, sensitive cases and complex complaints went to humans.",
+    "systems": "Kraken operating platform, owned by Octopus.",
+    "measured": "Emails handled per week, share of total email, satisfaction against comparable human replies.",
+    "result": "**About 8,000 emails a week, 4% of all UK customer email; satisfaction 76% against 72% for human advisors.** Company-reported, July 2026.[^26]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://octopus.energy/press/more-news-press-releases/octopus-energy-s-ai-trial-wins-customer-approval/"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

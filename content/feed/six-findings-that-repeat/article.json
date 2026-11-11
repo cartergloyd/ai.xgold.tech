@@ -1,0 +1,65 @@
+{
+  "section": "research",
+  "slug": "six-findings-that-repeat",
+  "title": "Six findings that repeat across studies.",
+  "summary": "Analyst research, surveys and recent enterprise reporting keep landing on the same obstacles. Repetition across sources signals a persistent problem, not a single verified prevalence rate.",
+  "type": "Findings",
+  "area": "Execution",
+  "date": "2026-10-13",
+  "body": [
+    {
+      "h3": "1. Productivity gains are not showing up as financial return."
+    },
+    {
+      "p": "80% of McKinsey's 1,719 respondents report personal productivity improvement; 37% report any positive enterprise EBIT contribution; 6% meet the high-performer definition of at least 5% EBIT impact.[^2] IBM's survey of 1,500 CFOs finds only 6% consider their finance function transformation-ready.[^3] Gartner frames the gap as an operating-cost and measurement discipline problem rather than an adoption problem.[^15]"
+    },
+    {
+      "lead": "What it implies: an economic owner, a baseline, and a hard separation between time released and spending eliminated, capacity redeployed or margin created."
+    },
+    {
+      "h3": "2. Pilots work. End-to-end workflows do not get built."
+    },
+    {
+      "p": "Nearly 75% of AI high performers say they fundamentally redesigned workflows, against about 25% of other respondents. This is association, not causation.[^2] SAP's own account of enterprise deployments describes pilots disconnected from systems and handoffs that stay manual after the demo.[^8]"
+    },
+    {
+      "lead": "What it implies: design one process from trigger to completed outcome, including approvals, exceptions and write-back into systems of record."
+    },
+    {
+      "h3": "3. AI is disconnected from the data and systems that run the business."
+    },
+    {
+      "p": "Gartner reports that organizations with successful AI initiatives invest up to four times more in data, governance and people foundations as a share of revenue, in a survey of 353 leaders. It is a correlation, not a prescribed spend.[^7] Providence's internal-hiring case combined existing Oracle systems rather than replacing them.[^9]"
+    },
+    {
+      "lead": "What it implies: map sources of truth, permissions and context; validate key records; build controlled retrieval and integrations before scaling agents."
+    },
+    {
+      "h3": "4. Unofficial AI use is ahead of governance."
+    },
+    {
+      "p": "In PagerDuty's survey of 1,250 office professionals, 66% reported using AI at work despite believing it was prohibited and 34% reported entering customer data into public AI tools.[^5] Akamai's traffic analysis flags unmanaged personal identities in enterprise AI use.[^6] Practitioner legal guidance recommends governing existing use rather than assuming it can be blocked.[^4] NIST's Generative AI Profile provides the voluntary control framework most organizations map to.[^13]"
+    },
+    {
+      "lead": "What it implies: inventory actual usage, approve usable tools, classify sensitive data and use cases, and monitor access, outputs and high-impact decisions."
+    },
+    {
+      "h3": "5. Training rarely changes the job."
+    },
+    {
+      "p": "Gartner cites 81% of CIOs expecting GenAI skills gaps to obstruct their 2025 objectives.[^14] Reuters reports Ropes & Gray letting more than 1,000 lawyers count up to 100 hours of AI training toward billable targets, with over 35,000 associate hours logged in 2026, a change to incentives rather than to curriculum.[^10]"
+    },
+    {
+      "lead": "What it implies: train on real tasks with approved data and realistic failure cases, assign approvers with authority, and fix the incentives that penalize learning."
+    },
+    {
+      "h3": "6. Agents add cost and operating risk that pilots do not surface."
+    },
+    {
+      "p": "About one in five McKinsey respondents say AI operating costs constrain use.[^2] Google's cross-application agent announcement is notable for what it ships with: dedicated agent identities, connectors, permissions and cost controls.[^11] IBM and Ponemon find one in four malicious breaches studied were AI-enabled, in a sample of 602 breached organizations.[^12]"
+    },
+    {
+      "lead": "What it implies: budgets, least-privilege identities, approval boundaries, tests, audit logs and rollback paths, and a tracked cost per successfully completed case."
+    }
+  ]
+}

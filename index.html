@@ -2,162 +2,196 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>goldAI</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="footer.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="only light">
+    <title>xGold Tech/AI</title>
+    <meta name="description" content="We break workflows into parts and automate each one permanently.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/offerings.css">
+    <link rel="stylesheet" href="css/reel.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <script defer src="visitor.js"></script>
+    <script defer src="https://crm.xgold.tech/stats/script.js" data-before-send="xgBeforeSend" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
   </head>
-  <body>
-    <main class="homepage">
-      <header class="ribbon" aria-label="Primary navigation">
-        <a class="wordmark" href="/" aria-label="goldAI homepage">goldAI</a>
-        <div class="ribbon-actions">
-          <a class="contact-button" href="contact.html">Contact Us</a>
-          <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-      </header>
+  <body id="top">
+    <!-- Monogram. Fills follow --logo-x and --logo-g, so the X switches with the surface. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="xg-monogram" viewBox="0 0 777 548">
+        <path style="fill:var(--logo-x)" fill-rule="evenodd" d="M2.0 524.6C2.0 524.3 5.3 522.5 9.2 520.5C25.4 512.2 38.3 502.1 51.3 487.6C55.8 482.5 76.9 455.2 98.1 426.9C147.5 361.0 155.8 350.0 165.5 336.8C169.9 330.8 176.1 322.4 179.2 318.2C194.9 297.2 196.3 295.0 195.2 292.7C194.7 291.5 190.3 285.8 185.6 280.0C180.8 274.2 173.8 265.7 170.0 261.0C166.2 256.3 147.3 233.4 127.9 210.0C79.0 151.2 63.3 135.8 40.1 124.2L30.4 119.3L39.9 118.6C52.4 117.8 186.9 117.8 194.8 118.6L200.9 119.3L195.2 123.0C184.7 129.9 179.8 137.3 179.2 147.5C178.4 160.0 181.5 165.4 206.0 193.0C215.5 203.7 226.0 215.7 229.4 219.7C244.8 237.8 261.8 257.7 263.1 259.0C264.7 260.7 270.4 267.5 283.0 282.5C287.6 288.0 291.9 293.2 292.7 294.0C312.2 316.6 330.0 339.1 329.4 340.3C328.9 340.9 318.0 354.7 305.1 370.8C286.3 394.4 281.5 399.9 280.5 398.8C278.9 397.1 259.6 372.9 254.2 365.9C246.1 355.2 248.4 354.0 229.9 378.2C220.9 389.9 209.6 404.7 204.8 411.0C199.9 417.3 193.0 426.3 189.4 431.0C173.6 451.3 161.6 467.8 159.4 472.2C156.0 478.9 153.7 489.5 154.5 495.0C155.3 500.3 159.1 509.1 162.7 513.8C164.1 515.7 168.0 519.0 171.4 521.1L177.5 525.0L89.8 525.0C41.5 525.0 2.0 524.8 2.0 524.6Z"/>
+        <path style="fill:var(--logo-g)" fill-rule="evenodd" d="M519.0 544.9C452.7 541.4 397.1 517.4 343.3 468.9C327.8 454.9 303.9 428.9 290.6 411.5C287.7 407.6 284.5 403.9 283.6 403.1C282.7 402.4 282.0 401.3 282.0 400.8C282.0 399.6 329.2 340.1 330.2 340.1C330.6 340.0 333.7 343.5 337.2 347.7C340.7 352.0 345.5 357.8 348.0 360.6C350.5 363.4 356.5 370.4 361.5 376.1C376.2 393.1 399.7 416.6 411.5 425.9C426.4 437.8 443.5 448.8 457.5 455.4C471.6 462.1 493.9 468.9 509.0 471.1C520.1 472.7 551.3 472.7 561.5 471.1C570.8 469.7 588.1 465.1 597.2 461.6C613.3 455.6 635.8 441.6 647.5 430.3C656.1 422.0 666.1 410.1 669.5 403.8L672.5 398.5L672.5 356.5C672.5 333.4 672.2 313.7 671.8 312.8C671.1 311.1 666.1 311.0 587.5 311.0L503.9 311.0L522.2 290.9C532.3 279.9 542.0 269.0 543.7 266.8C545.5 264.6 550.1 259.4 554.0 255.4L561.0 248.0L667.8 248.2L774.5 248.5L774.8 329.9L775.0 411.4L772.6 414.9C768.2 421.6 749.6 443.5 739.5 453.9C691.4 503.5 629.9 535.2 566.9 542.9C546.3 545.4 536.1 545.8 519.0 544.9ZM287.0 287.3C281.8 280.9 270.3 267.4 265.5 261.9C249.2 243.1 240.1 231.7 240.6 230.7C241.0 230.0 244.5 225.0 248.4 219.5C252.3 214.0 256.4 208.0 257.6 206.0C258.7 204.1 262.3 198.8 265.6 194.3C268.8 189.8 274.8 181.5 278.7 175.8C325.5 109.0 358.4 74.6 402.4 46.8C426.7 31.4 448.3 21.3 472.2 14.1C493.8 7.6 501.8 6.1 526.0 3.5C554.1 0.5 584.7 2.5 616.0 9.1C647.4 15.8 681.2 31.4 712.4 53.3C726.6 63.3 752.5 87.7 751.8 90.4C751.6 91.0 738.0 104.8 721.6 121.0L691.7 150.5L689.6 147.6C667.2 116.4 640.7 94.2 612.6 83.1C589.6 74.0 576.2 71.5 550.0 71.6C527.2 71.6 514.7 73.5 494.8 80.0C463.4 90.3 437.6 107.1 409.5 135.5C387.6 157.5 365.2 188.2 304.3 279.2C298.9 287.2 294.1 293.9 293.5 293.9C292.9 293.9 290.0 291.0 287.0 287.3Z"/>
+      </symbol>
+    </svg>
+    <a class="skip" href="#main">Skip to content</a>
 
-      <nav class="site-menu" id="site-menu" aria-label="Menu">
-        <a href="approach.html">Our Approach</a>
-        <a href="#team">The Team</a>
-        <a href="industries.html">Industries</a>
-      </nav>
+    <header class="nav">
+      <div class="container--wide nav-inner">
+        <a class="nav-logo" href="index.html" aria-label="xGold Tech home">
+          <img class="monogram" src="assets/xgold-monogram.svg" alt="" width="34" height="24">
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+          <span></span><span></span>
+        </button>
+        <nav class="nav-menu" id="nav-menu" aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li class="nav-buttons">
+              <a class="nav-login" href="https://crm.xgold.tech" rel="nofollow">Log in</a>
+              <a class="nav-cta" href="book.html" data-umami-event="cta" data-umami-event-placement="nav">Start an assessment</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-content">
-          <h1 id="hero-title">The gap between AI potential and results is where we live.</h1>
-          <p>Through first principals thinking we break down challenges and workflows into smaller parts and automate, permanently.</p>
-          <div class="hero-actions" aria-label="Homepage links">
-            <a href="approach.html">Our Approach</a>
-            <a href="#team">The Team</a>
-            <a href="industries.html">Industries</a>
+    <main id="main">
+      <section class="section section--hero hero" aria-labelledby="hero-title">
+        <div class="container--wide">
+          <p class="lockup">
+            <svg class="monogram" aria-hidden="true" focusable="false"><use href="#xg-monogram"/></svg>
+            <span class="lockup-word">xGold</span>
+          </p>
+          <h1 class="t-page-title hero-title" id="hero-title">Work that runs itself.</h1>
+
+          <!-- Offerings. Each opens its tab on problems.html. Swap label, href, and <svg> as offerings change. -->
+          <ul class="offerings" aria-label="What we build">
+            <li>
+              <a class="offering" href="problems.html#agents">
+                <span class="offering-tile offering-tile--gold">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 4c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8z"/><path d="M19 2.5c.3 1.6 1 2.3 2.5 2.5-1.6.3-2.3 1-2.5 2.5-.3-1.6-1-2.3-2.5-2.5 1.6-.3 2.3-1 2.5-2.5z"/></svg>
+                </span>
+                <span class="offering-label">Agents</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#documents">
+                <span class="offering-tile">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+                </span>
+                <span class="offering-label">Documents</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#reporting">
+                <span class="offering-tile surface-dark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h16M7 16v-4M12 16V8M17 16V4"/></svg>
+                </span>
+                <span class="offering-label">Reporting</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#integration">
+                <span class="offering-tile">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3v4M15 3v4M6.5 7h11v4a5.5 5.5 0 0 1-11 0V7zM12 16.5V21"/></svg>
+                </span>
+                <span class="offering-label">Integration</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#support">
+                <span class="offering-tile surface-dark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-4.4a8.5 8.5 0 1 1 15.6-4.6z"/></svg>
+                </span>
+                <span class="offering-label">Support</span>
+              </a>
+            </li>
+            <li>
+              <a class="offering" href="problems.html#governance">
+                <span class="offering-tile">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+                </span>
+                <span class="offering-label">Governance</span>
+              </a>
+            </li>
+          </ul>
+
+          <p class="t-lead hero-lead">We break workflows into parts <span class="t-muted">and automate each one permanently.</span></p>
+          <div class="actions">
+            <a class="btn" href="book.html" data-umami-event="cta" data-umami-event-placement="hero">Get started</a>
           </div>
         </div>
       </section>
 
-      <section class="latest" aria-labelledby="latest-title">
-        <div class="latest-bar">
-          <h2 id="latest-title">The Latest</h2>
-        </div>
-        <div class="latest-grid">
-          <section class="latest-column" aria-labelledby="articles-title">
-            <div class="column-label" id="articles-title">Articles</div>
-            <div class="feed-stack" id="axios-feed" aria-live="polite">
-              <a class="latest-card" href="https://www.axios.com/2026/04/26/ai-cost-human-workers" target="_blank" rel="noopener">
-                <img class="card-image" src="assets/axios-ai-cost-human-workers.jpeg" alt="">
-                <div class="card-body">
-                  <img class="source-logo" src="assets/axios-logo.svg" alt="Axios">
-                  <h3>AI can cost more than human workers now</h3>
-                </div>
-              </a>
-              <a class="latest-card" href="https://www.axios.com/2026/04/25/israel-ai-influence-parscale" target="_blank" rel="noopener">
-                <img class="card-image" src="assets/axios-israel-ai-influence.jpeg" alt="">
-                <div class="card-body">
-                  <img class="source-logo" src="assets/axios-logo.svg" alt="Axios">
-                  <h3>Trump alum helps Israel mount AI influence campaign</h3>
-                </div>
-              </a>
-              <a class="latest-card" href="https://www.axios.com/2026/04/24/justice-department-joins-xai-challenge-colorado-ai-law" target="_blank" rel="noopener">
-                <img class="card-image" src="assets/axios-colorado-ai-law.jpg" alt="">
-                <div class="card-body">
-                  <img class="source-logo" src="assets/axios-logo.svg" alt="Axios">
-                  <h3>Justice Department joins xAI challenge to Colorado AI law</h3>
-                </div>
-              </a>
-              <a class="latest-card" href="https://www.axios.com/2026/04/24/google-amazon-anthropic-investment" target="_blank" rel="noopener">
-                <img class="card-image" src="assets/axios-google-anthropic.gif" alt="">
-                <div class="card-body">
-                  <img class="source-logo" src="assets/axios-logo.svg" alt="Axios">
-                  <h3>Google's $40B Anthropic move is Big Tech's latest huge AI bet</h3>
-                </div>
-              </a>
-              <a class="latest-card" href="https://www.axios.com/2026/04/23/ai-inflation-productivity-companies" target="_blank" rel="noopener">
-                <img class="card-image" src="assets/axios-ai-productivity-inflation.gif" alt="">
-                <div class="card-body">
-                  <img class="source-logo" src="assets/axios-logo.svg" alt="Axios">
-                  <h3>The messy interplay between AI, productivity and inflation</h3>
-                </div>
-              </a>
-            </div>
-          </section>
+      <section class="section section--alt demos" id="demos" aria-labelledby="demos-title">
+        <div class="container--wide">
+          <div class="section-head">
+            <h2 class="t-section" id="demos-title"><span class="t-accent">Deploy</span> agents and automate <br class="br-wide">with ease.</h2>
+            <a class="btn" href="book.html" data-umami-event="cta" data-umami-event-placement="demos">Book an appointment</a>
+          </div>
 
-          <section class="latest-column" aria-labelledby="insights-title">
-            <div class="column-label" id="insights-title">Insights</div>
-            <div class="feed-stack">
-              <article class="latest-card">
-                <img class="card-image" src="assets/latest-roi.png" alt="Executive analytics environment showing abstract AI ROI signals">
-                <div class="card-body">
-                  <span>Implementation ROI</span>
-                  <h3>The metrics that prove automation is working after launch.</h3>
+          <!--
+            Demo reel. Slides play in order and loop. A video advances when it ends.
+            To add a demo, copy the <figure> below, set its data-title, data-desc, and video src.
+            A slide without a video shows the monogram for data-duration seconds.
+          -->
+          <div class="reel" data-reel aria-roledescription="carousel" aria-label="Demo videos">
+            <div class="reel-stage surface-dark">
+              <figure class="reel-slide" data-title="Server management" data-desc="An agent investigates new alerts and asks before sensitive actions." data-duration="6">
+                <video src="assets/server-management.mp4" poster="assets/server-management.jpg" muted playsinline preload="metadata" aria-label="Server management demonstration, 22 seconds. Illustrative dashboard data, no narration."></video>
+                <div class="reel-placeholder" aria-hidden="true">
+                  <svg class="monogram"><use href="#xg-monogram"/></svg>
+                  <p class="t-lead">Server management</p>
                 </div>
-              </article>
-              <article class="latest-card">
-                <img class="card-image" src="assets/latest-workflows.png" alt="Abstract enterprise workflow architecture with gold automation paths">
-                <div class="card-body">
-                  <span>Workflow Design</span>
-                  <h3>How first-principles decomposition turns AI ambition into operating leverage.</h3>
-                </div>
-              </article>
-              <article class="latest-card">
-                <img class="card-image" src="assets/latest-roi.png" alt="Executive analytics environment showing abstract AI ROI signals">
-                <div class="card-body">
-                  <span>Capacity Recovery</span>
-                  <h3>What leaders miss when they measure automation by task count instead of throughput.</h3>
-                </div>
-              </article>
-              <article class="latest-card">
-                <img class="card-image" src="assets/latest-workflows.png" alt="Abstract enterprise workflow architecture with gold automation paths">
-                <div class="card-body">
-                  <span>Embedded Delivery</span>
-                  <h3>Why AI implementation needs to live inside the workflow, not beside it.</h3>
-                </div>
-              </article>
-              <article class="latest-card">
-                <img class="card-image" src="assets/latest-roi.png" alt="Executive analytics environment showing abstract AI ROI signals">
-                <div class="card-body">
-                  <span>Executive Proof</span>
-                  <h3>The business case format that helps COOs separate demos from durable results.</h3>
-                </div>
-              </article>
+              </figure>
             </div>
-          </section>
+
+            <div class="reel-bar">
+              <div class="reel-caption" aria-live="polite">
+                <p class="reel-title">Server management</p>
+                <p class="reel-desc">An agent investigates new alerts and asks before sensitive actions.</p>
+              </div>
+              <div class="reel-controls">
+                <div class="reel-dots" role="group" aria-label="Choose a demo"></div>
+                <button class="reel-toggle" type="button" aria-label="Pause demos">
+                  <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5h2.5v14H8zM13.5 5H16v14h-2.5z"/></svg>
+                  <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <section class="footer-column">
-          <h2>What we do</h2>
-          <a href="approach.html">Our approach</a>
-          <a href="industries.html">Industries</a>
-          <a href="contact.html">Contact</a>
-        </section>
-        <section class="footer-column">
-          <h2>Our thinking</h2>
-          <a href="approach.html">Workflow architecture</a>
-          <a href="#latest-title">Articles</a>
-          <a href="#latest-title">Insights</a>
-        </section>
-        <section class="footer-column">
-          <h2>Careers</h2>
-          <a href="#team">The team</a>
-          <a href="apply.html">Apply now</a>
-        </section>
-      </div>
-      <div class="footer-bottom">
-        <span>goldAI</span>
-        <span>Intelligence. Embedded. Guaranteed.</span>
+    <footer class="footer">
+      <div class="container--wide">
+        <nav class="footer-cols" aria-label="Footer">
+          <div class="footer-col">
+            <h2 class="footer-head">Explore</h2>
+            <ul>
+              <li><a href="problems.html">Problems we solve</a></li>
+              <li><a href="solutions.html">Solutions in action</a></li>
+              <li><a href="how-we-work.html">How we work</a></li>
+              <li><a href="about.html">About xGold</a></li>
+              <li><a href="research.html">Research and insights</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2 class="footer-head">Start</h2>
+            <ul>
+              <li><a href="book.html">Start an assessment</a></li>
+              <li><a href="book.html">Contact xGold Tech</a></li>
+              <li><a href="portal.html">Customer portal</a></li>
+              <li><a href="https://crm.xgold.tech" rel="nofollow">Team sign in</a></li>
+            </ul>
+          </div>
+          <div class="footer-col footer-col--wide">
+            <h2 class="footer-head">Evidence</h2>
+            <p>Every figure on this site carries a numbered marker that links to its original source on the <a href="research.html#sources">Research page</a>. Case results from other organizations are reported as published and are not xGold engagements. Visits are counted with Umami, which we host ourselves. A first-party cookie recognizes this browser when it returns, and sending an assessment request links its visits to you. <button class="footer-toggle" type="button" data-xg-tracking hidden>Stop tracking this browser</button></p>
+          </div>
+        </nav>
+        <div class="footer-legal">
+          <span>Copyright © 2026 xGold Tech/AI. All rights reserved.</span>
+          <span class="footer-legal-links"><a href="privacy.html">Privacy policy</a> <a href="terms.html">Terms of service</a> <a href="#top">Back to top</a></span>
+        </div>
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/reel.js"></script>
   </body>
 </html>

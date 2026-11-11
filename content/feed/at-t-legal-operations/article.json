@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "at-t-legal-operations",
+  "title": "Moving outside-counsel work in-house.",
+  "summary": "Reduced outside-counsel reliance.",
+  "type": "Documented case",
+  "area": "Legal operations",
+  "date": "2026-10-01",
+  "client": "AT&T",
+  "spec": {
+    "problem": "Routine research, drafting and document review were billed by outside law-firm associates.",
+    "changed": "A 38-person internal LegalEdge team took on that work with AI-supported research, drafting and review.",
+    "systems": "Not disclosed in the reporting.",
+    "measured": "Reliance on outside associate time.",
+    "result": "**Reduced outside-counsel reliance.** No company-wide ROI figure reported. Reuters, October 2026."
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://www.reuters.com/legal/legalindustry/how-att-is-using-ai-reduce-its-reliance-law-firms-2026-10-08/"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "hiscox-underwriting-intake",
+  "title": "Reading broker submissions in minutes, not days.",
+  "summary": "Turnaround about 3 days to about 3 minutes;.",
+  "type": "Documented case",
+  "area": "Underwriting intake",
+  "date": "2024-01-01",
+  "client": "Hiscox + Google Cloud",
+  "spec": {
+    "problem": "Broker submissions for sabotage-and-terrorism renewals took about three days to turn around.",
+    "changed": "A model reads the submission and drafts a priced quote email. An underwriter reviews every quote before it is sent.",
+    "systems": "Google Cloud Gemini; Hiscox AI Labs; broker email.",
+    "measured": "Quote turnaround time; share of the book on the process; UK productivity on submissions.",
+    "result": "**Turnaround about 3 days to about 3 minutes;** roughly two-thirds of the book on the process; CFO cited a 40% UK productivity gain on submissions. Company-reported, 2024 to 2025.[^21]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://hiscoxgroup.com/node/50821"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

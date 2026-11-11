@@ -1,0 +1,24 @@
+{
+  "section": "solutions",
+  "slug": "dow-freight-invoice-reconciliation",
+  "title": "Auditing the invoices that arrive outside the system.",
+  "summary": "Pilot surfaced billing anomalies such as a $30,000 surcharge against a typical $5,000.",
+  "type": "Documented case",
+  "area": "Freight invoice reconciliation",
+  "date": "2024-11-01",
+  "client": "Dow + Microsoft",
+  "spec": {
+    "problem": "Up to 4,000 shipments a day; about 20% of freight invoices, over 100,000 a year, arrived as emailed PDFs outside EDI and were never audited for overbilling.",
+    "changed": "An agent pulls PDF invoices from email, structures the data and flags mismatches to a dashboard. Staff query the data in plain language.",
+    "systems": "Microsoft Copilot Studio, Microsoft 365 Copilot, Dow's integrated data hub, email, EDI.",
+    "measured": "Anomalies found across eight months of 2024 data covering 43,000 shipments; projected savings.",
+    "result": "**Pilot surfaced billing anomalies such as a $30,000 surcharge against a typical $5,000.** First-year savings of \"millions\" are projected, not realized. Vendor-reported, November 2024.[^25]"
+  },
+  "sources": [
+    {
+      "label": "Original source",
+      "url": "https://www.microsoft.com/en-us/worklab/ai-impact-at-dow-copilot-identifies-millions-in-cost-savings"
+    }
+  ],
+  "evidence": "Reported by the company or the press, as published. Not an xGold engagement and not an outcome a new client should expect."
+}

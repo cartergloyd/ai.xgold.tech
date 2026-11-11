@@ -1,0 +1,68 @@
+{
+  "section": "research",
+  "slug": "useful-numbers",
+  "title": "Useful numbers. Actual denominators.",
+  "summary": "Every figure keeps its original scope and links to its source.",
+  "type": "Statistics",
+  "area": "Evidence",
+  "date": "2026-10-11",
+  "body": [
+    {
+      "h3": "Value"
+    },
+    {
+      "stats": [
+        {
+          "figure": "80% / 37%",
+          "label": "Personal productivity gains / any positive enterprise EBIT impact. McKinsey, 1,719 respondents.[^2]"
+        },
+        {
+          "figure": "6%",
+          "label": "Met McKinsey's AI high-performer definition, including at least 5% EBIT impact.[^2]"
+        },
+        {
+          "figure": "32%",
+          "label": "Skipped a software purchase because agentic coding could build it instead.[^2]"
+        }
+      ]
+    },
+    {
+      "h3": "Execution"
+    },
+    {
+      "stats": [
+        {
+          "figure": "~75% / ~25%",
+          "label": "AI high performers / other respondents who fundamentally redesigned workflows.[^2]"
+        },
+        {
+          "figure": "40% / 27%",
+          "label": "Large enterprises scaling AI agents in at least one function, 2026 / 2025.[^2]"
+        },
+        {
+          "figure": "62% / 6%",
+          "label": "CFOs with expanded AI responsibility / finance judged transformation-ready. IBM, 1,500 CFOs.[^3]"
+        },
+        {
+          "figure": "Up to 4×",
+          "label": "Foundation spending among successful AI initiatives, as a share of revenue. Gartner, 353 leaders.[^7]"
+        }
+      ]
+    },
+    {
+      "h3": "Risk"
+    },
+    {
+      "stats": [
+        {
+          "figure": "66% / 34%",
+          "label": "Policy-defying AI use / customer data entered into public AI tools. PagerDuty, 1,250 respondents.[^5]"
+        },
+        {
+          "figure": "1 in 4",
+          "label": "Malicious breaches that were AI-enabled, among 602 breached organizations. IBM/Ponemon.[^12]"
+        }
+      ]
+    }
+  ]
+}

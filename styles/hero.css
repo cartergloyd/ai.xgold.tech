@@ -1,0 +1,71 @@
+/* hero.css — centered hero over a soft radial tint, plus tile shelf */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(72px, 11vw, 140px) clamp(72px, 10vw, 120px);
+  text-align: center;
+}
+.hero__tint {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 45%, var(--tint-hero) 0%, var(--tint-hero) 55%, transparent 100%);
+}
+.hero__inner { display: grid; justify-items: center; }
+
+.hero__lockup {
+  font-size: var(--fs-card);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--ls-tight);
+  margin-bottom: var(--space-5);
+}
+.hero__title {
+  max-width: 20ch;
+  margin-bottom: var(--space-7);
+}
+.hero__body {
+  max-width: 38rem;
+  margin: var(--space-7) auto var(--space-6);
+  font-size: var(--fs-lede);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-normal);
+  color: var(--text-secondary);
+}
+.hero__body strong { color: var(--text); font-weight: var(--weight-semibold); }
+.hero__meta { margin-top: var(--space-6); }
+
+/* Tile shelf: six flat squircles with labels beneath */
+.tiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4) var(--space-5);
+}
+.tiles a {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--fs-fine);
+  text-decoration: none;
+}
+.tiles a:hover { color: var(--text); text-decoration: none; }
+.tile {
+  width: clamp(72px, 8vw, 84px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 24%;
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: var(--fs-card);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--ls-tight);
+  transition: transform var(--duration-fast) var(--ease);
+}
+.tiles a:hover .tile { transform: scale(1.02); }

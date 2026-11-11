@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>Start an assessment | xGold Tech</title>
+<meta name="description" content="Tell xGold Tech about one workflow. We reply within one business day to schedule a scoping call.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/button.css">
+<link rel="stylesheet" href="styles/form.css">
+<script defer src="visitor.js"></script>
+<script defer src="https://crm.xgold.tech/stats/script.js" data-before-send="xgBeforeSend" data-website-id="5d539dd6-0f8a-4aba-bcf9-4c824209c159" data-domains="www.xgold.tech,xgold.tech" data-exclude-search="true"></script>
+</head>
+<body class="page-form">
+
+<header class="form-header">
+  <a class="form-header__brand" href="index.html" aria-label="xGold Tech home"><img src="assets/xgold-monogram.svg" alt="" width="34" height="24"><span aria-hidden="true">xGold</span></a>
+  <a class="form-header__close" href="index.html" aria-label="Back to site">Cancel</a>
+</header>
+
+<main class="form-main" id="main">
+  <div>
+    <div class="form-card" id="book-card">
+      <!-- Validated, write-only home API. CRM credentials remain on the server. -->
+      <form id="book-form"
+            data-endpoint="https://ai-api.xgold.tech/assessment/requests"
+            method="post" action="#" novalidate>
+        <div class="form-card__body">
+          <h1 class="form-card__title">Start an assessment</h1>
+          <p class="form-card__lede">Tell us about one workflow. We reply within one business day to schedule a 30-minute scoping call.</p>
+
+          <div class="form-stack">
+            <div class="form-row">
+              <div class="field">
+                <input class="field__input" id="name" name="name" type="text" placeholder=" " autocomplete="name" required>
+                <label class="field__label" for="name">Full name</label>
+                <p class="field__error">Enter your name.</p>
+              </div>
+              <div class="field">
+                <input class="field__input" id="role" name="role" type="text" placeholder=" " autocomplete="organization-title">
+                <label class="field__label" for="role">Role (Optional)</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <input class="field__input" id="email" name="email" type="email" placeholder=" " autocomplete="email" required>
+              <label class="field__label" for="email">Work email</label>
+              <p class="field__error">Enter a valid work email address.</p>
+            </div>
+
+            <div class="field">
+              <input class="field__input" id="company" name="company" type="text" placeholder=" " autocomplete="organization" required>
+              <label class="field__label" for="company">Company</label>
+              <p class="field__hint">The organization the workflow belongs to.</p>
+              <p class="field__error">Enter your company.</p>
+            </div>
+
+            <div class="field">
+              <select class="field__input" id="constraint" name="constraint" required>
+                <option value="" selected></option>
+                <option value="value">We cannot establish ROI</option>
+                <option value="pilot">Our pilots have not scaled</option>
+                <option value="risk">We lack safe AI controls</option>
+                <option value="people">Employees need better workflows</option>
+                <option value="cost">Agent costs or reliability are unclear</option>
+              </select>
+              <label class="field__label" for="constraint">Your immediate constraint</label>
+              <p class="field__error">Choose the constraint closest to yours.</p>
+            </div>
+
+            <div class="field">
+              <select class="field__input" id="workflow" name="workflow" required>
+                <option value="" selected></option>
+                <option value="transfers">Employee transfers or onboarding</option>
+                <option value="support">Customer support escalations</option>
+                <option value="procurement">Procurement exceptions</option>
+                <option value="compliance">Compliance document review</option>
+                <option value="other">Another workflow</option>
+                <option value="unsure">Not sure yet</option>
+              </select>
+              <label class="field__label" for="workflow">The workflow you have in mind</label>
+              <p class="field__error">Pick a workflow, or choose "Not sure yet".</p>
+            </div>
+
+            <div class="field">
+              <textarea class="field__input" id="cost" name="cost" placeholder=" " rows="3"></textarea>
+              <label class="field__label" for="cost">What it costs you today (Optional)</label>
+              <p class="field__hint">Delay, error rate, headcount or missed revenue. A rough number is fine.</p>
+            </div>
+
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <label class="choice">
+              <input type="checkbox" name="owner" value="yes">
+              <span>This workflow already has a named business owner.</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" name="send_questions" value="yes">
+              <span>Send me the five scoping questions before the call.</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-card__foot">
+          <button class="btn btn--primary btn--block" id="book-submit" type="submit" disabled>Request a call</button>
+        </div>
+      </form>
+
+      <p class="field__error form-card__error" id="book-error" role="alert" hidden></p>
+
+      <div class="form-card__body form-success" id="book-success" hidden tabindex="-1" aria-live="polite">
+        <div class="form-success__mark" aria-hidden="true"></div>
+        <h2 class="form-card__title">Thanks, <span id="success-name"></span>.</h2>
+        <p>We'll reply to <span id="success-email"></span> within one business day with times for a 30-minute scoping call.</p>
+        <a class="link" href="index.html">Back to xGold Tech</a>
+      </div>
+    </div>
+
+    <p class="fine form-fine">We use these details only to prepare for your call, including linking them to this browser's visits to our site. No marketing list, no sharing. <a href="privacy.html">Privacy policy</a> · <a href="terms.html">Terms of service</a>.</p>
+  </div>
+</main>
+
+<script src="book.js" defer></script>
+</body>
+</html>
