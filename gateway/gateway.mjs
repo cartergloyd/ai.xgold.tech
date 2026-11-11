@@ -6,11 +6,13 @@ import { createHash, randomBytes, scrypt, timingSafeEqual } from 'node:crypto';
 import { once } from 'node:events';
 import { promisify } from 'node:util';
 import { loadRates, sseMeter, jsonMeter, usageRow, summarize, currentMonth, monthRange } from './meter.mjs';
-import { connect, pgStore } from './pgstore.mjs';
+import { connect, pgStore, migrate } from './pgstore.mjs';
 
 const scryptAsync = promisify(scrypt);
 export const sha256 = s => createHash('sha256').update(s).digest('hex');
 export const KEY_PREFIX = 'xgold-ai-';
+// A new customer key: show `key` once, store only `hash`. `prefix` tells keys apart in the CRM and the key list.
+export const makeKey = () => { const key = KEY_PREFIX + randomBytes(24).toString('base64url'); return { key, prefix: key.slice(0, 14), hash: sha256(key) }; };
 
 export async function hashPassword(pw) {
   const salt = randomBytes(16);
@@ -55,8 +57,39 @@ export function createApp({ store, rates, upstream = 'https://api.anthropic.com'
   const keyFails = limiter(20, 60e3), loginFails = limiter(8, 600e3);
   const dummyHash = hashPassword('not-a-real-password'); // so an unknown email costs the same time as a wrong password
 
+  // Our Anthropic key: the one saved in the portal, else the one in gateway.env. Re-read every 30 s; a database blip keeps the last value.
+  let cached = { value: anthropicKey, at: 0 };
+  async function providerKey() {
+    if (Date.now() - cached.at > 30e3) {
+      let saved;
+      try { saved = (await store.getSetting('anthropic_key'))?.value; } catch { return cached.value; }
+      cached = { value: saved ?? anthropicKey, at: Date.now() };
+    }
+    return cached.value;
+  }
+  async function providerStatus() { // never returns the key itself
+    const saved = await store.getSetting('anthropic_key'), key = saved?.value ?? anthropicKey;
+    return { configured: Boolean(key), last4: key ? key.slice(-4) : null, source: saved ? 'portal' : key ? 'server' : null, updated_at: saved?.updated_at ?? null };
+  }
+
+  async function saveProviderKey(req, res) {
+    let key; try { key = JSON.parse((await readBody(req, 4096)).toString('utf8'))?.key; } catch { /* rejected below */ }
+    key = typeof key === 'string' ? key.trim() : '';
+    if (!/^sk-ant-[\w-]{20,}$/.test(key)) return sendJson(res, 400, { error: 'That does not look like an Anthropic key. It starts with sk-ant-.' });
+    let check; // listing models is free and proves the key works before it replaces the old one
+    try { check = await fetchImpl(`${upstream}/v1/models?limit=1`, { headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01' }, signal: AbortSignal.timeout(10e3) }); }
+    catch { return sendJson(res, 502, { error: 'Could not reach Anthropic to check the key. Nothing was saved. Try again.' }); }
+    await check.body?.cancel();
+    if (check.status === 401 || check.status === 403) return sendJson(res, 400, { error: 'Anthropic did not accept that key. Check it and try again.' });
+    if (!check.ok) return sendJson(res, 502, { error: `Anthropic could not check the key right now (HTTP ${check.status}). Nothing was saved. Try again.` });
+    await store.setSetting('anthropic_key', key);
+    cached = { value: key, at: Date.now() };
+    return sendJson(res, 200, await providerStatus());
+  }
+
   async function proxy(req, res, url, ip) {
-    if (!anthropicKey) return apiError(res, 503, 'api_error', 'The xGold AI gateway is not configured yet.');
+    const apiKey = await providerKey();
+    if (!apiKey) return apiError(res, 503, 'api_error', 'The xGold AI gateway is not configured yet.');
     if (keyFails.blocked(ip)) return apiError(res, 429, 'rate_limit_error', 'Too many failed attempts. Try again in a minute.');
     const bearer = /^Bearer (.+)$/i.exec(req.headers.authorization ?? '')?.[1];
     const token = bearer ?? req.headers['x-api-key'];
@@ -66,7 +99,7 @@ export function createApp({ store, rates, upstream = 'https://api.anthropic.com'
     let payload;
     try { payload = await readBody(req, 32 << 20); } catch (e) { return apiError(res, e.status ?? 400, 'invalid_request_error', e.message); }
 
-    const headers = { 'x-api-key': anthropicKey, 'accept-encoding': 'identity' };
+    const headers = { 'x-api-key': apiKey, 'accept-encoding': 'identity' };
     for (const h of ['anthropic-version', 'anthropic-beta', 'content-type', 'accept']) if (req.headers[h]) headers[h] = req.headers[h];
     const abort = new AbortController();
     res.on('close', () => { if (!res.writableEnded) abort.abort(); }); // client left: stop paying for the reply
@@ -124,12 +157,16 @@ export function createApp({ store, rates, upstream = 'https://api.anthropic.com'
     const session = bearer ? await store.sessionByHash(sha256(bearer)) : null;
     if (!session) return sendJson(res, 401, { error: 'Sign in to continue.' });
 
+    if (url.pathname === '/portal/admin/provider-key' && ['GET', 'POST'].includes(req.method)) {
+      if (!session.is_admin) return sendJson(res, 403, { error: 'Only xGold staff can change this.' });
+      return req.method === 'GET' ? sendJson(res, 200, await providerStatus()) : saveProviderKey(req, res);
+    }
     if (url.pathname === '/portal/usage' && req.method === 'GET') {
       const month = url.searchParams.get('month') ?? currentMonth();
       if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) return sendJson(res, 400, { error: 'Month must look like 2026-11.' });
       const s = summarize(await store.monthUsage(session.customer_id, ...monthRange(month)), rates);
       return sendJson(res, 200, {
-        customer: session.name, month, calls: s.calls, input: s.input, output: s.output, cache_read: s.cache_read, cache_write: s.cache_write,
+        customer: session.name, admin: Boolean(session.is_admin), month, calls: s.calls, input: s.input, output: s.output, cache_read: s.cache_read, cache_write: s.cache_write,
         amount: s.amount, unpriced: s.unpriced,
         by_model: s.by_model.map(({ cost, priced, ...m }) => m), // never show our provider cost
         by_day: s.by_day.map(d => ({ ...d, amount: Math.round(d.amount * 100) / 100 })),
@@ -157,8 +194,10 @@ export function createApp({ store, rates, upstream = 'https://api.anthropic.com'
 
 async function main() {
   const pool = connect(process.env.GATEWAY_DATABASE_URL);
+  await migrate(pool);
+  const store = pgStore(pool);
   const app = createApp({
-    store: pgStore(pool),
+    store,
     rates: loadRates(new URL('./rates.json', import.meta.url)),
     anthropicKey: process.env.ANTHROPIC_API_KEY,
     upstream: process.env.UPSTREAM_URL, // unset in production; lets a staging run point at a stub
@@ -167,5 +206,10 @@ async function main() {
   const server = http.createServer(app);
   server.keepAliveTimeout = 65e3; // longer than the tunnel's idle timeout, or reused connections race the close
   server.listen(Number(process.env.PORT ?? 3030), '127.0.0.1');
+
+  // Customer keys made in the CRM become gateway keys within seconds. Without a Twenty key file the gateway runs without that.
+  const { twentyFromEnv, startKeySync } = await import('./crm-keys.mjs');
+  const twenty = await twentyFromEnv().catch(e => { console.error('CRM keys are off:', e.message); return null; });
+  if (twenty) startKeySync(store, twenty);
 }
-if (process.argv[1] && new URL(import.meta.url).pathname === process.argv[1]) main().catch(() => { console.error('Gateway stopped; check GATEWAY_DATABASE_URL and the database'); process.exitCode = 1; });
+if (process.argv[1] && new URL(import.meta.url).pathname === process.argv[1]) main().catch(() => { console.error('Gateway stopped; check GATEWAY_DATABASE_URL, the database and gateway/schema.sql'); process.exitCode = 1; });

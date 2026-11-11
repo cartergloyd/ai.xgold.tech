@@ -2,10 +2,10 @@
 // 1. Turn last month's usage into one invoice per customer (provider cost plus markup).
 // 2. Copy each new invoice into Twenty as a Note on the customer's Company.
 // Both steps are safe to repeat: an invoice is made once per customer and month, a Twenty record is made once per invoice.
-import fs from 'node:fs/promises';
 import { loadRates, summarize, monthRange, lastMonth } from './meter.mjs';
 import { connect, pgStore } from './pgstore.mjs';
-import { Twenty, recordId } from '../crm/lead-sync.mjs';
+import { recordId } from '../crm/lead-sync.mjs';
+import { twentyFromEnv } from './crm-keys.mjs';
 
 const usd = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
@@ -39,22 +39,15 @@ export async function syncInvoices(store, twenty) {
   return { synced, failed };
 }
 
-// Reuse the Company an assessment request already made (matched by exact name); otherwise make one.
+// A customer made from the CRM already knows its Company. Otherwise reuse one with the exact same name, or make one.
 async function companyFor(twenty, i) {
+  if (i.twenty_company_id) return i.twenty_company_id;
   try {
     const found = await twenty.request('GET', 'companies?limit=1&filter=' + encodeURIComponent(`name[eq]:"${i.customer.replaceAll('"', '')}"`));
     const id = found?.data?.companies?.[0]?.id;
     if (id) return id;
   } catch { /* fall through and create it */ }
   return twenty.ensure('companies', recordId('ai-customer', i.customer_id), { name: i.customer });
-}
-
-async function twentyFromEnv() {
-  const path = process.env.TWENTY_API_KEY_FILE;
-  if (!path) return null;
-  if (((await fs.stat(path)).mode & 0o777) !== 0o600) throw new Error('Twenty API key file must be mode 600');
-  const key = (await fs.readFile(path, 'utf8')).trim();
-  return new Twenty(process.env.TWENTY_BASE_URL ?? 'http://127.0.0.1:3020', key);
 }
 
 async function main() {

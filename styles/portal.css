@@ -73,6 +73,12 @@
   line-height: var(--lh-body);
 }
 
+/* ---- Staff: the Anthropic key ---- */
+.provider-form { display: grid; gap: var(--space-4); max-width: 520px; margin-top: var(--space-5); }
+.provider-form .btn { justify-self: start; }
+.provider-msg { margin-top: var(--space-3); min-height: 1.4em; }
+.provider-msg[data-error] { color: var(--field-error); }
+
 /* Print only the invoice that was opened */
 @media print {
   .nav, .footer, .skip, .page-head, #signin, .section:not(#invoices), .invoice:not(.is-printing), .invoice .link, #invoices-title { display: none !important; }

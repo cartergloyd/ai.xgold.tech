@@ -39,7 +39,10 @@ const anthropic = http.createServer(async (req, res) => {
   const chunks = []; for await (const c of req) chunks.push(c);
   const body = chunks.length ? JSON.parse(Buffer.concat(chunks)) : {};
   seen.push({ method: req.method, url: req.url, headers: req.headers });
-  if (req.method === 'GET') { res.writeHead(200, { 'content-type': 'application/json' }); return res.end('{"data":[]}'); }
+  if (req.method === 'GET') {
+    if (String(req.headers['x-api-key']).includes('rejected')) { res.writeHead(401, { 'content-type': 'application/json' }); return res.end('{}'); }
+    res.writeHead(200, { 'content-type': 'application/json' }); return res.end('{"data":[]}');
+  }
   if (body.hang) {
     res.writeHead(200, { 'content-type': 'text/event-stream' }); res.on('close', () => { upstreamClosed = true; });
     return res.write(start() + delta(7));
@@ -54,13 +57,18 @@ const anthropic = http.createServer(async (req, res) => {
 const upstream = await listen(anthropic);
 
 // ---- gateway over a memory store ----
-const keys = new Map(), users = new Map(), sessions = new Map(), usage = [], invoices = [];
+const keys = new Map(), users = new Map(), sessions = new Map(), settings = new Map(), usage = [], invoices = [];
 const store = {
   keyByHash: async h => keys.get(h) ?? null,
   recordUsage: async r => { usage.push({ ...r, ts: new Date().toISOString() }); },
   userByEmail: async e => users.get(e.toLowerCase()) ?? null,
-  createSession: async (h, userId, customerId) => { sessions.set(h, { customer_id: customerId, name: customerId === 'c1' ? 'Acme' : 'Birch' }); },
+  createSession: async (h, userId, customerId) => {
+    const user = [...users.values()].find(u => u.id === userId);
+    sessions.set(h, { customer_id: customerId, name: customerId === 'c1' ? 'Acme' : 'Birch', is_admin: Boolean(user?.is_admin) });
+  },
   sessionByHash: async h => sessions.get(h) ?? null,
+  getSetting: async n => settings.get(n) ?? null,
+  setSetting: async (n, value) => { settings.set(n, { value, updated_at: '2026-11-10T12:00:00.000Z' }); },
   monthUsage: async (cid, from, to) => {
     const g = new Map();
     for (const r of usage.filter(r => r.customer_id === cid && r.ts >= from && r.ts < to)) {
@@ -162,6 +170,36 @@ assert.deepEqual((await (await portal('/portal/invoices', birch)).json()).invoic
 assert.equal((await portal('/portal/usage', acme)).headers.get('access-control-allow-origin'), 'https://www.xgold.tech');
 assert.equal((await fetch(gw + '/portal/usage', { headers: { authorization: 'Bearer ' + acme, origin: 'https://evil.test' } })).headers.get('access-control-allow-origin'), null);
 assert.equal((await fetch(gw + '/portal/login', { method: 'OPTIONS', headers: { origin: 'https://www.xgold.tech' } })).status, 204);
+
+// ---- admin: the Anthropic key is set in the portal ----
+users.set('staff@xgold.test', { id: 'u3', customer_id: 'c1', is_admin: true, password_hash: await hashPassword('staff-pass') });
+const { token: staff } = await (await login('staff@xgold.test', 'staff-pass')).json();
+const providerKey = (method, token, body) => fetch(gw + '/portal/admin/provider-key', { method, headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: body && JSON.stringify(body) });
+assert.equal((await (await portal('/portal/usage', staff)).json()).admin, true);
+assert.equal((await (await portal('/portal/usage', acme)).json()).admin, false);
+assert.equal((await providerKey('GET', acme)).status, 403);                              // a customer can neither read nor set it
+assert.equal((await providerKey('POST', acme, { key: 'sk-ant-hijack-attempt-000000000' })).status, 403);
+assert.equal(settings.size, 0);
+assert.deepEqual(await (await providerKey('GET', staff)).json(), { configured: true, last4: 'real', source: 'server', updated_at: null });
+assert.equal((await providerKey('POST', staff, { key: 'not-a-key' })).status, 400);
+assert.equal((await providerKey('POST', staff, {})).status, 400);
+r = await providerKey('POST', staff, { key: 'sk-ant-rejected-by-anthropic-0000' });
+assert.equal(r.status, 400); assert.match((await r.json()).error, /did not accept/);
+assert.equal(settings.size, 0);                                                          // a key that fails the check is never saved
+const fresh = 'sk-ant-api03-FreshKeyFromThePortal0000';
+r = await providerKey('POST', staff, { key: fresh });
+const saved = await r.json();
+assert.equal(r.status, 200); assert.equal(saved.last4, '0000'); assert.equal(saved.source, 'portal');
+assert.ok(!JSON.stringify(saved).includes(fresh));                                       // the key is never sent back
+assert.equal(seen.at(-1).url, '/v1/models?limit=1'); assert.equal(seen.at(-1).headers['x-api-key'], fresh); // checked with the free models call
+await post({ model: 'claude-sonnet-5-5' }).then(x => x.text());
+assert.equal(seen.at(-1).headers['x-api-key'], fresh);                                   // the next customer request uses it at once
+const fromBlank = body => fetch(blank + '/v1/messages', { method: 'POST', headers: { authorization: 'Bearer xgold-ai-acme', 'content-type': 'application/json' }, body: JSON.stringify(body) });
+const blank = await listen(http.createServer(createApp({ store: { ...store, getSetting: async () => null }, rates, upstream, origins: [] })));
+assert.equal((await fromBlank({})).status, 503);                                         // no key anywhere: a clear error, nothing sent to Anthropic
+const restarted = await listen(http.createServer(createApp({ store, rates, upstream, origins: [] }))); // a restart with no key in gateway.env
+await fetch(restarted + '/v1/messages', { method: 'POST', headers: { authorization: 'Bearer xgold-ai-acme', 'content-type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-5-5' }) }).then(x => x.text());
+assert.equal(seen.at(-1).headers['x-api-key'], fresh);                                   // the saved key survives a restart
 
 // guessing passwords gets blocked, even for the right password afterwards
 for (let i = 0; i < 8; i++) assert.equal((await login('owner@acme.test', 'guess' + i, '9.9.9.9')).status, 401);

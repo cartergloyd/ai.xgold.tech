@@ -70,4 +70,9 @@ existingCompany = null; invoices[0].synced = false; records.clear();
 await syncInvoices(store, twenty);
 assert.ok(posts.some(x => x.p === 'companies' && x.d.name === 'Acme Co')); // no match: creates one
 
+invoices[0].synced = false; invoices[0].twenty_company_id = 'crm-company'; posts.length = 0; records.clear();
+await syncInvoices(store, twenty);
+assert.equal(posts.find(x => x.p === 'noteTargets').d.targetCompanyId, 'crm-company'); // a customer made in the CRM already knows its Company
+assert.ok(!posts.some(x => x.p === 'companies'));
+
 console.log('invoice tests passed');

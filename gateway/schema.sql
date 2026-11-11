@@ -63,3 +63,13 @@ create table if not exists ai_invoices (
   twenty_synced_at timestamptz,
   unique (customer_id, period)
 );
+
+-- Added with the admin panel and CRM keys. The gateway applies this whole file when it starts, so every line must be safe to repeat.
+alter table ai_users add column if not exists is_admin boolean not null default false;      -- xGold staff: can set the Anthropic key in the portal
+alter table ai_customers add column if not exists twenty_company_id text unique;            -- the Twenty Company this customer is
+alter table ai_keys add column if not exists twenty_key_id text unique;                     -- the Twenty "AI key" record this key was made from
+create table if not exists ai_settings (
+  name text primary key,
+  value text not null,
+  updated_at timestamptz not null default now()
+);

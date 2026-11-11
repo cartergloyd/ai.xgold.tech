@@ -7,7 +7,7 @@
     get() { try { return sessionStorage.getItem('xg_portal'); } catch { return null; } },
     set(v) { try { v ? sessionStorage.setItem('xg_portal', v) : sessionStorage.removeItem('xg_portal'); } catch { /* memory only */ } },
   };
-  let token = session.get(), customer = '';
+  let token = session.get(), customer = '', isAdmin = false;
 
   const money = n => n > 0 && n < 0.01 ? '<$0.01' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
   const count = n => new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(n);
@@ -28,7 +28,7 @@
   function signOut(message = '') {
     token = null; session.set(null);
     $('dash').hidden = true; $('signin').hidden = false;
-    $('password').value = ''; showError(message);
+    $('password').value = ''; $('provider-key').value = ''; showError(message);
   }
 
   function months() { // this month and the 11 before it, newest first
@@ -38,7 +38,7 @@
   }
 
   function renderUsage(u) {
-    customer = u.customer;
+    customer = u.customer; isAdmin = u.admin;
     $('who').textContent = u.customer;
     $('amount').textContent = money(u.amount);
     const note = $('amount-note');
@@ -92,6 +92,15 @@
 
   async function loadUsage(month) { renderUsage(await api('/portal/usage?month=' + month)); }
 
+  // Staff only: the Anthropic key the gateway spends. The key is never sent back, only its last four characters.
+  async function loadProvider() {
+    const p = await api('/portal/admin/provider-key');
+    const saved = p.updated_at ? ` Saved ${new Date(p.updated_at).toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'UTC' })}.` : '';
+    $('provider-status').textContent = p.configured
+      ? `${p.source === 'portal' ? 'Set here' : 'Set in gateway.env'}. Ends in ${p.last4}.${saved}`
+      : 'Not set. Claude Code requests fail until you add one.';
+  }
+
   async function load() {
     const select = $('month'), list = months();
     select.replaceChildren(...list.map(m => el('option', { value: m, textContent: monthName(m) })));
@@ -100,10 +109,24 @@
       renderInvoices((await api('/portal/invoices')).invoices); // after usage, so invoices know the customer name
     } catch (e) { if (token) showError(e.message); return; }
     $('signin').hidden = true; $('dash').hidden = false;
+    $('admin').hidden = !isAdmin;
+    if (isAdmin) loadProvider().catch(() => { $('provider-status').textContent = 'Could not check the key. Reload to try again.'; });
   }
 
   $('month').addEventListener('change', e => loadUsage(e.target.value).catch(err => showError(err.message)));
   $('signout').addEventListener('click', () => signOut());
+  $('provider-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const button = $('provider-submit'), msg = $('provider-msg');
+    button.disabled = true; msg.textContent = ''; delete msg.dataset.error;
+    try {
+      await api('/portal/admin/provider-key', { method: 'POST', body: JSON.stringify({ key: $('provider-key').value }) });
+      $('provider-key').value = ''; // the key never stays on the page
+      msg.textContent = 'Saved. The gateway uses it now.';
+      await loadProvider();
+    } catch (err) { msg.dataset.error = ''; msg.textContent = err instanceof TypeError ? 'Could not reach xGold. Try again.' : err.message; }
+    finally { button.disabled = false; }
+  });
   $('signin-form').addEventListener('submit', async e => {
     e.preventDefault();
     const button = $('signin-submit'); button.disabled = true; showError('');

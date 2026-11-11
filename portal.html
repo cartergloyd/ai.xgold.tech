@@ -129,6 +129,22 @@ export ANTHROPIC_AUTH_TOKEN=&lt;your xGold AI key&gt;</code></pre>
         <p class="fine">Keys come from xGold. Ask us for a new one any time.</p>
       </div>
     </section>
+
+    <section class="section" id="admin" aria-labelledby="admin-title" hidden>
+      <div class="container-wide">
+        <h2 id="admin-title" class="title-section">Anthropic key.</h2>
+        <p class="muted portal-empty" id="provider-status" aria-live="polite"></p>
+        <form class="provider-form" id="provider-form" novalidate>
+          <div class="field">
+            <input class="field__input" id="provider-key" name="provider-key" type="password" placeholder=" " autocomplete="new-password" spellcheck="false" required>
+            <label class="field__label" for="provider-key">New Anthropic API key</label>
+          </div>
+          <button class="btn btn--primary" id="provider-submit" type="submit">Save key</button>
+        </form>
+        <p class="fine provider-msg" id="provider-msg" role="status"></p>
+        <p class="fine">Customer keys are made in the CRM, on the customer's company.</p>
+      </div>
+    </section>
   </div>
 </main>
 <footer class="footer">
