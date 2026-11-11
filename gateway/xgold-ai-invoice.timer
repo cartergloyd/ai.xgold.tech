@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily xGold AI invoice run (invoices appear on the 1st; later runs retry held or unsynced ones)
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -18,6 +18,14 @@ export function cost(rates, row) {
 
 const cents = n => Math.round(n * 100) / 100;
 
+// Months are UTC. monthRange('2026-11') is [Nov 1, Dec 1) as ISO instants.
+export const currentMonth = () => new Date().toISOString().slice(0, 7);
+export const lastMonth = () => { const d = new Date(); return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() - 1, 1)).toISOString().slice(0, 7); };
+export function monthRange(month) {
+  const [y, m] = month.split('-').map(Number);
+  return [new Date(Date.UTC(y, m - 1, 1)).toISOString(), new Date(Date.UTC(y, m, 1)).toISOString()];
+}
+
 // rows: monthUsage() groups. Customer price = provider cost x (1 + markup), rounded per line so lines add up to the total.
 export function summarize(rows, rates) {
   const sum = { calls: 0, input: 0, output: 0, cache_read: 0, cache_write: 0, amount: 0, cost: 0, unpriced: 0 };

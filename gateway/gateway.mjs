@@ -5,7 +5,7 @@ import http from 'node:http';
 import { createHash, randomBytes, scrypt, timingSafeEqual } from 'node:crypto';
 import { once } from 'node:events';
 import { promisify } from 'node:util';
-import { loadRates, sseMeter, jsonMeter, usageRow, summarize } from './meter.mjs';
+import { loadRates, sseMeter, jsonMeter, usageRow, summarize, currentMonth, monthRange } from './meter.mjs';
 import { connect, pgStore } from './pgstore.mjs';
 
 const scryptAsync = promisify(scrypt);
@@ -19,12 +19,6 @@ export async function hashPassword(pw) {
 async function checkPassword(pw, stored) {
   const [salt, hash] = stored.split(':');
   return timingSafeEqual(await scryptAsync(pw, Buffer.from(salt, 'hex'), 32), Buffer.from(hash, 'hex'));
-}
-
-export const currentMonth = () => new Date().toISOString().slice(0, 7);
-export function monthRange(month) {
-  const [y, m] = month.split('-').map(Number);
-  return [new Date(Date.UTC(y, m - 1, 1)).toISOString(), new Date(Date.UTC(y, m, 1)).toISOString()];
 }
 
 // Only what Claude Code needs. Everything else (Files, Batches, admin) would spend our key unmetered.

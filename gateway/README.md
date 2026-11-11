@@ -19,7 +19,14 @@ Claude Code  →  gateway (127.0.0.1:3030, via Cloudflare Tunnel)  →  api.anth
 | `rates.json` | Provider prices per model and the markup |
 | `pgstore.mjs`, `schema.sql` | Database access and tables |
 | `keys.mjs` | Add customers, issue and revoke keys, reset portal passwords |
-| `test-gateway.mjs` | `node gateway/test-gateway.mjs`, no database or network needed |
+| `invoice.mjs` | Makes last month's invoices, then copies new ones into Twenty |
+| `setup-server.sh` | One-time server setup: database, env file, systemd units |
+| `*.service`, `*.timer` | The gateway service and the daily invoice timer |
+| `test-gateway.mjs`, `test-invoice.mjs` | `node gateway/test-gateway.mjs`; no database or network needed |
+
+## Invoices
+
+`xgold-ai-invoice.timer` runs `invoice.mjs` daily at 03:30. Last month's invoices appear on the 1st; later runs retry any that were held (a model with no rate) or not yet copied to Twenty. An invoice is made once per customer and month, shown in the portal at once, and copied into Twenty as a Note on the customer's Company (an existing Company with the exact same name is reused). Customers under half a cent get no invoice. To run by hand: `node gateway/invoice.mjs 2026-10`.
 
 ## What is allowed through
 
@@ -27,15 +34,14 @@ Only `POST /v1/messages`, `POST /v1/messages/count_tokens` and `GET /v1/models`.
 
 ## Pricing
 
-`rates.json` holds USD per million tokens by model, with `markup` on top (0.30 means 30%). A model that is not listed is saved but held back from invoices until a rate is added. Dated snapshots price like their base model. Fast mode counts double. Haiku 5.5 prompts over 100,000 tokens use its long-prompt rate. Recheck the file against Anthropic's pricing page before the first real invoice.
+`rates.json` holds USD per million tokens by model, with `markup` on top (0.30 means 30%). A model that is not listed is saved but held back from invoices until a rate is added. Dated snapshots price like their base model. Fast mode counts double. Haiku 5.5 prompts over 100,000 tokens use its long-prompt rate. The file matched Anthropic's pricing page on 2026-11-10; recheck it when they change prices. `markup` is a 30% placeholder. Set it before the first real invoice.
 
 ## Server setup (gold-server)
 
-State lives in `/home/gold/server-platform/gateway/`:
+After pushing to main, run `ssh gold-server 'bash -s' < gateway/setup-server.sh` from your Mac. Read the header of the script first: it lists everything it changes. State lives in `/home/gold/server-platform/gateway/`:
 
-- `gateway.env` (0600): `GATEWAY_DATABASE_URL`, `ANTHROPIC_API_KEY`, optional `PORT` (default 3030) and `PORTAL_ORIGINS`.
-- Database `gateway` with its own non-superuser role on `gold-platform-postgres`, in the same pattern as `crm` and `umami`. It is picked up by the encrypted backup discovery. Apply `schema.sql` as that role.
-- Install the unit: `cp gateway/xgold-ai-gateway.service ~/.config/systemd/user/ && systemctl --user daemon-reload && systemctl --user enable --now xgold-ai-gateway`.
+- `gateway.env` (0600): `GATEWAY_DATABASE_URL`, `ANTHROPIC_API_KEY` (the script leaves it blank), `TWENTY_API_KEY_FILE`, `TWENTY_BASE_URL`, optional `PORT` (default 3030) and `PORTAL_ORIGINS`. Restart the service after editing it.
+- Database `gateway` with its own non-superuser role on `gold-platform-postgres`, in the same pattern as `crm` and `umami`, plus one `pg_hba.conf` line for it. It is picked up by the encrypted backup discovery.
 - Cloudflare Tunnel: add Public Hostname `ai-gateway.xgold.tech` to `http://127.0.0.1:3030`. No Access policy on this hostname: customers' Claude Code cannot sign in through one, and every request needs an xGoldAI key.
 
 Without `ANTHROPIC_API_KEY` the service still starts: the portal works and `/v1` answers 503.
@@ -57,5 +63,7 @@ Only a hash of each key and password is stored. Revoking a key cuts the customer
 
 - `pg` is borrowed from the homelab dashboard install (same as `crm/lead-sync.mjs`). Give the repo its own `package.json` when that stops being convenient.
 - Months and the invoice cut-off are UTC.
+- Twenty gets a Note per invoice on the Company. Switch to a custom Invoice object when you want to filter or report on amounts and status in Twenty.
+- Invoices are not paid through the system; they state an amount owed.
 - Portal sessions last 12 hours and are not revoked on sign out; there is no spend cap or per-key rate limit.
 - If the database is down at the moment a request finishes, the usage row is printed to the journal as `usage-not-saved` and must be inserted by hand.
